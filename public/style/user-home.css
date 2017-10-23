@@ -1,0 +1,51 @@
+﻿@charset "utf-8";
+.empty{margin-top:25%;min-height:200px;text-align:center;}
+.empty div{width:80px;height:105px;margin:0 auto 20px;background:url(/images/order-detail-empty.png) 0 0/100% no-repeat;}
+.empty p{color:#666}
+
+/* 首页 */
+#bd{background-color:#f1f1f1}
+.hr{display:block;height:1px;background-color:#d5d5d5;}
+
+.user-information{background-color:#ff7ba9;width:100%;min-height:120px;position:relative}
+.user-information .user-img{text-align:center;padding:10px 0 8px}
+.user-information .user-img img{width:70px;height:70px;border-radius:70px;border:1px solid #fff}
+.user-information .user-name{text-align: center;color:#fff}
+.user-information .user-level{position:absolute;right:10px;top:10px;color:#710028;font-size:12px}
+
+.user-money{background-color:#fff;margin-bottom:10px;border-bottom:1px solid #d5d5d5}
+.user-money a{width:25%;float:left;text-align:center;text-decoration:none;margin:10px 0px;padding:2px 0;border-left:1px solid #d5d5d5;margin-left:-1px}
+.user-money a strong{display:block;color:#333;font-weight:500;margin-bottom:2px}
+.user-money a span{display:block;color:#666;font-size:12px}
+
+.user-order{background-color:#fff;border-bottom:1px solid #d5d5d5;border-top:1px solid #d5d5d5}
+.user-order a{width:25%;float:left;text-align:center;text-decoration:none;margin:15px 0px;border-left:1px solid #d5d5d5;margin-left:-1px;color:#333}
+.user-order a span{display:block;position:relative}
+.user-order a i{display:block;width:30px;height:25px;margin:0 auto 3px}
+.user-order a.allorder i{background:url(/images/user-order.png) 0 0/100% no-repeat;}
+.user-order a.wait-pay i{background:url(/images/user-pay.png) 0 0/100% no-repeat;}
+.user-order a.wait-shouhuo i{background:url(/images/user-shouhuo.png) 0 0/100% no-repeat;}
+.user-order a.wait-return i{background:url(/images/user-return.png) 0 0/100% no-repeat;}
+.user-order em{display:block;font-style:normal;border-radius:20px;background-color:#e5004f;width:20px;height:20px;line-height:20px;font-size:12px;position:absolute;top:-5px;right:15px;color:#fff}
+
+.user-other{background-color:#fff;margin-bottom:10px;border-bottom:1px solid #d5d5d5;}
+.user-other a{width:50%;float:left;text-align:center;text-decoration:none;padding:10px 0px;border-left:1px solid #d5d5d5;margin-left:-1px;color:#333}
+.user-other a span{display:block;position:relative}
+.user-other a i{display:inline-block;width:20px;height:20px;vertical-align:middle;margin-right:5px}
+.user-other a.shoucang i{background:url(/images/user-love.png) 0 0/100% no-repeat;}
+.user-other a.look-jilu i{background:url(/images/user-history.png) 0 0/100% no-repeat;}
+
+.user-common{background-color:#fff;margin:0 0 10px;border-bottom:1px solid #d5d5d5;border-top:1px solid #d5d5d5}
+.user-common a{display:block;line-height:26px;text-decoration:none;color:#666;font-size:14px;padding:10px 15px;position:relative}
+.user-common a em{display:block;position:absolute;background:url(/images/bai-12.png) 0 0/100% no-repeat;width:8px;height:14px;top:17px;right:10px}
+.user-common .hr{margin:0 10px}
+.user-common .yingyongnum,
+.user-common .infor-centernum,
+.user-common .help-tel,
+.user-common .infor-phone{position:absolute;right:30px;top:12px}
+.user-common .pink{color:#e5004f}
+.user-common .help-tel i{font-style:normal;font-weight:500}
+
+.user-logout{background-color:#fff;line-height:26px;border-top:1px solid #d5d5d5;padding:10px 15px;text-align:center;color:#e5004f;font-size:16px;font-weight:500}
+
+.user-error{padding:35px 15px;text-align:center}

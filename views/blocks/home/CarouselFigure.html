@@ -1,0 +1,28 @@
+<div class="BannerList grid-one cf">
+	<div class="listbanner">
+		<div class="inlist cf">
+        {% if content.items %}
+            {% set item = content.items %}
+            {% for picture in item %}
+            <div>
+                <a href="{{ picture.jumpurl }}">
+                    <img src="http://r.ytrss.com/mobile/img/pic-0.png" data-src="{{ picture.imgurl }}" alt="{{ picture.imgname }}" width="100%" />
+                </a>
+            </div>
+            {% endfor %}
+        {% endif %}
+		</div>
+	</div>
+	<div class="linelist">
+    {% if content.items %}
+        {% set item = content.items %}
+        {% for picture in item %}
+        {% if loop.first %}
+        <span class="on"></span>
+        {% else %}
+        <span></span>
+        {% endif %}
+        {% endfor %}
+    {% endif %}
+    </div>
+</div>

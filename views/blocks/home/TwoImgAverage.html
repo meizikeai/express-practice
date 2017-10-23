@@ -1,0 +1,17 @@
+<div class="TwoImgAverage grid-one cf" id="{{ content.templateid }}" title="{{ content.templateid }}_{{ content.templatename }}">
+    {% if content.items %}
+        {% set item = content.items %}
+        {% for info in item %}
+        <div class="img-{{ loop.index }}">
+            {% if info.jumpurl %}
+            <a href="{{ info.jumpurl }}">
+                <img data-original="{{ info.imgurl }}" src="http://r.ytrss.com/mobile/img/pic-2.png" alt="{{ info.imgname }}" width="100%" />
+            </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% if content.bottommargin > 0 %}
+<div class="TwoImgAverage-space"></div>
+{% endif %}

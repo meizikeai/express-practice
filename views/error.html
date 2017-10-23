@@ -1,0 +1,30 @@
+{% extends './system/layout.html' %}
+
+{% block title %}
+    <title>{{ message }} - 银泰网 - 银泰百货连锁在线购物中心，银泰商业集团官方购物网站</title>
+{% endblock %}
+
+{% block style %}
+    <style type="text/css">
+        .error-container{padding:10px;}
+        .error-container h1{font-size:18px;line-height:36px;font-weight:700}
+        .error-container h2{font-size:16px;height:30px;font-weight:700}
+        .error-container div{width:100%;word-wrap: break-word;line-height:18px;}
+    </style>
+{% endblock %}
+
+{% block header %}
+{% include './system/header.html' ignore missing %}
+{% endblock %}
+
+{% block content %}
+
+    <div class="error-container">
+
+        <h1>{{ message }}</h1>
+        <h2>{{ error.status }}</h2>
+        <div>{{ error.stack }}</div>
+
+    </div>
+
+{% endblock %}

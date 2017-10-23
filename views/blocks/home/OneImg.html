@@ -1,0 +1,17 @@
+<div class="OneImage grid-one cf" id="{{ content.templateid }}" title="{{ content.templateid }}_{{ content.templatename }}">
+    {% if content.items %}
+        {% set item = content.items %}
+        {% for info in item %}
+            {% if info.jumpurl %}
+            <a href="{{ info.jumpurl }}">
+                <img data-original="{{ info.imgurl }}" src="http://r.ytrss.com/mobile/img/pic-1-1.png" alt="{{ info.imgname }}" width="100%" />
+            </a>
+            {% else %}
+            <img data-original="{{ info.imgurl }}" src="http://r.ytrss.com/mobile/img/pic-1-1.png"  width="100%" />
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</div>
+{% if content.bottommargin > 0 %}
+<div class="OneImage-space"></div>
+{% endif %}

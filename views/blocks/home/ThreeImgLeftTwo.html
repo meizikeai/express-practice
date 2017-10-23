@@ -1,0 +1,28 @@
+<div class="ThreeImgLeftOne grid-one cf" id="{{ content.templateid }}" title="{{ content.templateid }}_{{ content.templatename }}">
+{% if content.items %}
+    {% set item = content.items %}
+    {% for info in item %}
+        {% if loop.first %}
+        <div class="img-1">
+            <a href="{{ info.jumpurl }}">
+                <img data-original="{{ info.imgurl }}" src="http://r.ytrss.com/mobile/img/pic2-1.png" alt="{{ info.imgname }}" width="100%" />
+            </a>
+        </div>
+        {% endif %}
+    {% endfor %}
+    <div class="img-2">
+        {% for info in item %}
+        {% if loop.index == 2 %}
+        <div class="img-2-2"><a href="{{ info.jumpurl }}"><img data-original="{{ info.imgurl }}" src="http://r.ytrss.com/mobile/img/pic2-2.png" alt="{{ info.imgname }}" width="100%" /></a></div>
+        {% endif %}
+
+        {% if loop.index == 3 %}
+        <div class="img-2-3"><a href="{{ info.jumpurl }}"><img data-original="{{ info.imgurl }}" src="http://r.ytrss.com/mobile/img/pic2-2.png" alt="{{ info.imgname }}" width="100%" /></a></div>
+        {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
+</div>
+{% if content.bottommargin > 0 %}
+<div class="ThreeImgLeftOne-space"></div>
+{% endif %}

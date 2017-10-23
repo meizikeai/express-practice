@@ -1,0 +1,38 @@
+<div class="ProductSingleRow grid-one cf" id="{{ content.templateid }}" title="{{ content.templateid }}_{{ content.templatename }}">
+    <div class="listbanner">
+        <ul class="inlist">
+            {% set count = content.items.length * 95 || 3 * 95 %}
+            <li class="cf" style="width:{{ count }}px">
+            {% for item in content.items %}
+                {% set extra = item.extra %}{% set productdetail = extra.productdetail %}
+                {% set prmotionlist = productdetail.prmotionlist %}
+                {% for list in prmotionlist %}
+                    {% if list.plabel %}
+                    {% set plabel = list.plabel %}
+                    {% else %}
+                    {% set plabel = "" %}
+                    {% endif %}
+                {% endfor %}
+                <div class="pro-one">
+                    <div class="pro-img">
+                        {% if productdetail.ismiaowgoods %}
+                        <i></i>
+                        {% endif %}
+                        <a itemposition="{{ item.itemposition }}" href="{{ item.jumpurl }}" target="_blank">
+                            <img data-original="{{ item.imgurl }}" src="http://r.ytrss.com/mobile/img/pic180-240.png" alt="{{ item.imgname }}" width="100%" />
+                        </a>
+                    <div class="pro-prom{% if !plabel %}hidden{% endif %}">{{ plabel }}</div>
+                </div>
+                <div class="pro-name">{{ productdetail.name }}</div>
+                    <div class="pro-price">
+                        <span class="sell">￥<b>{{ productdetail.price.toFixed(2) }}</b></span>
+                    </div>
+                </div>
+            {% endfor %}
+            </li>
+        </ul>
+    </div>
+</div>
+{% if content.bottommargin > 0 %}
+<div class="ProductSingleRow-space"></div>
+{% endif %}

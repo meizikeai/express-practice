@@ -1,0 +1,15 @@
+<div class="FourImgAbreast grid-one cf" id="{{ content.templateid }}" title="{{ content.templateid }}_{{ content.templatename }}">
+    {% if content.items %}
+        {% set item = content.items %}
+        {% for info in item %}
+        <div class="img-{{ loop.index }}">
+            <a href="{{ info.jumpurl }}">
+                <img data-original="{{ info.imgurl }}" src="http://r.ytrss.com/mobile/img/pic-4.png" alt="{{ info.imgname }}" width="100%" />
+            </a>
+        </div>
+        {% endfor %}
+    {% endif %}
+</div>
+{% if content.bottommargin > 0 %}
+<div class="FourImgAbreast-space"></div>
+{% endif %}
