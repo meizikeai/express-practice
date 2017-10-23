@@ -85,14 +85,16 @@
 *   -x | --exec           //要执行的主应用程序，默认为'node'
 *   --debug               //开启debug模式（用--debug flag来启动node）
 *   -q | --quiet          //安静模式，不显示DEBUG信息
-*   
+
+```js
 *   Examples:
 *     supervisor myapp.js
 *     supervisor myapp.coffee
 *     supervisor -w scripts -e myext -x myrunner myapp
 *     supervisor -w lib,server.js,config.js server.js
 *     supervisor -- server.js -h host -p port
-* 
+```
+
 * -- forever    - https://www.npmjs.com/package/forever
 *   - forever可以看做是一个nodejs的守护进程，能够启动，停止，重启我们的app应用，运行稳定，支持高并发，启动/停止命令简单，支持热部署，宕机重启，监控界面和日志，集群环境。
 * -- nodemon    - http://nodemon.io/
