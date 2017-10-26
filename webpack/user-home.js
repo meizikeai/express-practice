@@ -128,7 +128,7 @@ $(function () {
                 },
                 success: function (result) {
 
-                    if (result.isSuccessful) {
+                    if (result.success) {
 
                         var data = result.data,
                             indexinfo = data.indexinfo,

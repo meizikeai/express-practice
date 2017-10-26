@@ -35,8 +35,8 @@
 * 一、请安装Mongodb数据库并启动，端口为默认27017 -- 命令 mongod --dbpath C:\Data
 * 二、请在APP根目录安依赖文件，执行shell命令：npm install
 * 三、进到bin目录，执行shell命令：node client.js - 获取数据，存到数据库
-* 四、进到bin目录，执行shell命令：node server.js - 启动站点
-* 五、浏览器访问http://localhost:3000/
+* 四、执行 set DEBUG=myapp:* & npm start 或进到bin目录，执行shell命令：node server.js - 启动站点
+* 五、访问http://localhost:3000
 
 -------------------------------------------------------------------
 

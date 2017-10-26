@@ -1,11 +1,11 @@
 "use strict";
 
-var swig = require('swig');
-var client = require("../lib/client");
+const swig = require('swig');
+const client = require("../lib/client");
 
-var CreateTemplate = function (filename, data) {
-    var template = null;
-    var fraction = "";
+let CreateTemplate = function (filename, data) {
+    let template = null;
+    let fraction = "";
 
     if (typeof filename != 'string') {
         return false;
@@ -28,7 +28,7 @@ module.exports = {
             const result = data;
             const pagesinfo = result.data;
 
-            if (result.isSuccessful && pagesinfo) {
+            if (result.success && pagesinfo) {
 
                 if (pagesinfo.templatelist && pagesinfo.templatelist.length > 0) {
                     fullhtml = CreateTemplate("bannerlist", pagesinfo.bannerlist);

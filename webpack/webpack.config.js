@@ -11,11 +11,11 @@ module.exports = {
         filename: "[name].js"
     },
     module: {
-        loaders: [{
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-        }]
+        // loaders: [{
+        //     test: /\.jsx?$/,
+        //     exclude: /node_modules/,
+        //     loader: 'babel-loader',
+        // }]
     },
     plugins: [
         // new webpack.optimize.UglifyJsPlugin({
