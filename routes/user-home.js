@@ -1,7 +1,7 @@
 "use strict";
 
 const swig = require('swig');
-const client = require("../lib/client");
+const client = require("../bin/connection");
 
 let CreateTemplate = function (filename, data) {
     let template = null;

@@ -1,67 +1,60 @@
     {% set user = content.user %}
     {% set info = content.indexinfo %}
-    <div class="user-information">
-        <div class="user-img ">
-            <img src="http://r.ytrss.com/mobile/img/user-head.png" alt="">
+    <div class="user-info">
+        <div class="user-avatar ">
+            <span><img src="./images/avatar.jpg" alt="头像"></span>
         </div>
         <p class="user-name">{{ user.name }}</p> 
         <p class="user-level">{{ user.class }}</p>
     </div>
 
-    <div class="user-money cf">
-        <a class="jifen" href="http://my.yintai.com/m_account/MyPointIndex?platformid=1">
+    <div class="user-money">
+        <a class="jifen" href="/">
             <strong>{{ user.point }}</strong>
             <span>积分</span>
         </a>
-        <a class="yinyuan" href="http://my.yintai.com/m_account/MyCoinIndex?platformid=1">
+        <a class="yinyuan" href="/">
             <strong>{{ user.coin.toFixed(2) }}</strong>
             <span>银元</span>
         </a>
-        <a class="yue" href="/UserCenter/Balance?platformid=1">
+        <a class="yue" href="/">
             <strong>{{ user.money.toFixed(2) }}</strong>
             <span>余额</span>
         </a>
-        <a class="ytcard" href="http://my.yintai.com/m_account/MyCardIndex?platformid=1">
+        <a class="ka" href="/">
             <strong>{{ user.ytcard.toFixed(2) }}</strong>
             <span>银泰卡</span>
         </a>
     </div>
 
-    <div class="user-order cf">
-        <a class="allorder" href="/Sales/Allorder">
-            <span><i></i>全部订单{% if info.onroadcount > 0 %}<em>{{ info.onroadcount }}</em>{% endif %}</span>
+    <div class="user-order">
+        <a class="order" href="/user/order">
+            <span>全部订单{% if info.onroadcount > 0 %}<em>{{ info.onroadcount }}</em>{% endif %}</span>
         </a>
-        <a class="wait-pay" href="/Sales/Waitpay">
-            <span><i></i>待付款{% if info.needpaycount > 0 %}<em>{{ info.needpaycount }}</em>{% endif %}</span>
+        <a class="pay" href="/user/order/pay">
+            <span>待付款{% if info.needpaycount > 0 %}<em>{{ info.needpaycount }}</em>{% endif %}</span>
         </a>
-        <a class="wait-shouhuo" href="/Sales/Delivery">
-            <span><i></i>待收货{% if info.addresscount > 0 %}<em>{{ info.addresscount }}</em>{% endif %}</span>
+        <a class="send" href="/user/order/send">
+            <span>待收货{% if info.addresscount > 0 %}<em>{{ info.addresscount }}</em>{% endif %}</span>
         </a>
-        <a class="wait-return" href="/">
-             <span><i></i>退换货{% if info.waybillcount > 0 %}<em>{{ info.waybillcount }}</em>{% endif %}</span>
-        </a>
-    </div>
-
-    <div class="user-other cf">
-        <a class="shoucang" href="/UserCenter/Collection">
-            <span><i></i>我的收藏</span>
-        </a>  
-        <a class="look-jilu" href="/UserCenter/Browse">
-            <span><i></i>浏览记录</span>
+        <a class="evaluate" href="/user/order/evaluate">
+             <span>待评价{% if info.waybillcount > 0 %}<em>{{ info.waybillcount }}</em>{% endif %}</span>
         </a>
     </div>
 
     <div class="user-common">
-        <a class="youhuiquan",href="/Sales/CouponList">优惠券
-            <div class="yingyongnum">
+        <a class="coupon" href="/user/coupon">
+            优惠券
+            <div class="count">
                 <span class="pink">{{ info.promotioncount }}</span>
             </div>
             <em></em>
         </a>
         <div class="hr"></div>
 
-        <a class="yintai-phone",href="/UserCenter/BindPhone">绑定手机号
-            <div class="infor-phone">
+        <a class="phone" href="/user/phone">
+            绑定手机号
+            <div class="count">
                 <span class="pink">{{ user.cellphoneconfusion }}</span>
             </div>
             <em></em>
@@ -69,8 +62,9 @@
         <div class="hr"></div>
 
         {% if info.setpaypassword %}
-        <a class="yintai-paypw",href="/UserCenter/SetPayPassword">设置支付密码
-            <div class="infor-phone">
+        <a class="password" href="/user/password">
+            设置支付密码
+            <div class="count">
                 <span class="pink"></span>
             </div>
             <em></em>
@@ -78,22 +72,37 @@
         <div class="hr"></div>
         {% endif %}
 
-        <a class="address",href="/Address/AddressList?returnurl=UserCenter">地址管理
+        <a class="address" href="/user/address">
+            地址管理
             <em></em>
         </a>
     </div>
     
     <div class="user-common">
-        <a class="infor-center",href="/UserCenter/Message">消息中心
-            <div class="infor-centernum">
+        <a class="shoucang" href="/user/collection">
+            我的收藏
+            <span class="pink"></span>
+            <em></em>
+        </a>
+        <div class="hr"></div>
+        <a class="jilu" href="/user/browse">
+            浏览记录
+            <span class="pink"></span>
+            <em></em>
+        </a>
+    </div>
+
+    <div class="user-common">
+        <a class="info-center" href="/user/message">消息中心
+            <div class="count">
                 <span class="pink">{{ info.msgcount }}</span>
             </div>
             <em></em>
         </a>
         <div class="hr"></div>
 
-        <a class="yintai-tel",href="tel:4001191111">客服电话
-            <span class="help-tel">
+        <a class="info-tel" href="tel:4001191111">客服电话
+            <span class="count">
                 <i class="pink">400-119-1111</i>(8:00-24:00)
             </span>
             <em></em>
@@ -101,14 +110,14 @@
     </div>
     
     <div class="user-common">
-        <a class="yintai-download",href="http://m.yintai.com/Event/appdown/ios_yingyongbao.html?id=H5web">下载银泰网客户端
+        <a class="download" href="download">下载银泰网客户端
             <span class="pink"></span>
             <em></em>
         </a>
     </div>
 
     <div class="user-common">
-        <a class="hc-helpCenter",href="/Help/Index?type=html5">帮助中心
+        <a class="help" href="help">帮助中心
             <em></em>
         </a>
     </div>

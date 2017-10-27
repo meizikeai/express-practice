@@ -1,5 +1,3 @@
-// var Zepto = require("./zepto");
-
 module.exports = function () {
 	if ($.fn.alert) {
 		console.log('$ 元素已包含 alert 方法，新方法注册失败');

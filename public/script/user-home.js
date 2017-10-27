@@ -44,36 +44,18 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	// var Zepto = require("./unit/zepto");
 	var Common = __webpack_require__(2)();
 	var Header = __webpack_require__(1)();
-	var AuthorizeAjax = __webpack_require__(5)();
-	var Alert = __webpack_require__(6)();
+	var Alert = __webpack_require__(5)();
 
 	$(function () {
-
-	    var Nodes = [],
-	        N_loginout = ".user-logout",
-	        N_username = ".user-name",
-	        N_userlevel = ".user-level",
-	        N_jifen = ".jifen strong",
-	        N_yinyuan = ".yinyuan strong",
-	        N_yue = ".yue strong",
-	        N_card = ".ytcard strong",
-	        N_waitpay = ".wait-pay span",
-	        N_waitshouhuo = ".wait-shouhuo span",
-	        N_youhuiquan = ".yingyongnum",
-	        N_inforcenternum = ".infor-centernum",
-	        N_yintaiPhone = ".yintai-phone",
-	        N_yintaiPaypw = '.yintai-paypw',
-
-	        E_click = "click";
+	    var Nodes = [];
+	    var N_user_logout = ".user-logout";
+	    var N_yintai_hone = ".yintai-phone";
+	    var E_click = "click";
 
 	    var UserCenter = function () {
-	        var self = this;
-
-	        self.init();
+	        this.init();
 	    };
 
 	    UserCenter.prototype = {
@@ -86,18 +68,11 @@
 	        init: function () {
 	            var self = this;
 
-	            // if (!Common.checkLogin()) {
-	            //     location.href = "/UserCenter/Login?returnUrl=" + escape(location.href);
-	            //     return false;
-	            // }
-
 	            self.iscellphoneconfirmed = false;
-	            self.userid = Common.getCookieValue('yt_m_userId');
+	            self.userid = Common.getCookieValue('userid');
 
 	            self.collectNodes();
 	            self.bindEvent();
-	            // self.loadData(); //加载数据
-	            // self.queryUserAccount();
 	        },
 	        /**
 	         * 搜集节点
@@ -106,19 +81,8 @@
 	         * @return 无
 	         */
 	        collectNodes: function () {
-	            Nodes[N_loginout] = $(N_loginout);
-	            Nodes[N_username] = $(N_username);
-	            Nodes[N_userlevel] = $(N_userlevel);
-	            Nodes[N_jifen] = $(N_jifen);
-	            Nodes[N_yinyuan] = $(N_yinyuan);
-	            Nodes[N_yue] = $(N_yue);
-	            Nodes[N_card] = $(N_card);
-	            Nodes[N_waitpay] = $(N_waitpay);
-	            Nodes[N_waitshouhuo] = $(N_waitshouhuo);
-	            Nodes[N_youhuiquan] = $(N_youhuiquan);
-	            Nodes[N_inforcenternum] = $(N_inforcenternum);
-	            Nodes[N_yintaiPhone] = $(N_yintaiPhone);
-	            Nodes[N_yintaiPaypw] = $(N_yintaiPaypw);
+	            Nodes[N_user_logout] = $(N_user_logout);
+	            Nodes[N_yintai_hone] = $(N_yintai_hone);
 	        },
 	        /**
 	         * 绑定事件
@@ -130,166 +94,23 @@
 	            var self = this;
 
 	            //退出登录
-	            Nodes[N_loginout].click(function () {
-	                self.clearUserInfo();
+	            Nodes[N_user_logout].click(function () {
 	                location.href = "/UserCenter/LogOn";
 	            });
 
 	            //设置支付密码判断
-	            if (Nodes[N_yintaiPaypw]) {
-	                Nodes[N_yintaiPaypw].click(function (e) {
-	                    var $eT = $(this);
-	                    e.preventDefault();
-	                    if (!self.iscellphoneconfirmed) {
-	                        self.tipBox('请绑定手机后设置支付密码');
-	                        setTimeout(function () {
-	                            location.href = '/UserCenter/BindPhone';
-	                        }, 1000);
-	                    } else {
-	                        location.href = $eT.attr('href');
-	                    }
-	                });
-	            }
-	        },
-	        /**
-	         * 加载数据
-	         * @method loadData
-	         * @param 无
-	         * @return 无
-	         */
-	        loadData: function () {
-	            var self = this;
-
-	            $.ajax({
-	                type: "get",
-	                url: "/Services/Proxy.ashx",
-	                // url: "http://" + location.host + "/YinTaiSites/m.yintai.com/ajax/userindex.aspx?r=" + Common.interval(),
-	                dataType: "json",
-	                data: {
-	                    userId: self.userid,
-	                    methodName: "customer.get_1.0",
-	                    method: "customer.get",
-	                    ver: "1.0",
-	                    r: Common.interval()
-	                },
-	                success: function (result) {
-
-	                    if (result.success) {
-
-	                        var data = result.data,
-	                            indexinfo = data.indexinfo,
-	                            user = data.user;
-
-	                        //获取绑定手机&&设置支付密码状态
-	                        self.iscellphoneconfirmed = user.iscellphoneconfirmed;
-
-	                        if (user.name) {
-	                            Nodes[N_username].html(user.name);
-	                        }
-	                        if (user.class) {
-	                            Nodes[N_userlevel].html(user.class);
-	                        }
-
-	                        //代付款和待收货数量
-	                        var waitpay_num = indexinfo.needpaycount,
-	                            wait_shouhuo = indexinfo.waybillcount;
-
-	                        if (waitpay_num > 0) {
-	                            Nodes[N_waitpay].append("<em>" + waitpay_num + "</em>");
-	                        }
-
-	                        if (wait_shouhuo > 0) {
-	                            Nodes[N_waitshouhuo].append("<em>" + wait_shouhuo + "</em>");
-	                        }
-
-	                        //优惠券和消息的数量
-	                        var youhuiquan_num = indexinfo.promotioncount,
-	                            information_num = indexinfo.msgcount;
-
-	                        if (youhuiquan_num > 0) {
-	                            Nodes[N_youhuiquan].find('.pink').html(youhuiquan_num);
-	                        }
-	                        if (information_num > 0) {
-	                            Nodes[N_inforcenternum].find('.pink').html(information_num);
-	                        }
-
-	                        //用户手机号
-	                        if (user.cellphoneconfusion) {
-	                            localStorage.phoneno = user.cellphoneconfusion;
-	                            Nodes[N_yintaiPhone].attr('href', '/UserCenter/BindPhoneStep1');
-	                            Nodes[N_yintaiPhone].find('.infor-phone span').html("(" + user.cellphoneconfusion + ")");
-	                        }
-
-	                        //设计支付密码-跳转地址
-	                        if (Nodes[N_yintaiPaypw].length > 0 && self.iscellphoneconfirmed) {
-	                            if (user.setpassword) {
-	                                Nodes[N_yintaiPaypw].attr('href', '/UserCenter/EditPayPassword');
-	                                Nodes[N_yintaiPaypw].html('修改支付密码<div class="infor-phone"><span class="pink"></span></div><em></em>');
-	                            } else {
-	                                Nodes[N_yintaiPaypw].attr('href', '/UserCenter/SetPayPassword');
-	                            }
-	                        }
-
-	                    } else {
-
-	                        self.tipBox(result.description, null, function () {
-	                            location.href = "/UserCenter/Login";
-	                        });
-
-	                    }
-	                },
-	                error: function (xhr, status, error) {
-	                    self.tipBox(error);
+	            Nodes[N_yintai_hone].click(function (e) {
+	                var $eT = $(this);
+	                e.preventDefault();
+	                if (!self.iscellphoneconfirmed) {
+	                    self.tipBox('请绑定手机后设置支付密码');
+	                    setTimeout(function () {
+	                        location.href = '/UserCenter/BindPhone';
+	                    }, 1000);
+	                } else {
+	                    location.href = $eT.attr('href');
 	                }
 	            });
-
-	        },
-	        /**
-	         * 获取银元、余额、银泰卡、积分
-	         * @method queryUserAccount
-	         * @param null
-	         * @return null
-	         */
-	        queryUserAccount: function () {
-	            var self = this;
-
-	            AuthorizeAjax.getAuthorize({
-	                type: "post",
-	                url: "https://customer-facade-prod.yintai.com/facade/json/com.yintai.user.account/UserAccount/queryUserAccount",
-	                dataType: "json",
-	                contentType: "application/x-www-form-urlencoded",
-	                data: {
-	                    params: JSON.stringify([self.userid]),
-	                    r: Common.interval() //随机数
-	                },
-	                success: function (result) {
-
-	                    if (!result.val && result.err) {
-	                        self.tipBox(result.err.msg);
-	                    } else {
-	                        Nodes[N_jifen].html(result.val.points);
-	                        Nodes[N_yinyuan].html(result.val.yinyuanAmount.toFixed(2));
-	                        Nodes[N_yue].html(result.val.amount.toFixed(2));
-	                        Nodes[N_card].html(result.val.yintaiCardAmount.toFixed(2));
-	                    }
-
-	                },
-	                error: function (xhr, status, error) {
-	                    if (error) {
-	                        self.tipBox(error);
-	                    }
-	                }
-
-	            });
-	        },
-	        /**
-	         * 清空用户信息
-	         * @method clearUserInfo
-	         * @param 无
-	         * @return 无
-	         */
-	        clearUserInfo: function () {
-	            localStorage.clear();
 	        },
 	        /**
 	         * 错误提示
@@ -313,20 +134,12 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/**
-	 * m.yintai.com
-	 * 所有页面 - 页头、页尾的事件绑定
-	 * 首页页头 - 搜索事件绑定
-	 * 回到顶部 - 事件绑定
-	 */
-
-	// var Zepto = require("./zepto");
 	var Common = __webpack_require__(2)();
 
 	module.exports = function () {
 
 	    $(function () {
-	        
+
 	        var BindHeadEvent = function () {
 	            this.init();
 	        };
@@ -343,7 +156,7 @@
 
 	                //页面头部下拉
 	                var N_body = $('body');
-	                $(".xiala").click(function () {
+	                $(".header .more").click(function () {
 	                    var that = $(this),
 	                        kdAlert = N_body.find('.kd-alert'),
 	                        kdSeet = N_body.find('.kd-seet'),
@@ -351,11 +164,11 @@
 
 	                    if (kdAlert.length < 1) {
 	                        var temp = '<div class="kd-alert">' +
-	                            '<div class="alert-content">' +
+	                            '<div class="alert">' +
 	                            '<a href="/"><i class="shouye"></i><span>银泰首页</span></a>' +
-	                            '<a href="/Category"><i class="fenleiye"></i><span>分 类</span></a>' +
+	                            '<a href="/Category"><i class="fenlei"></i><span>分 类</span></a>' +
 	                            '<a href="/Cart"><i class="gouwudai"></i><span>购物车</span></a>' +
-	                            '<a href="/UserCenter" class="no-border"><i class="wode"></i><span>我的银泰</span></a></div></div>';
+	                            '<a href="/UserCenter"><i class="wode"></i><span>我的银泰</span></a></div></div>';
 
 	                        N_body.append('<div class="kd-seet"></div>');
 	                        ytHeader.append(temp);
@@ -365,57 +178,26 @@
 	                    }
 
 	                    if (!self.headPass) {
-	                        that.addClass('xiala-hover');
 	                        kdSeet.css('display', 'block');
-	                        kdAlert.fadeIn();
+	                        kdAlert.css('display', 'block');
 	                        self.headPass = true;
 	                    } else {
-	                        that.removeClass('xiala-hover');
-	                        kdAlert.fadeOut();
+	                        kdAlert.css('display', 'none');
 	                        kdSeet.css('display', 'none');
 	                        self.headPass = false;
 	                    }
 
 	                    //关闭头部下拉
 	                    kdSeet.bind('click', function (e) {
-	                        that.removeClass('xiala-hover');
-	                        kdAlert.fadeOut();
+	                        kdAlert.css('display', 'none');
 	                        kdSeet.css('display', 'none');
 	                        self.headPass = false;
 	                    });
 	                });
 
-	                //页脚本购物车链接地址
-	                var gouwudai = $('.gouwudai').parent();
-	                if (gouwudai.length > 0) {
-	                    gouwudai.attr('href', '/Cart');
-	                }
-
-	                //没有登录的时候进行跳转
-	                if (Common.checkLogin()) {
-	                    var outlogin = $(".outlogin"),
-	                        nickname = Common.getCookieValue('yt_m_userInfo', 'Name');
-
-	                    if (nickname.length > 8) {
-	                        nickname = nickname.substring(0, 8) + "...";
-	                    }
-	                    $(".login-l").html('<span class="l-username"><a href="/UserCenter">' + nickname + '</a></span>|' + '<span class="outlogin">退出</span>');
-
-	                    if (outlogin.length > 0) {
-	                        outlogin.click(function () {
-	                            location.href = "/UserCenter/LogOn";
-	                        });
-	                    }
-	                }
-
-	                //后退到上一个页面
-	                $(".back-button").click(function () {
-	                    Common.goback();
-	                });
-
 	                //搜索框
 	                var txtKeyword = $("#txtKeyword"),
-	                    btnSearch = $("#btnSearch");
+	                    search = $("#search");
 	                txtKeyword.click(function () {
 	                    txtKeyword.val("");
 	                });
@@ -428,7 +210,7 @@
 	                        }
 	                    }
 	                });
-	                btnSearch.click(function () {
+	                search.click(function () {
 	                    var text = txtKeyword.val().trim();
 	                    if (text && text != '搜索商品or品牌') {
 	                        self.search(text);
@@ -457,9 +239,9 @@
 	                    links = '';
 
 	                if (keyword.length == 11 && repex.test(keyword)) {
-	                    links = "/Sales/ProductDetail?itemCode=";
+	                    links = "/product?id=";
 	                } else {
-	                    links = "/Sales/ProductList?keyword=";
+	                    links = "/search?keyword=";
 	                }
 
 	                location.href = links + keyword;
@@ -475,7 +257,6 @@
 /* 2 */
 /***/ function(module, exports) {
 
-	
 	module.exports = function() {
 
 	    /**
@@ -789,156 +570,6 @@
 /* 4 */,
 /* 5 */
 /***/ function(module, exports) {
-
-	/**
-	 * 功能：
-	 *     1、对H5页面的调用网关的接口通过Ajax获取Token码并写入具体网关接口的请求头
-	 *     2、对内嵌APP的页面调用网关的接口通过APP提供的 getAppToken 方法获取Token码并写入具体网关接口的请求头
-	 * 
-	 * AJAX写入headers：{"Authorization":"Bearer e2564aeb0c0574ab5e8ddad9687b6de3dbe5d5e2"}
-	 * 
-	 * 作用：网关进行筛选、过滤不是正常用户发出的请求
-	 * 
-	 * 实现、接口文档：http://gitlab.yintai.org/architect/gateway/tree/master
-	 * 因APP提供的方法是异步，所以内嵌实现，在具体页面里判断是否调用app的提供的方法
-	 * 
-	 * 移动获取：{"token_type":"bearer","access_token":"63d0be986b19e4a6aa74ae3f1f6e081cee6dd6d4","expires_in":7200}
-	 * 应用获取：{"token_type":"bearer","access_token":"fe02c5161211ff3fa4ce2b8d78cc071426216523","expires_in":7200,"gettoken_time":1463538048190}
-	 * 
-	 */
-
-	// var Zepto = require("./zepto");
-
-	module.exports = function () {
-
-	    var mobileAuthorize = {};
-
-	    /**
-	     * 根据当前地址判断环境
-	     * @method isFormal
-	     * @param 无
-	     * @return pass {Boolean} 布尔值
-	     */
-	    mobileAuthorize.isFormal = function () {
-	        var host = location.host,
-	            pass = true;
-
-	        host = host.split('.')[2];
-
-	        if (host != "com") {
-	            pass = false;
-	        }
-
-	        return pass;
-	    };
-	    /**
-	     * 获取到当前域名的后缀，并根据此返回帐号信息
-	     * @method getTokenCredential
-	     * @param 无
-	     * @return credential {JSON} 用户信息
-	     */
-	    mobileAuthorize.getTokenCredential = function () {
-	        var self = this,
-	            credential = {
-	                client_id: "560b5da9-a046-4f4c-ba1d-2be2cae250ba",
-	                client_secret: "yhLVp7Nbfp3D"
-	            };
-
-	        if (!self.isFormal()) {
-	            credential = {
-	                client_id: "test",
-	                client_secret: "test"
-	            };
-	        }
-
-	        return credential;
-	    };
-	    /**
-	     * 获取到当前域名的后缀，并根据此后续返回网关域名
-	     * @method getHostUre
-	     * @param 无
-	     * @return pass {Boolean} 布尔值
-	     */
-	    mobileAuthorize.getTokenURL = function () {
-	        var self = this,
-	            suffix = "gw";
-
-	        if (!self.isFormal()) {
-	            suffix = "gw-test";
-	        }
-
-	        // 正式 - https://gw.yintai.com | 测试、预发布 - https://gw-test.yintai.com
-	        return 'https://' + suffix + '.yintai.com/oauth/token';
-	    };
-	    /**
-	     * 获取到token，并执行相应回调方法
-	     * @method getAuthorize
-	     * @param INFO {JSON} $.ajax()的参数
-	     */
-	    mobileAuthorize.getAuthorize = function (INFO) {
-
-	        var self = this;
-
-	        var credential = self.getTokenCredential();
-
-	        $.ajax({
-	            type: 'post',
-	            url: self.getTokenURL(),
-	            data: {
-	                grant_type: "client_credentials",
-	                client_id: credential.client_id,
-	                client_secret: credential.client_secret
-	            },
-	            dataType: 'json',
-	            contentType: "application/x-www-form-urlencoded",
-	            success: function (data) {
-
-	                var temporary = "";
-
-	                if (data.token_type && data.access_token) {
-	                    temporary = data.token_type.charAt(0).toUpperCase() + data.token_type.substring(1, data.token_type.length);
-
-	                    INFO.headers = { Authorization: temporary + " " + data.access_token };
-
-	                    self.handleGateWayData(INFO);
-
-	                } else if (data.code && data.error_description) {
-	                    // appMethod.alert(data.error_description);
-	                }
-
-	            },
-	            error: function (xhr, status, error) {
-	                if (error) {
-	                    // appMethod.alert(error);
-	                }
-	            }
-	        });
-
-	    };
-	    /**
-	     * 根据环境处理请求地址
-	     * @method handleGateWayData
-	     * @param data {JSON} $.ajax()的参数
-	     */
-	    mobileAuthorize.handleGateWayData = function (data) {
-	        var self = this, info = data;
-
-	        if (!self.isFormal() && info.url) {
-	            info.url = info.url.replace(/-prod.yintai.com/gi, '-test.yintai.com');
-	        }
-
-	        $.ajax(info);
-
-	    };
-
-	    return mobileAuthorize;
-	};
-
-/***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	// var Zepto = require("./zepto");
 
 	module.exports = function () {
 		if ($.fn.alert) {

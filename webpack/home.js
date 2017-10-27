@@ -1,5 +1,4 @@
-﻿// var Zepto = require("./unit/zepto");
-var Header = require("./unit/header")();
+﻿var Header = require("./unit/header")();
 var Lazyload = require("./unit/lazyload").lazyload();
 var Swipe = require("./unit/swipe");
 

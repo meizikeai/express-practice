@@ -1,10 +1,3 @@
-/**
- * m.yintai.com
- * 为页面上的ajax增加过度效果
- */
-
-// var Zepto = require("./zepto");
-
 module.exports = function () {
 	var loadingAttribute = 'data-loading';
 	var animationTimeout = 0.5;

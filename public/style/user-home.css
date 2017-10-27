@@ -1,51 +1,221 @@
-﻿@charset "utf-8";
-.empty{margin-top:25%;min-height:200px;text-align:center;}
-.empty div{width:80px;height:105px;margin:0 auto 20px;background:url(/images/order-detail-empty.png) 0 0/100% no-repeat;}
-.empty p{color:#666}
+﻿.empty {
+    margin-top: 25%;
+    min-height: 200px;
+    text-align: center;
+}
 
-/* 首页 */
-#bd{background-color:#f1f1f1}
-.hr{display:block;height:1px;background-color:#d5d5d5;}
+.empty div {
+    width: 80px;
+    height: 105px;
+    margin: 0 auto 20px;
+    background: url(/images/order-detail-empty.png) 0 0/100% no-repeat;
+}
 
-.user-information{background-color:#ff7ba9;width:100%;min-height:120px;position:relative}
-.user-information .user-img{text-align:center;padding:10px 0 8px}
-.user-information .user-img img{width:70px;height:70px;border-radius:70px;border:1px solid #fff}
-.user-information .user-name{text-align: center;color:#fff}
-.user-information .user-level{position:absolute;right:10px;top:10px;color:#710028;font-size:12px}
+.empty p {
+    color: #666
+}
 
-.user-money{background-color:#fff;margin-bottom:10px;border-bottom:1px solid #d5d5d5}
-.user-money a{width:25%;float:left;text-align:center;text-decoration:none;margin:10px 0px;padding:2px 0;border-left:1px solid #d5d5d5;margin-left:-1px}
-.user-money a strong{display:block;color:#333;font-weight:500;margin-bottom:2px}
-.user-money a span{display:block;color:#666;font-size:12px}
+#bd {
+    background-color: #f1f1f1
+}
 
-.user-order{background-color:#fff;border-bottom:1px solid #d5d5d5;border-top:1px solid #d5d5d5}
-.user-order a{width:25%;float:left;text-align:center;text-decoration:none;margin:15px 0px;border-left:1px solid #d5d5d5;margin-left:-1px;color:#333}
-.user-order a span{display:block;position:relative}
-.user-order a i{display:block;width:30px;height:25px;margin:0 auto 3px}
-.user-order a.allorder i{background:url(/images/user-order.png) 0 0/100% no-repeat;}
-.user-order a.wait-pay i{background:url(/images/user-pay.png) 0 0/100% no-repeat;}
-.user-order a.wait-shouhuo i{background:url(/images/user-shouhuo.png) 0 0/100% no-repeat;}
-.user-order a.wait-return i{background:url(/images/user-return.png) 0 0/100% no-repeat;}
-.user-order em{display:block;font-style:normal;border-radius:20px;background-color:#e5004f;width:20px;height:20px;line-height:20px;font-size:12px;position:absolute;top:-5px;right:15px;color:#fff}
+.hr {
+    display: block;
+    height: 1px;
+    background-color: #d5d5d5;
+}
 
-.user-other{background-color:#fff;margin-bottom:10px;border-bottom:1px solid #d5d5d5;}
-.user-other a{width:50%;float:left;text-align:center;text-decoration:none;padding:10px 0px;border-left:1px solid #d5d5d5;margin-left:-1px;color:#333}
-.user-other a span{display:block;position:relative}
-.user-other a i{display:inline-block;width:20px;height:20px;vertical-align:middle;margin-right:5px}
-.user-other a.shoucang i{background:url(/images/user-love.png) 0 0/100% no-repeat;}
-.user-other a.look-jilu i{background:url(/images/user-history.png) 0 0/100% no-repeat;}
+.user-info {
+    background: url(/images/user-banner.jpg) 0 0/100% no-repeat;
+    width: 100%;
+    position: relative
+}
 
-.user-common{background-color:#fff;margin:0 0 10px;border-bottom:1px solid #d5d5d5;border-top:1px solid #d5d5d5}
-.user-common a{display:block;line-height:26px;text-decoration:none;color:#666;font-size:14px;padding:10px 15px;position:relative}
-.user-common a em{display:block;position:absolute;background:url(/images/bai-12.png) 0 0/100% no-repeat;width:8px;height:14px;top:17px;right:10px}
-.user-common .hr{margin:0 10px}
-.user-common .yingyongnum,
-.user-common .infor-centernum,
-.user-common .help-tel,
-.user-common .infor-phone{position:absolute;right:30px;top:12px}
-.user-common .pink{color:#e5004f}
-.user-common .help-tel i{font-style:normal;font-weight:500}
+.user-info .user-avatar {
+    text-align: center;
+    padding: 10px 0 8px
+}
 
-.user-logout{background-color:#fff;line-height:26px;border-top:1px solid #d5d5d5;padding:10px 15px;text-align:center;color:#e5004f;font-size:16px;font-weight:500}
+.user-info .user-avatar span {
+    display: block;
+    margin: 0 auto;
+    padding: 1px;
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border-radius: 100%;
+    background: rgba(255, 255, 255, .7);
+}
 
-.user-error{padding:35px 15px;text-align:center}
+.user-info .user-avatar img {
+    width: 100%;
+    border-radius: 100%;
+    vertical-align: top;
+}
+
+.user-info .user-name {
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    padding-bottom: 6px;
+}
+
+.user-info .user-level {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #710028;
+    font-size: 12px
+}
+
+.user-money {
+    display: flex;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d5d5d5
+}
+
+.user-money a {
+    width: 25%;
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    margin: 6px 0px;
+    margin-left: -1px
+}
+
+.user-money a strong {
+    display: block;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500
+}
+
+.user-money a span {
+    display: block;
+    color: #666;
+    font-size: 12px
+}
+
+.user-order {
+    display: flex;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #d5d5d5;
+    border-top: 1px solid #d5d5d5
+}
+
+.user-order a {
+    width: 25%;
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    margin: 8px 0px;
+    color: #333
+}
+
+.user-order a span {
+    display: block;
+    position: relative
+}
+
+.user-order a span:before {
+    content: "";
+    display: block;
+    width: 25px;
+    height: 25px;
+    margin: 0 auto 2px;
+}
+
+.user-order a.order span:before {
+    background: url(/images/send.png) 0 0/100% no-repeat;
+}
+
+.user-order a.pay span:before {
+    background: url(/images/pay.png) 0 0/100% no-repeat;
+}
+
+.user-order a.send span:before {
+    background: url(/images/deliver.png) 0 0/100% no-repeat;
+}
+
+.user-order a.evaluate span:before {
+    background: url(/images/evaluate.png) 0 0/100% no-repeat;
+}
+
+.user-order em {
+    display: block;
+    font-style: normal;
+    border-radius: 20px;
+    background-color: #f50;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 12px;
+    position: absolute;
+    top: -3px;
+    right: 22%;
+    color: #fff
+}
+
+.user-common {
+    background-color: #fff;
+    margin: 0 0 10px;
+    border-bottom: 1px solid #d5d5d5;
+    border-top: 1px solid #d5d5d5
+}
+
+.user-common a {
+    display: block;
+    line-height: 24px;
+    text-decoration: none;
+    color: #666;
+    font-size: 14px;
+    padding: 6px 15px;
+    position: relative
+}
+
+.user-common a em {
+    display: block;
+    position: absolute;
+    background: url(/images/arrow.png) 0 0/5px 16px no-repeat;
+    width: 5px;
+    height: 16px;
+    top: 10px;
+    right: 15px
+}
+
+.user-common .hr {
+    margin: 0 10px
+}
+
+.user-common .count {
+    position: absolute;
+    right: 30px;
+    top: 6px
+}
+
+.user-common .pink {
+    color: #f50
+}
+
+.user-common .count i {
+    font-style: normal;
+    font-weight: 500
+}
+
+.user-logout {
+    background-color: #fff;
+    line-height: 26px;
+    border-top: 1px solid #d5d5d5;
+    padding: 10px 15px;
+    text-align: center;
+    color: #f50;
+    font-size: 16px;
+    font-weight: 500
+}
+
+.user-error {
+    padding: 35px 15px;
+    text-align: center
+}

@@ -1,4 +1,4 @@
-## 基于nodejs构建系统
+## 失败的试验品-构建方式：
 
 * 实现方式：nodejs + express + swig + mongodb
 * 运行地址：http://localhost:3000
@@ -35,7 +35,7 @@
 * 一、请安装Mongodb数据库并启动，端口为默认27017 -- 命令 mongod --dbpath C:\Data
 * 二、请在APP根目录安依赖文件，执行shell命令：npm install
 * 三、进到bin目录，执行shell命令：node client.js - 获取数据，存到数据库
-* 四、执行 set DEBUG=myapp:* & npm start 或进到bin目录，执行shell命令：node server.js - 启动站点
+* 四、执行 set DEBUG=express-practice:* & npm start 或进到bin目录，执行shell命令：node server.js - 启动站点
 * 五、访问http://localhost:3000
 
 -------------------------------------------------------------------
@@ -93,6 +93,7 @@
 *     supervisor -w scripts -e myext -x myrunner myapp
 *     supervisor -w lib,server.js,config.js server.js
 *     supervisor -- server.js -h host -p port
+*     supervisor -w lib,routes,unit,views ./bin/server.js
 ```
 
 * -- forever    - https://www.npmjs.com/package/forever
