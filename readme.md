@@ -1,7 +1,7 @@
 ## 失败的试验品-构建方式：
 
 * 实现方式：nodejs + express + swig + mongodb
-* 运行地址：http://localhost:3000
+* 运行地址：http://localhost:3008
 
 ## 目录结构说明：
 
@@ -36,7 +36,7 @@
 * 二、请在APP根目录安依赖文件，执行shell命令：npm install
 * 三、进到bin目录，执行shell命令：node client.js - 获取数据，存到数据库
 * 四、执行 set DEBUG=express-practice:* & npm start 或进到bin目录，执行shell命令：node server.js - 启动站点
-* 五、访问http://localhost:3000
+* 五、访问http://localhost:3008
 
 -------------------------------------------------------------------
 

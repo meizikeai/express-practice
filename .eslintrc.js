@@ -10,7 +10,6 @@ module.exports = {
     "parser": "babel-eslint",
     "parserOptions": {
         "ecmaFeatures": {
-            "jsx": true,
             "modules": true,
             "experimentalObjectRestSpread": true
         },
@@ -23,11 +22,6 @@ module.exports = {
         "window": true,
         "node": true
     },
-    "plugins": [
-        "react",
-        "jsx-a11y",
-        "import"
-    ],
     "rules": {
         "linebreak-style": [
             "error",

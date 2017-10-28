@@ -16,7 +16,8 @@
         "mongodb": "^2.2.33"
     },
     "devDependencies": {
-        "webpack": "^3.8.1",
-        "eslint": "^4.6.1"
+        "babel-eslint": "^8.0.1",
+        "eslint": "^4.6.1",
+        "webpack": "^3.8.1"
     }
 }
