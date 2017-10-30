@@ -23,7 +23,7 @@ $(function () {
             var self = this;
 
             self.iscellphoneconfirmed = false;
-            self.userid = Common.getCookieValue('userid');
+            // self.userid = Common.getCookieValue('userid');
 
             self.collectNodes();
             self.bindEvent();
@@ -49,7 +49,7 @@ $(function () {
 
             //退出登录
             Nodes[N_user_logout].click(function () {
-                location.href = "/UserCenter/LogOn";
+                location.href = "/logout";
             });
 
             //设置支付密码判断
@@ -59,7 +59,7 @@ $(function () {
                 if (!self.iscellphoneconfirmed) {
                     self.tipBox('请绑定手机后设置支付密码');
                     setTimeout(function () {
-                        location.href = '/UserCenter/BindPhone';
+                        location.href = '/user/phone';
                     }, 1000);
                 } else {
                     location.href = $eT.attr('href');

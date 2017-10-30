@@ -1,4 +1,5 @@
 ﻿
+const path = require("path");
 const webpack = require('webpack');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
         "login": "./login.js"
     },
     output: {
-        path: "../public/script/",
+        path: path.resolve(__dirname, '../public/script/'),
         filename: "[name].js"
     },
     module: {

@@ -6,6 +6,7 @@ $(function () {
     let Nodes = [];
     let N_username = "#username";
     let N_password = "#password";
+    let N_error = ".error";
     let N_enter = ".enter";
 
     var Login = function () {
@@ -34,6 +35,7 @@ $(function () {
         collectNodes: function () {
             Nodes[N_username] = $(N_username);
             Nodes[N_password] = $(N_password);
+            Nodes[N_error] = $(N_error);
             Nodes[N_enter] = $(N_enter);
         },
         /**
@@ -50,10 +52,10 @@ $(function () {
                 const password = $.trim(Nodes[N_password].val());
 
                 if (!username) {
-                    self.tipBox("请输入");
+                    self.tipBox("请输入您的帐号~");
                     return false;
                 } else if (!password) {
-                    self.tipBox("请输入");
+                    self.tipBox("请输入您的密码~");
                     return false;
                 }
 
@@ -67,11 +69,13 @@ $(function () {
                     dataType: 'json',
                     success: function (data) {
                         if (data.success) {
-                            self.tipBox("登录成功，准备跳转~")
+                            location.href = data.url;
+                        } else {
+                            self.tipBox("请确认帐号与密码后重新再尝试！");
                         }
                     },
                     error: function () {
-
+                        self.tipBox("服务器貌似出问题啦~")
                     }
                 })
             });

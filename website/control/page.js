@@ -67,35 +67,36 @@ module.exports = {
             }
 
             res.render("./pages/home.html", {
-                title: "My Page",
+                title: "Home",
                 data: fullhtml
             });
 
         });
-
     },
     userhome: function (req, res, next) {
-        var cookies = req.cookies;
+        const cookies = req.signedCookies.express;
 
-        if (!cookies.name) {
+        if (typeof cookies !== "object") {
+            res.redirect("/login");
+            return false;
+        }
+        if (cookies.userid === "") {
             res.redirect("/login");
             return false;
         }
 
-        connection.clientSelect("users", {}, function (data) {
-            const result = data;
-            const pageinfo = result.data;
-
+        connection.clientSelect("users", { "userid": cookies.userid }, function (data) {
             let fullhtml = "";
+            const result = data.data;
 
-            if (result.success && pageinfo) {
-                fullhtml += CreateTemplate("userhome", "main", pageinfo);
+            if (typeof result === "object") {
+                fullhtml += CreateTemplate("users", "main", result);
             } else {
                 fullhtml = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
             }
 
-            res.render("./pages/userhome.html", {
-                title: "用户中心",
+            res.render("./pages/user-home.html", {
+                title: "User Center",
                 data: fullhtml
             });
 
@@ -103,25 +104,30 @@ module.exports = {
     },
     login: function (req, res, next) {
         res.render("./pages/login.html", {
-            title: "帐户登录",
+            title: "Login",
             data: CreateTemplate("login", "main", {})
         });
     },
     logincheck: function (req, res, next) {
         const result = req.body;
-        // const cookies = req.cookies;
+
         res.type("application/json");
 
         if (result.username && result.password) {
             connection.clientSelect("users", { "username": result.username }, function (data) {
                 if (result.username === data.username && result.password === DeCompileString(data.password)) {
-                    res.send({ success: true });
+                    res.cookie("express", { "userid": data.userid, "name": data.username }, {
+                        path: "/",
+                        maxAge: 3600000,
+                        signed: true
+                    });
+                    res.send({ success: true, url: "/user" });
                 } else {
-                    res.send({ success: false });
+                    res.send({ success: false, url: "" });
                 }
             });
         } else {
-            res.send({ success: false });
+            res.send({ success: false, url: "" });
         }
     },
     getHomeData: function (req, res, next) {
@@ -137,17 +143,5 @@ module.exports = {
 
         });
 
-    },
-    getUserHomeData: function (req, res, next) {
-        connection.clientSelect("users", {}, function (data) {
-
-            res.type("application/json");   // => "application/json"
-
-            // res.set({
-            //     "Content-Type": "application/json; charset=utf-8"
-            // });
-            res.send(data);
-
-        });
     }
 };

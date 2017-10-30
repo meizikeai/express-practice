@@ -30,9 +30,9 @@ module.exports = function () {
                         var temp = '<div class="kd-alert">' +
                             '<div class="alert">' +
                             '<a href="/"><i class="shouye"></i><span>银泰首页</span></a>' +
-                            '<a href="/Category"><i class="fenlei"></i><span>分 类</span></a>' +
-                            '<a href="/Cart"><i class="gouwudai"></i><span>购物车</span></a>' +
-                            '<a href="/UserCenter"><i class="wode"></i><span>我的银泰</span></a></div></div>';
+                            '<a href="/category"><i class="fenlei"></i><span>分 类</span></a>' +
+                            '<a href="/cart"><i class="gouwudai"></i><span>购物车</span></a>' +
+                            '<a href="/user"><i class="wode"></i><span>我的银泰</span></a></div></div>';
 
                         N_body.append('<div class="kd-seet"></div>');
                         ytHeader.append(temp);
