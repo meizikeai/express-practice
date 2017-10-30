@@ -1,6 +1,6 @@
 const http = require("http");
 const fs = require('fs');
-const Client = require("./updata-to-mongodb");
+const connection = require("./connection");
 
 function runServiceData(params) {
     this.init();
@@ -17,17 +17,17 @@ runServiceData.prototype = {
             if (error) {
                 console.log(error);
             } else {
-                Client.clientUpdate('home', JSON.parse(data));
+                connection.clientUpdate('home', JSON.parse(data));
             }
         });
     },
     setUserCenterDate: function () {
         // console.log(__dirname);
-        fs.readFile("data-user.json", function (error, data) {
+        fs.readFile("data-users.json", function (error, data) {
             if (error) {
                 console.log(error);
             } else {
-                Client.clientUpdate('usercenter', JSON.parse(data));
+                connection.clientUpdate('users', JSON.parse(data));
             }
         });
     },
@@ -35,9 +35,7 @@ runServiceData.prototype = {
         var getData = http.request({
             hostname: "m.yintai.com",
             port: "80",
-            path: "/Services/Proxy.ashx?" + urlParam({
-                userid: "123456"
-            }),
+            path: "/Services/Proxy.ashx?userid=123456",
             method: "get"
         }, function (record) {
             var result = "";
@@ -48,7 +46,7 @@ runServiceData.prototype = {
             });
 
             record.on("end", function () {
-                Client.clientUpdate('usercenter', JSON.parse(result));
+                connection.clientUpdate('userhome', JSON.parse(result));
             });
         }).on("error", function (e) {
             console.log("problem with request: " + e.message);

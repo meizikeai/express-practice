@@ -4,7 +4,8 @@ const webpack = require('webpack');
 module.exports = {
     entry: {
         "home": "./home.js",
-        "user-home": "./user-home.js"
+        "user-home": "./user-home.js",
+        "login": "./login.js"
     },
     output: {
         path: "../public/script/",

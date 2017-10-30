@@ -32,11 +32,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/users', users);
 console.log(__dirname);
 
-var routes_path = __dirname + '/unit';
+var routes_path = __dirname + '/website/routes';
 fs.readdirSync(routes_path).forEach(function (file) {
 	if (~file.indexOf('.js')) require(routes_path + '/' + file)(app);
 });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
