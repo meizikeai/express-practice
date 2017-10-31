@@ -2,7 +2,7 @@
     {% set info = content.info %}
     <div class="user-info">
         <div class="user-avatar ">
-            <span><img src="./images/avatar.jpg" alt="头像"></span>
+            <span><img src="./picture/avatar.jpg" alt="头像"></span>
         </div>
         <p class="user-name">{{ user.name }}</p> 
         <p class="user-level">{{ user.class }}</p>
@@ -44,7 +44,7 @@
 
     <div class="user-common">
         <a class="coupon" href="/user/coupon">
-            优惠券
+            <strong>优惠券</strong>
             <div class="count">
                 <span class="pink">{{ info.promotioncount }}</span>
             </div>
@@ -53,7 +53,7 @@
         <div class="hr"></div>
 
         <a class="phone" href="/user/phone">
-            绑定手机号
+            <strong>手机号</strong>
             <div class="count">
                 <span class="pink">{{ user.cellphoneconfusion }}</span>
             </div>
@@ -63,7 +63,7 @@
 
         {% if info.setpaypassword %}
         <a class="password" href="/user/password">
-            设置支付密码
+            <strong>支付密码</strong>
             <div class="count">
                 <span class="pink"></span>
             </div>
@@ -73,27 +73,28 @@
         {% endif %}
 
         <a class="address" href="/user/address">
-            地址管理
+            <strong>地址管理</strong>
             <em></em>
         </a>
     </div>
     
     <div class="user-common">
         <a class="shoucang" href="/user/collection">
-            我的收藏
+            <strong>我的收藏</strong>
             <span class="pink"></span>
             <em></em>
         </a>
         <div class="hr"></div>
         <a class="jilu" href="/user/browse">
-            浏览记录
+            <strong>浏览记录</strong>
             <span class="pink"></span>
             <em></em>
         </a>
     </div>
 
     <div class="user-common">
-        <a class="info-center" href="/user/message">消息中心
+        <a class="info-center" href="/user/message">
+            <strong>消息中心</strong>
             <div class="count">
                 <span class="pink">{{ info.msgcount }}</span>
             </div>
@@ -101,7 +102,8 @@
         </a>
         <div class="hr"></div>
 
-        <a class="info-tel" href="tel:4001191111">客服电话
+        <a class="info-tel" href="tel:4001191111">
+            <strong>客服电话</strong>
             <span class="count">
                 <i class="pink">400-119-1111</i>(8:00-24:00)
             </span>
@@ -110,16 +112,20 @@
     </div>
     
     <div class="user-common">
-        <a class="download" href="/download">下载客户端
-            <span class="pink"></span>
+        <a class="help" href="/help">
+            <strong>帮助中心</strong>
             <em></em>
         </a>
     </div>
 
     <div class="user-common">
-        <a class="help" href="/help">帮助中心
+        <a class="download" href="/download">
+            <strong>下载客户端</strong>
+            <span class="pink"></span>
             <em></em>
         </a>
     </div>
 
-    <div class="user-logout">退出账户</div>
+    <div class="user-logout">
+        <div id="logout">退出账户</div>
+    </div>

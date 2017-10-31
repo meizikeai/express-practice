@@ -20,7 +20,7 @@
     position: absolute;
     left: 0;
     top: 6px;
-    background: url(/images/newlogo.png) no-repeat;
+    background: url(/picture/newlogo.png) no-repeat;
     width: 75px;
     height: 42.5px;
     background-size: 100%
@@ -66,7 +66,7 @@
     width: 20px;
     height: 20px;
     margin: 5px auto;
-    background: url(/images/home-search.png) 0 0 no-repeat;
+    background: url(/picture/home-search.png) 0 0 no-repeat;
     background-size: 100%
 }
 
@@ -83,7 +83,7 @@
     width: 30px;
     height: 30px;
     margin: 6px auto 0;
-    background: url(/images/home-user.png) 0 0 no-repeat;
+    background: url(/picture/home-user.png) 0 0 no-repeat;
     background-size: 100%
 }
 
@@ -120,7 +120,7 @@
     display: block;
     width: 12px;
     height: 18px;
-    background: url(/images/back.png) 0 0/100% no-repeat;
+    background: url(/picture/back.png) 0 0/100% no-repeat;
 }
 
 #hd .header .hear {
@@ -161,7 +161,7 @@
     display: block;
     width: 23px;
     height: 5px;
-    background: url(/images/control.png) 0 0/100% no-repeat;
+    background: url(/picture/control.png) 0 0/100% no-repeat;
 }
 
 #hd .kd-alert {
@@ -204,19 +204,19 @@
 }
 
 #hd .kd-alert .alert .shouye {
-    background: url(/images/home.png) 0px 0px/100% no-repeat;
+    background: url(/picture/home.png) 0px 0px/100% no-repeat;
 }
 
 #hd .kd-alert .alert .fenlei {
-    background: url(/images/category.png) 0px 0px/100% no-repeat;
+    background: url(/picture/category.png) 0px 0px/100% no-repeat;
 }
 
 #hd .kd-alert .alert .gouwudai {
-    background: url(/images/cart.png) 0px 0px/100% no-repeat;
+    background: url(/picture/cart.png) 0px 0px/100% no-repeat;
 }
 
 #hd .kd-alert .alert .wode {
-    background: url(/images/user.png) 0px 0px/100% no-repeat;
+    background: url(/picture/user.png) 0px 0px/100% no-repeat;
 }
 
 #bd {
@@ -269,7 +269,7 @@
 
 #J-GoTop span {
     display: block;
-    background: url(/images/top.png) no-repeat;
+    background: url(/picture/top.png) no-repeat;
     background-size: 100% 100%;
     width: 40px;
     height: 40px

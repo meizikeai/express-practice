@@ -141,7 +141,7 @@
             }
             var qs = isearch.substring(1).split("&");
             args = {};
-            for (i = 0; i < qs.length; i++) {
+            for (let i = 0; i < qs.length; i++) {
                 var match = qs[i].match(/([^=]+)=([^=]+)/);
                 if (match !== null) {
                     args[match[1]] = decodeURIComponent(match[2]);
@@ -168,7 +168,7 @@
             content = interim.split("&");
             result = {};
 
-            for (i = 0; i < content.length; i++) {
+            for (let i = 0; i < content.length; i++) {
                 var match = content[i].match(/([^=]+)=([^=]+)/);
                 if (match !== null) {
                     result[match[1]] = decodeURIComponent(match[2]);
@@ -236,7 +236,7 @@
 
         //调用微信中微信支付的接口
         var jsApiCall = function () {
-            WeixinJSBridge.invoke('getBrandWCPayRequest', JSON.parse(decodeURIComponent(data)), function (res) {
+            window.WeixinJSBridge.invoke('getBrandWCPayRequest', JSON.parse(decodeURIComponent(data)), function (res) {
                 if (typeof hideMask == "function") {
                     hideMask();
                 }
@@ -302,6 +302,4 @@
     };
 
     return mobileMethod;
-
-
 };

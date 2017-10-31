@@ -1,9 +1,8 @@
-﻿var Common = require("./common")();
+﻿const common = require("./common")();
+const style = require("../css/style.css");
 
 module.exports = function () {
-
     $(function () {
-
         var BindHeadEvent = function () {
             this.init();
         };
@@ -16,7 +15,7 @@ module.exports = function () {
                 var self = this;
 
                 //检测是否是无痕浏览
-                Common.isWorking();
+                common.isWorking();
 
                 //页面头部下拉
                 var N_body = $('body');

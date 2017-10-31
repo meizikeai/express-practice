@@ -124,7 +124,7 @@
 .ProductSingleRow .inlist{margin:0 auto;overflow:auto;overflow-y:hidden;padding:5px}
 .ProductSingleRow .inlist .pro-one{float:left;width:95px;padding:0 5px 5px 0}
 .ProductSingleRow .inlist .pro-img{position:relative;border:1px solid #e0e0e0;text-align:center}
-.ProductSingleRow .inlist .pro-img i{position:absolute;left:0;top:0;width:26px;height:24px;background:url(http://r.ytrss.com/mobile/img/miao-cat-max.png) 0 0/100% no-repeat}
+.ProductSingleRow .inlist .pro-img i{position:absolute;left:0;top:0;width:26px;height:24px;background:url(/picture/phone.png) 0 0/100% no-repeat}
 .ProductSingleRow .inlist .pro-name{text-align:left;height:36px;line-height:18px;margin:5px auto;color:#666;overflow:hidden}
 .ProductSingleRow .inlist .pro-price{text-align:left}
 .ProductSingleRow .inlist .pro-price span{display:block;font-size:12px}

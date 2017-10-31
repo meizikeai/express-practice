@@ -1,9 +1,9 @@
-﻿var Header = require("./unit/header")();
-var Lazyload = require("./unit/lazyload").lazyload();
-var Swipe = require("./unit/swipe");
+﻿var header = require("../unit/header")();
+var lazyload = require("../unit/lazyload").lazyload();
+var swipe = require("../unit/swipe");
+var style = require("../css/home.css");
 
 $(function () {
-
     var Nodes = [],
         N_ModelDown = '.J-CountTime',
 
@@ -189,7 +189,7 @@ $(function () {
                 var thisBannerline = thisBaLine && thisBaLine.getElementsByTagName('span');
 
                 if (thisBanner) {
-                    Swipe.swipe(thisBanner, {
+                    swipe.swipe(thisBanner, {
                         callback: function (index, node) {
                             var count = thisBannerline.length,
                                 thatPic = node.querySelector('img[data-src]'),
@@ -230,7 +230,7 @@ $(function () {
          * @method _lazyload
          */
         _lazyload: function () {
-            Lazyload.init({
+            lazyload.init({
                 offset: 50,
                 throttle: 250,
                 unload: false

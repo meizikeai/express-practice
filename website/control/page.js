@@ -1,3 +1,4 @@
+const fs = require("fs");
 const swig = require("swig");
 const connection = require("../../bin/connection");
 
@@ -108,7 +109,13 @@ module.exports = {
             data: CreateTemplate("login", "main", {})
         });
     },
-    logincheck: function (req, res, next) {
+    register: function (req, res, next) {
+        res.render("./pages/register.html", {
+            title: "Register",
+            data: CreateTemplate("register", "main", {})
+        });
+    },
+    checklogin: function (req, res, next) {
         const result = req.body;
 
         res.type("application/json");
@@ -127,6 +134,60 @@ module.exports = {
                 }
             });
         } else {
+            res.send({ success: false, url: "" });
+        }
+    },
+    checklogout: function (req, res, next) {
+        const result = req.body;
+        const cookies = req.signedCookies;
+        const express = cookies && cookies.express;
+
+        res.type("application/json");
+        if (express) {
+            res.clearCookie("express", { "userid": express.userid, "name": express.name }, {
+                path: "/",
+                maxAge: 3600000,
+                signed: true
+            });
+            res.send({ success: true, url: "" });
+        } else {
+            res.send({ success: false, url: "" });
+        }
+    },
+    checkregister: function (req, res, next) {
+        const result = req.body;
+
+        // fs.readFile("data-users.json", function (error, data) {
+        //     if (error) {
+        //         console.log(error);
+        //     } else {
+        //         connection.clientUpdate('users', JSON.parse(data));
+        //     }
+        // });
+
+        console.log(result.username, result.password);
+
+        if (result.username && result.password) {
+            connection.clientSelect("users", { "username": result.username }, function (data) {
+
+
+                console.log(data);
+                res.type("application/json");
+                res.send({ success: true, url: "" });
+
+                // if (result.username === data.username && result.password === DeCompileString(data.password)) {
+                //     res.cookie("express", { "userid": data.userid, "name": data.username }, {
+                //         path: "/",
+                //         maxAge: 3600000,
+                //         signed: true
+                //     });
+                //     res.send({ success: true, url: "/user" });
+                // } else {
+                //     res.send({ success: false, url: "" });
+                // }
+            });
+        } else {
+            res.type("application/json");
             res.send({ success: false, url: "" });
         }
     },

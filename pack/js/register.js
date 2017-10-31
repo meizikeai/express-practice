@@ -1,19 +1,14 @@
-﻿var Common = require("./unit/common")();
-var Header = require("./unit/header")();
-var Alert = require("./unit/alert")();
+﻿const common = require("../unit/common")();
+const header = require("../unit/header")();
+const alert = require("../unit/alert")();
+const style = require("../css/register.css");
 
 $(function () {
-    let Nodes = [];
-    let N_username = "#username";
-    let N_password = "#password";
-    let N_error = ".error";
-    let N_enter = ".enter";
-
-    var Login = function () {
+    let Register = function () {
         this.init();
     };
 
-    Login.prototype = {
+    Register.prototype = {
         /**
          * 初始化
          * @method init
@@ -21,10 +16,7 @@ $(function () {
          * @return 无
          */
         init: function () {
-            var self = this;
-
-            self.collectNodes();
-            self.bindEvent();
+            this.bindEvent();
         },
         /**
          * 搜集节点
@@ -33,10 +25,11 @@ $(function () {
          * @return 无
          */
         collectNodes: function () {
-            Nodes[N_username] = $(N_username);
-            Nodes[N_password] = $(N_password);
-            Nodes[N_error] = $(N_error);
-            Nodes[N_enter] = $(N_enter);
+            return {
+                username: $("#username"),
+                password: $("#password"),
+                enter: $(".enter")
+            }
         },
         /**
          * 绑定事件
@@ -45,11 +38,12 @@ $(function () {
          * @return 无
          */
         bindEvent: function () {
-            var self = this;
+            let self = this;
+            let that = self.collectNodes();
 
-            Nodes[N_enter].on("click", function (e) {
-                const username = $.trim(Nodes[N_username].val());
-                const password = $.trim(Nodes[N_password].val());
+            that.enter.on("click", function (e) {
+                const username = $.trim(that.username.val());
+                const password = $.trim(that.password.val());
 
                 if (!username) {
                     self.tipBox("请输入您的帐号~");
@@ -61,7 +55,7 @@ $(function () {
 
                 $.ajax({
                     type: "post",
-                    url: "/checkonline",
+                    url: "/checkregister",
                     data: {
                         username: username,
                         password: password
@@ -95,5 +89,5 @@ $(function () {
         }
     };
 
-    new Login();
+    new Register();
 });
