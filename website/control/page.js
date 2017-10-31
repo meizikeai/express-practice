@@ -1,4 +1,5 @@
 const fs = require("fs");
+const path = require("path");
 const swig = require("swig");
 const connection = require("../../bin/connection");
 
@@ -156,39 +157,60 @@ module.exports = {
     },
     checkregister: function (req, res, next) {
         const result = req.body;
+        const failure = (text) => {
+            res.send({ success: false, url: "", description: text ? text : "" });
+        };
+        const success = () => {
+            res.send({ success: true, url: "/user", description: "" });
+        };
 
-        // fs.readFile("data-users.json", function (error, data) {
-        //     if (error) {
-        //         console.log(error);
-        //     } else {
-        //         connection.clientUpdate('users', JSON.parse(data));
-        //     }
-        // });
-
-        console.log(result.username, result.password);
+        res.type("application/json");
 
         if (result.username && result.password) {
             connection.clientSelect("users", { "username": result.username }, function (data) {
+                if (typeof data === "undefined") {
+                    connection.clientSelectLastone("users", { "_id": -1 }, function (data) {
+                        if (data) {
+                            let count = parseInt(DeCompileString(data.userid)) + 1;
 
+                            fs.readFile(path.resolve(__dirname, "../../bin/data-users.json"), function (error, data) {
+                                if (error) {
+                                    console.log(error);
+                                    failure();
+                                } else {
+                                    let every = JSON.parse(data);
 
-                console.log(data);
-                res.type("application/json");
-                res.send({ success: true, url: "" });
+                                    every.userid = EnCompileString(count);
+                                    every.username = result.username;
+                                    every.password = EnCompileString(result.password);
 
-                // if (result.username === data.username && result.password === DeCompileString(data.password)) {
-                //     res.cookie("express", { "userid": data.userid, "name": data.username }, {
-                //         path: "/",
-                //         maxAge: 3600000,
-                //         signed: true
-                //     });
-                //     res.send({ success: true, url: "/user" });
-                // } else {
-                //     res.send({ success: false, url: "" });
-                // }
+                                    connection.clientInsert('users', every, function (data) {
+                                        console.log(data.ok);
+
+                                        if (data.ok) {
+                                            res.cookie("express", { "userid": every.userid, "name": every.username }, {
+                                                path: "/",
+                                                maxAge: 3600000,
+                                                signed: true
+                                            });
+
+                                            success();
+                                        } else {
+                                            failure();
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            failure();
+                        }
+                    });
+                } else {
+                    failure("用户名已存在，请更换名称后再试~");
+                }
             });
         } else {
-            res.type("application/json");
-            res.send({ success: false, url: "" });
+            failure("缺少用户名或密码，请重新再试~");
         }
     },
     getHomeData: function (req, res, next) {

@@ -2,6 +2,7 @@
 
 * 实现方式：nodejs + express + swig + mongodb
 * 运行地址：http://localhost:3008
+* mongodb：https://www.npmjs.com/package/mongodb
 
 ## 目录结构说明：
 
@@ -9,7 +10,7 @@
 *   --updata-to-mongodb.js数据存到Mongodb的入口文件
 *   --server.js站点启动文件
 
-### `二、webpack目录为使用webpack打包的站点资源目录 - shell命令：npm install webpack -g`
+### `二、pack目录为站点资源目录`
 
 帮助文档 -- https://github.com/ruanyf/webpack-demos/blob/master/README.md
 

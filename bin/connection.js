@@ -66,10 +66,40 @@ module.exports = {
             });
         });
     },
+    //查询数据
+    clientSelectLastone: function (name, match, back) {
+        let dbname = name;
+        let dbmatch = match;
+        let dbback = back;
+
+        let selectData = function (db, callback) {
+            let collection = db.collection(dbname); //连接表
+            console.log(dbmatch)
+            collection.find({}).sort(dbmatch).nextObject(function (err, result) {
+                // console.log(result);
+                if (err) {
+                    console.log(err);
+                } else {
+                    callback(result);
+                }
+            });
+        };
+
+        MongoClient.connect(DB_CONN_STR, function (err, db) { //连接数据库
+            selectData(db, function (result) {
+                if (dbback) {
+                    dbback(result);
+                }
+                db.close();
+                console.log("mongodb table - " + dbname + " - query success！");
+            });
+        });
+    },
     //插入数据
-    clientInsert: function (name, data) {
+    clientInsert: function (name, data, back) {
         let dbname = name;
         let dbdata = data;
+        let dbback = back;
 
         let insertData = function (db, callback) {
             let collection = db.collection(dbname); //连接表
@@ -84,6 +114,9 @@ module.exports = {
 
         MongoClient.connect(DB_CONN_STR, function (err, db) { //连接数据库
             insertData(db, function (result) {
+                if (dbback) {
+                    dbback(result);
+                }
                 db.close();
                 console.log("mongodb table - " + dbname + " - insert success！");
             });
