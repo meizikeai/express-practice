@@ -167,79 +167,37 @@ module.exports = {
             res.send({ success: true, url: "/user", description: "" });
         };
 
-        console.log(result.username, result.password);
-
         res.type("application/json");
 
         if (result.username && result.password) {
-
-            // console.log(User);
-
-            console.log(22222)
-            // success();
-            var user = new User({
+            let updataUser = new User({
                 loginname: result.username,
-                password: result.password,
+                password: "",
                 username: "",
                 identity: "",
                 phone: "",
-                email: "",
-                salt: ""
+                email: ""
             });
 
-            console.log(33333)
+            updataUser.pin = result.password;
 
-            console.log(user);
+            updataUser.save(function (err, doc) {
+                if (err) {
+                    if (err.code == '11000') {
+                        return failure("用户名已存在，请更换后再试");
+                    } else {
+                        return failure(err);
+                    }
+                } else {
+                    res.cookie("express", { "userid": updataUser._id, "name": updataUser.loginname }, {
+                        path: "/",
+                        maxAge: 3600000,
+                        signed: true
+                    });
 
-            user.password = "123456";
-
-            user.save(function (err, doc) {
-                console.log(doc)
-                success();
+                    success();
+                }
             });
-
-            // connection.clientSelect("users", { "username": result.username }, function (data) {
-            //     if (typeof data === "undefined") {
-            //         connection.clientSelectLastone("users", { "_id": -1 }, function (data) {
-            //             if (data) {
-            //                 let count = parseInt(DeCompileString(data.userid)) + 1;
-
-            //                 fs.readFile(path.resolve(__dirname, "../../bin/data-users.json"), function (error, data) {
-            //                     if (error) {
-            //                         console.log(error);
-            //                         failure();
-            //                     } else {
-            //                         let every = JSON.parse(data);
-
-            //                         every.userid = EnCompileString(count);
-            //                         every.username = result.username;
-            //                         every.password = EnCompileString(result.password);
-
-            //                         connection.clientInsert('users', every, function (data) {
-            //                             console.log(data.ok);
-
-            //                             if (data.ok) {
-            //                                 res.cookie("express", { "userid": every.userid, "name": every.username }, {
-            //                                     path: "/",
-            //                                     maxAge: 3600000,
-            //                                     signed: true
-            //                                 });
-
-            //                                 success();
-            //                             } else {
-            //                                 failure();
-            //                             }
-            //                         });
-            //                     }
-            //                 });
-            //             } else {
-            //                 failure("操作失败~");
-            //             }
-            //         });
-            //     } else {
-            //         failure("用户名已存在，请更换名称后再试~");
-            //     }
-            // });
         } else {
             failure("缺少用户名或密码，请重新再试~");
         }
