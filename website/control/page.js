@@ -1,7 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 const swig = require("swig");
+const mongoose = require("mongoose");
 const connection = require("../../bin/connection");
+
+var User = mongoose.model('User');
 
 let CreateTemplate = function (where, filename, data) {
     let template = null;
@@ -164,51 +167,79 @@ module.exports = {
             res.send({ success: true, url: "/user", description: "" });
         };
 
+        console.log(result.username, result.password);
+
         res.type("application/json");
 
         if (result.username && result.password) {
-            connection.clientSelect("users", { "username": result.username }, function (data) {
-                if (typeof data === "undefined") {
-                    connection.clientSelectLastone("users", { "_id": -1 }, function (data) {
-                        if (data) {
-                            let count = parseInt(DeCompileString(data.userid)) + 1;
 
-                            fs.readFile(path.resolve(__dirname, "../../bin/data-users.json"), function (error, data) {
-                                if (error) {
-                                    console.log(error);
-                                    failure();
-                                } else {
-                                    let every = JSON.parse(data);
+            // console.log(User);
 
-                                    every.userid = EnCompileString(count);
-                                    every.username = result.username;
-                                    every.password = EnCompileString(result.password);
-
-                                    connection.clientInsert('users', every, function (data) {
-                                        console.log(data.ok);
-
-                                        if (data.ok) {
-                                            res.cookie("express", { "userid": every.userid, "name": every.username }, {
-                                                path: "/",
-                                                maxAge: 3600000,
-                                                signed: true
-                                            });
-
-                                            success();
-                                        } else {
-                                            failure();
-                                        }
-                                    });
-                                }
-                            });
-                        } else {
-                            failure();
-                        }
-                    });
-                } else {
-                    failure("用户名已存在，请更换名称后再试~");
-                }
+            console.log(22222)
+            // success();
+            var user = new User({
+                loginname: result.username,
+                password: result.password,
+                username: "",
+                identity: "",
+                phone: "",
+                email: "",
+                salt: ""
             });
+
+            console.log(33333)
+
+            console.log(user);
+
+            user.password = "123456";
+
+            user.save(function (err, doc) {
+                console.log(doc)
+                success();
+            });
+
+            // connection.clientSelect("users", { "username": result.username }, function (data) {
+            //     if (typeof data === "undefined") {
+            //         connection.clientSelectLastone("users", { "_id": -1 }, function (data) {
+            //             if (data) {
+            //                 let count = parseInt(DeCompileString(data.userid)) + 1;
+
+            //                 fs.readFile(path.resolve(__dirname, "../../bin/data-users.json"), function (error, data) {
+            //                     if (error) {
+            //                         console.log(error);
+            //                         failure();
+            //                     } else {
+            //                         let every = JSON.parse(data);
+
+            //                         every.userid = EnCompileString(count);
+            //                         every.username = result.username;
+            //                         every.password = EnCompileString(result.password);
+
+            //                         connection.clientInsert('users', every, function (data) {
+            //                             console.log(data.ok);
+
+            //                             if (data.ok) {
+            //                                 res.cookie("express", { "userid": every.userid, "name": every.username }, {
+            //                                     path: "/",
+            //                                     maxAge: 3600000,
+            //                                     signed: true
+            //                                 });
+
+            //                                 success();
+            //                             } else {
+            //                                 failure();
+            //                             }
+            //                         });
+            //                     }
+            //                 });
+            //             } else {
+            //                 failure("操作失败~");
+            //             }
+            //         });
+            //     } else {
+            //         failure("用户名已存在，请更换名称后再试~");
+            //     }
+            // });
         } else {
             failure("缺少用户名或密码，请重新再试~");
         }

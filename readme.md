@@ -6,11 +6,11 @@
 
 ## 目录结构说明：
 
-### `一、bin目录为node站点入口目录，具体见package.json`
+### `bin目录为node站点入口目录，具体见package.json`
 *   --updata-to-mongodb.js数据存到Mongodb的入口文件
 *   --server.js站点启动文件
 
-### `二、pack目录为站点资源目录`
+### `pack目录为站点资源目录`
 
 帮助文档 -- https://github.com/ruanyf/webpack-demos/blob/master/README.md
 
@@ -22,11 +22,11 @@
 *   -- webpack --profile 输出性能数据，可以看到每一步的耗时
 *   -- webpack --display-modules 默认情况下 node_modules 下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块
 
-### `三、public目录为静态文件目录，如样式、图片、脚本`
+### `public目录为静态文件目录，如样式、图片、脚本`
 
-### `四、website目录为站点相关文件`
+### `website目录为站点相关文件`
 
-### `六、views目录为模块目录`
+### `views目录为模块目录`
 
 -------------------------------------------------------------------
 
@@ -41,31 +41,31 @@
 
 ## NodeJS常用模块：
 
-### `1、前端模板`
+### `前端模板`
 
 * -- EJS  - http://www.embeddedjs.com/
 * -- Jade - http://jade-lang.com/
 * -- handlebarsjs - http://handlebarsjs.com/installation.html
 * -- swig - https://www.npmjs.com/package/swig 、https://github.com/node-swig/swig-templates - 已不推荐
 
-### `2、数据库驱动`
+### `数据库驱动`
 
 * -- Mongoose - http://mongoosejs.com/
 *    - Mongoose是MongoDB的对象模型工具，通过Mongoose框架，可以进行非常方便的访问MongoDB的操作。
 * -- mongodb - https://www.npmjs.com/package/mongodb
 *    - 功能相对较少，比较底层一些，其实Mongoose就是基于它构建的
 
-### `3、Web Socket`
+### `Web Socket`
 
 * -- Socket.IO  - http://socket.io/
                 - Socket.IO则Socket模块的不二选择，可以用于构建聊天室、客服系统等。
 
-### `4、日志管理 `
+### `日志 `
 
-* -- Log4js  - https://www.npmjs.com/package/log4js
-* -- winston - https://github.com/winstonjs/winston
+* -- morgan  - https://github.com/expressjs/morgan
 
-### `5、异步流程控制`
+
+### `异步流程控制`
 
 * -- Async - https://www.npmjs.org/package/async
 *    - NodeJS中大量的异步callback嵌套估计让很多人头疼，尤其是多个异步函数要求一定的调用顺序时更是让代码失控，Async可以非常好的解决这些问题，它可以使异步流程同步化。
@@ -74,7 +74,7 @@
 * -- promise - http://javascript.ruanyifeng.com/advanced/promise.html
 *    - 建议直接使用ES6提供的Promise方法
   
-### `6、进程守护`
+### `进程守护`
 
 * -- supervisor - https://www.npmjs.com/package/supervisor
 *    -w | --watch          //要监控的文件夹或js文件，默认为'.'
@@ -99,7 +99,7 @@
 *    - forever可以看做是一个nodejs的守护进程，能够启动，停止，重启我们的app应用，运行稳定，支持高并发，启动/停止命令简单，支持热部署，宕机重启，监控界面和日志，集群环境。
 * -- nodemon    - http://nodemon.io/
 
-### `7、定时任务`
+### `定时任务`
 
 * -- Cron  - https://www.npmjs.com/package/cron
 *    - cron是一个小巧的定时任务管理模块，可以满足我们绝大部分需求，它支持标准的cron patterns,熟悉linux cron tab的语法就可以很容易上手。
@@ -107,8 +107,12 @@
 *    - 另外一个名气比较大且功能比较强大的定时模块是Later，对于功能要求比较高的可用用它，later的缺点是有点复杂，不像cron只要拿来就会用了。
 * -- crontab
 
-### `8、单元测试`
+### `单元测试`
 
 * -- Mocha   - https://www.npmjs.org/package/mocha
 * -- Karma   - https://www.npmjs.org/package/karma
 * -- Jasmine - https://www.npmjs.org/package/jasmine
+
+
+### `cookie`
+* -- cookie-parser - https://github.com/expressjs/cookie-parser

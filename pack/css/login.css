@@ -11,9 +11,8 @@ html, body {
 .login .field {
     display: flex;
     -webkit-box-align: center;
-    -webkit-align-items: center;
     border-bottom: 1px solid #ddd;
-    padding: .373333rem .266667rem;
+    padding: .37rem .26rem;
     color: #6c6c6c;
     background-color: #fff;
     text-align: left;
@@ -50,7 +49,7 @@ html, body {
     height: 1.2rem;
     line-height: 1.2rem;
     border: 1px solid #f50;
-    border-radius: 5px;
+    border-radius: 3px;
     color: #fff;
     background-color: #f50;
     text-align: center;
