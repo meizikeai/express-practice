@@ -1,23 +1,23 @@
 {% extends '../system/layout.html' %}
 
-{% block title %}
+{% block title -%}
     <title>{{ title }} - Test failed</title>
-{% endblock %}
+{%- endblock %}
 
-{% block style %}
+{% block style -%}
     <link rel="stylesheet" href="../build/login.css" />
-{% endblock %}
+{%- endblock %}
 
-{% block header %}
+{% block header -%}
 {% include '../system/header.html' ignore missing %}
-{% endblock %}
+{%- endblock %}
 
-{% block content %}
+{% block content -%}
 {% autoescape false %}{{ data }}{% endautoescape %}
-{% endblock %}
+{%- endblock %}
 
-{% block footer %}{% endblock %}
+{% block footer -%}{%- endblock %}
 
-{% block script %}
+{% block script -%}
     <script type="text/javascript" src="../build/login.js"></script>
-{% endblock %}
+{%- endblock %}

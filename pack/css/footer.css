@@ -1,0 +1,104 @@
+.app-footer {
+    width: 100%;
+}
+
+.app-footer .footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0px;
+    z-index: 100;
+}
+
+.app-footer .hold {
+    width: 100%;
+    min-height: 1.28rem;
+    background: transparent;
+}
+
+.app-footer a {
+    text-decoration: none
+}
+
+.app-footer .container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 3px 0 rgba(155, 143, 143, .3);
+    background-color: #fff
+}
+
+.app-footer .container ul {
+    height: 100%;
+    position: relative;
+    background-color: #fff;
+}
+
+.app-footer .container ul li {
+    float: left;
+    width: 20%;
+    padding: .1rem 0;
+    text-align: center;
+    position: relative
+}
+
+.app-footer .container ul a {
+    display: block;
+    color: #666
+}
+
+.app-footer .container ul span {
+    display: block
+}
+
+.app-footer .container ul a i {
+    display: block;
+    width: .5rem;
+    height: .5rem;
+    margin: 0 auto .08rem;
+}
+
+.app-footer .container ul a.home i {
+    width: .56rem;
+    background: url(/picture/bar-default-home.png) 0 0/100% no-repeat;
+}
+
+.app-footer .container ul a.sale i {
+    background: url(/picture/bar-default-sale.png) 0 0/100% no-repeat;
+}
+
+.app-footer .container ul a.category i {
+    background: url(/picture/bar-default-class.png) 0 0/100% no-repeat;
+}
+
+.app-footer .container ul a.cart i {
+    width: .55rem;
+    background: url(/picture/bar-default-cart.png) 0 0/100% no-repeat;
+}
+
+.app-footer .container ul a.user i {
+    background: url(/picture/bar-default-my.png) 0 0/100% no-repeat;
+}
+
+.app-footer .container ul a.cursor {
+    color: #f50;
+}
+
+.app-footer .container ul a.cursor.home i {
+    background-image: url(/picture/bar-hover-home.png)
+}
+
+.app-footer .container ul a.cursor.sale i {
+    background-image: url(/picture/bar-hover-sale.png)
+}
+
+.app-footer .container ul a.cursor.category i {
+    background-image: url(/picture/bar-hover-class.png)
+}
+
+.app-footer .container ul a.cursor.cart i {
+    background-image: url(/picture/bar-hover-cart.png)
+}
+
+.app-footer .container ul a.cursor.user i {
+    background-image: url(/picture/bar-hover-my.png)
+}

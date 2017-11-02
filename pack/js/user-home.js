@@ -1,6 +1,7 @@
-﻿const common = require("../unit/common")();
-const header = require("../unit/header")();
-const alert = require("../unit/alert")();
+﻿const reset = require("../unit/reset");
+const header = require("../unit/header");
+const footer = require("../unit/footer");
+const alert = require("../unit/alert");
 const style = require("../css/user-home.css");
 
 $(function () {

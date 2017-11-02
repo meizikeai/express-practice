@@ -64,16 +64,13 @@ app.use(session({
     saveUninitialized: true,
     name: "express",
     cookie: {
-        // path: "/",
-        // signed: true,
-        // maxAge: 1000 * 60 * 30 // half an hour
+        path: "/",
+        signed: true,
+        maxAge: 1000 * 60 * 1 // 有效时间
     },
     store: new mongoStore({
         url: config.db,
-        collection: "sessions",
-        defaultExpirationTime: 60 * 60 * 1000
-        // autoRemove: 'interval',
-        // autoRemoveInterval: 10 // In minutes. Default
+        collection: "sessions"
     })
 }));
 app.use(express.static(path.join(__dirname, 'public')));

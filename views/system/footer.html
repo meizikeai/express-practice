@@ -1,4 +1,23 @@
-    <div class="contact">
-        <p>客服电话：<a href="tel:4001191111">400-119-1111</a>（8:00-24:00）</p>
-        <p>浙ICP备10200233号</p>
+    {%- set footer = [
+        { path: "/", class: "home", name: "首页" },
+        { path: "/sale", class: "sale", name: "抢先" },
+        { path: "/category", class: "category", name: "分类" },
+        { path: "/cart", class: "cart", name: "购物车" },
+        { path: "/user", class: "user", name: "我的" }
+    ] -%}
+    <div class="app-footer">
+        <div class="hold"></div>
+        <div class="footer">
+            <div class="container">
+                <ul class="mian">
+                    {% for item in footer -%}
+                    <li>
+                        <a href={{item.path}} class={{item.class}}>
+                            <i></i><span>{{item.name}}</span>
+                        </a>
+                    </li>
+                    {%- endfor %}
+                </ul>
+            </div>
+        </div>
     </div>

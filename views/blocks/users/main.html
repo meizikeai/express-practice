@@ -1,6 +1,6 @@
- {% set info = content.info %}
- {% set entry = content.entry %}
- {% set other = content.other %}
+ {%- set info = content.info -%}
+ {%- set entry = content.entry -%}
+ {%- set other = content.other -%}
 <div class="app-user">
     <header class="user">
         <div class="state">
@@ -41,9 +41,9 @@
             <li>
                 <a href="/user/order">
                     <p class="icons pay">
-                        {% if info.order2Pay %}
+                        {% if info.order2Pay -%}
                         <i class="number">info.order2Pay</i>
-                        {% endif %}
+                        {%- endif %}
                     </p>
                     <p class="sub">待付款</p>
                 </a>
@@ -51,9 +51,9 @@
             <li>
                 <a href="/user/order">
                     <p class="icons send">
-                        {% if info.order2Deliver %}
+                        {% if info.order2Deliver -%}
                         <i class="number">info.order2Deliver</i>
-                        {% endif %}
+                        {%- endif %}
                     </p>
                     <p class="sub">待发货</p>
                 </a>
@@ -61,9 +61,9 @@
             <li>
                 <a href="/user/order">
                     <p class="icons deliver">
-                        {% if info.order2Receive %}
+                        {% if info.order2Receive -%}
                         <i class="number">info.order2Receive</i>
-                        {% endif %}
+                        {%- endif %}
                     </p>
                     <p class="sub">待收货</p>
                 </a>
@@ -71,9 +71,9 @@
             <li>
                 <a href="/user/order">
                     <p class="icons evaluate">
-                        {% if info.order2Rate %}
+                        {% if info.order2Rate -%}
                         <i class="number">info.order2Rate</i>
-                        {% endif %}
+                        {%- endif %}
                     </p>
                     <p class="sub">待评价</p>
                 </a>
@@ -91,7 +91,7 @@
         </div>
     </section>
     <section class="core-entry">
-        {% for every in entry %}
+        {% for every in entry -%}
         <div class="label-act">
             <a href="{{every.url}}">
                 <div class="ico">
@@ -104,10 +104,10 @@
                 <div class="sub">{{every.text}}</div>
             </a>
         </div>
-        {% endfor %}
+        {%- endfor %}
     </section>
     <section class="core-entry">
-        {% for every in other %}
+        {% for every in other -%}
         <div class="label-act">
             <a href="{{every.url}}">
                 <div class="ico">
@@ -120,7 +120,7 @@
                 <div class="sub">{{every.text}}</div>
             </a>
         </div>
-        {% endfor %}
+        {%- endfor %}
     </section>
     <footer class="other">
         <div class="nick">

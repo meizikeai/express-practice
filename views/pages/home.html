@@ -1,14 +1,14 @@
 {% extends '../system/layout.html' %}
 
-{% block title %}
+{% block title -%}
     <title>{{ title }} - Test failed</title>
-{% endblock %}
+{%- endblock %}
 
-{% block style %}
+{% block style -%}
     <link rel="stylesheet" href="../build/home.css" />
-{% endblock %}
+{%- endblock %}
 
-{% block header %}
+{% block header -%}
     <div class="index">
         <div class="head">
             <div class="logo"></div>
@@ -26,19 +26,19 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{%- endblock %}
 
-{% block content %}
+{% block content -%}
     <div class="main" style="padding-top:55px">
-        {% autoescape false %}{{ data }}{% endautoescape %}
+        {% autoescape false -%}{{ data }}{%- endautoescape %}
     </div>
     <div id="J-GoTop"><span></span></div>
-{% endblock %}
+{%- endblock %}
 
-{% block footer %}
+{% block footer -%}
 {% include '../system/footer.html' ignore missing %}
-{% endblock %}
+{%- endblock %}
 
-{% block script %}
+{% block script -%}
     <script type="text/javascript" src="../build/home.js"></script>
-{% endblock %}
+{%- endblock %}

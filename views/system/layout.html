@@ -2,32 +2,30 @@
 <html>
 <head>
     <meta charset="utf-8">
-    {% block title %} {% endblock %}
+    {% block title -%} {%- endblock %}
     <meta name="keywords" content="express practice - Test failed" />
     <meta name="description" content="" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="manifest" href="./manifest.json">
-    <link rel="stylesheet" href="../build/reset.css">
-    {% block style %} {% endblock %}
+    {% block style -%} {%- endblock %}
 </head>
 <body>
 
 <div id="hd">
-    {% block header %} {% endblock %}
+    {% block header -%} {%- endblock %}
 </div>
 
 <div id="bd">
-    {% block content %} {% endblock %}
+    {% block content -%} {%- endblock %}
 </div>
 
 <div id="ft">
-    {% block footer %} {% endblock %}
+    {% block footer -%} {%- endblock %}
 </div>
 
 <div id="api">
-    <script type="text/javascript" src="../build/reset.js"></script>
     <script type="text/javascript" src="../build/zepto.js"></script>
-    {% block script %} {% endblock %}
+    {% block script -%} {%- endblock %}
 </div>
 
 </body>

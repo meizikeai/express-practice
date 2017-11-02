@@ -39,25 +39,29 @@ module.exports = {
         if (result.username && result.password) {
             User.findOne({ loginname: result.username }, function (error, data) {
                 if (error) {
-                    res.send({ success: false, url: "", description: error });
+                    return res.send({ success: false, url: "", description: error });
+                }
+
+                if (!data) {
+                    return res.send({ success: false, url: "", description: "无此用户~" });
+                }
+
+                if (data.authenticate(result.password)) {
+
+                    req.session.express = {
+                        cid: data._id,
+                        name: data.loginname
+                    };
+
+                    res.cookie("practice", { cid: data._id, name: data.loginname }, {
+                        path: "/",
+                        maxAge: 3600000,
+                        signed: false
+                    });
+
+                    res.send({ success: true, url: "/user", description: "" });
                 } else {
-                    if (data.authenticate(result.password)) {
-
-                        req.session.express = {
-                            cid: data._id,
-                            name: data.loginname
-                        };
-
-                        res.cookie("practice", { cid: data._id, name: data.loginname }, {
-                            path: "/",
-                            maxAge: 3600000,
-                            signed: false
-                        });
-
-                        res.send({ success: true, url: "/user", description: "" });
-                    } else {
-                        res.send({ success: false, url: "", description: "" });
-                    }
+                    res.send({ success: false, url: "", description: "" });
                 }
             });
         } else {
@@ -159,10 +163,15 @@ module.exports = {
                             return failure(err);
                         }
 
-                        res.cookie("express", { "userid": updataUser._id, "name": updataUser.loginname }, {
+                        req.session.express = {
+                            cid: updataUser._id,
+                            name: updataUser.loginname
+                        };
+
+                        res.cookie("practice", { cid: updataUser._id, name: updataUser.loginname }, {
                             path: "/",
                             maxAge: 3600000,
-                            signed: true
+                            signed: false
                         });
 
                         success();

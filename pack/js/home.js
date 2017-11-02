@@ -1,4 +1,5 @@
-﻿var header = require("../unit/header")();
+﻿const reset = require("../unit/reset");
+var header = require("../unit/header");
 var lazyload = require("../unit/lazyload").lazyload();
 var swipe = require("../unit/swipe");
 var style = require("../css/home.css");
@@ -77,6 +78,37 @@ $(function () {
                     }
                 });
             }
+
+            //搜索框
+            var txtKeyword = $("#txtKeyword"),
+                search = $("#search");
+            txtKeyword.click(function () {
+                txtKeyword.val("");
+            });
+            txtKeyword.keydown(function (e) {
+                var keyCode = e.keyCode,
+                    text = txtKeyword.val().trim();
+                if (keyCode == 13) {
+                    if (text && text != '搜索商品or品牌') {
+                        self.search(text);
+                    }
+                }
+            });
+            search.click(function () {
+                var text = txtKeyword.val().trim();
+                if (text && text != '搜索商品or品牌') {
+                    self.search(text);
+                }
+            });
+            txtKeyword.focus(function () {
+                txtKeyword.css("color", "#333");
+            });
+            txtKeyword.blur(function () {
+                if (txtKeyword.val() === "") {
+                    txtKeyword.val("搜索商品or品牌");
+                    txtKeyword.css("color", "#cacaca");
+                }
+            });
 
             //各种点击事件处理
             ($("#J-ViewPort")).delegate('.Msg_GetPromotionTicket,.Msg_FavoriteProduct,.Msg_AddToShopCart,.Msg_BuyNowGeniral,.Msg_BuyNowSecKill', E_click, function (e) {
@@ -170,6 +202,25 @@ $(function () {
                 };
                 curNode.time = setInterval(renderTime[i], 1000);
             }
+        },
+        /**
+         * 搜索
+         * @method search
+         * @param keyword {String} 搜索内容
+         * @return null
+         */
+        search: function (keyword) {
+            var self = this,
+                repex = /.{2}-.{3}-.{4}$/g,
+                links = '';
+
+            if (keyword.length == 11 && repex.test(keyword)) {
+                links = "/product?id=";
+            } else {
+                links = "/search?keyword=";
+            }
+
+            location.href = links + keyword;
         },
         /**
         * 轮播模块事件绑定
