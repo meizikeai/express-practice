@@ -49,26 +49,33 @@ userSchema.methods = {
 };
 
 userSchema.statics = {
-    list: (options, cb) => {
+    load: function (userId, cb) {
         let self = this;
-        let opt = options || {};
-        let criteria = opt.criteria || {};
-        let select = opt.select;
-        let sort = opt.sort || { createDate: -1 };
-        let skip = opt.skip || 0;
-        let limit = opt.limit || 10;
-
-        self.count(criteria, (err, count) => {
-            self.find(criteria)
-                .select(select)
-                .sort(sort)
-                .skip(skip)
-                .limit(limit)
-                .exec((err, docs) => {
-                    cb(err, docs, count);
-                });
-        });
+        self.findOne({ userId: userId }).exec(cb);
     },
+    save: function (userId, page, cb) {
+        let self = this;
+
+        if (!page) {
+            return cb('no page');
+        }
+
+        if (page.hasOwnProperty('__v')) {
+            delete page.__v;
+        }
+
+        self.findOne({ userId: userId, pageId: page._id }).exec(function (err, view) {
+            if (err) {
+                return cb(err);
+            }
+
+            if (view) {
+                view.data = page;
+                view.updateDate = new Date();
+                view.save(cb);
+            }
+        });
+    }
 };
 
 mongoose.model('User', userSchema);

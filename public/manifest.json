@@ -1,15 +1,16 @@
 {
-    "short_name": "My Test",
-    "name": "Have a dream. A big dream！",
+    "name": "Have a dream, a big dream!",
+    "short_name": "Express Practice",
+    "start_url": "./index.html",
+    "theme_color": "#000000",
+    "background_color": "transparent",
+    "orientation": "portrait",
+    "display": "standalone",
     "icons": [
         {
-            "src": "favicon.ico",
-            "sizes": "128x128",
+            "src": "favicon.png",
+            "sizes": "256x256",
             "type": "image/png"
         }
-    ],
-    "start_url": "./index.html",
-    "display": "standalone",
-    "theme_color": "#000000",
-    "background_color": "transparent"
+    ]
 }

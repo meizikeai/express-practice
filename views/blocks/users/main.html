@@ -1,131 +1,140 @@
-    {% set user = content.user %}
-    {% set info = content.info %}
-    <div class="user-info">
-        <div class="user-avatar ">
-            <span><img src="./picture/avatar.jpg" alt="头像"></span>
+ {% set info = content.info %}
+ {% set entry = content.entry %}
+ {% set other = content.other %}
+<div class="app-user">
+    <header class="user">
+        <div class="state">
+            <p>设置</p>
         </div>
-        <p class="user-name">{{ user.name }}</p> 
-        <p class="user-level">{{ user.class }}</p>
-    </div>
-
-    <div class="user-money">
-        <a class="jifen" href="/">
-            <strong>{{ user.point }}</strong>
-            <span>积分</span>
-        </a>
-        <a class="yinyuan" href="/">
-            <strong>{{ user.coin.toFixed(2) }}</strong>
-            <span>银元</span>
-        </a>
-        <a class="yue" href="/">
-            <strong>{{ user.money.toFixed(2) }}</strong>
-            <span>余额</span>
-        </a>
-        <a class="ka" href="/">
-            <strong>{{ user.ytcard.toFixed(2) }}</strong>
-            <span>银泰卡</span>
-        </a>
-    </div>
-
-    <div class="user-order">
-        <a class="order" href="/user/order">
-            <span>全部订单{% if info.onroadcount > 0 %}<em>{{ info.onroadcount }}</em>{% endif %}</span>
-        </a>
-        <a class="pay" href="/user/order/pay">
-            <span>待付款{% if info.needpaycount > 0 %}<em>{{ info.needpaycount }}</em>{% endif %}</span>
-        </a>
-        <a class="send" href="/user/order/send">
-            <span>待收货{% if info.addresscount > 0 %}<em>{{ info.addresscount }}</em>{% endif %}</span>
-        </a>
-        <a class="evaluate" href="/user/order/evaluate">
-             <span>待评价{% if info.waybillcount > 0 %}<em>{{ info.waybillcount }}</em>{% endif %}</span>
-        </a>
-    </div>
-
-    <div class="user-common">
-        <a class="coupon" href="/user/coupon">
-            <strong>优惠券</strong>
-            <div class="count">
-                <span class="pink">{{ info.promotioncount }}</span>
-            </div>
-            <em></em>
-        </a>
-        <div class="hr"></div>
-
-        <a class="phone" href="/user/phone">
-            <strong>手机号</strong>
-            <div class="count">
-                <span class="pink">{{ user.cellphoneconfusion }}</span>
-            </div>
-            <em></em>
-        </a>
-        <div class="hr"></div>
-
-        {% if info.setpaypassword %}
-        <a class="password" href="/user/password">
-            <strong>支付密码</strong>
-            <div class="count">
-                <span class="pink"></span>
-            </div>
-            <em></em>
-        </a>
-        <div class="hr"></div>
-        {% endif %}
-
-        <a class="address" href="/user/address">
-            <strong>地址管理</strong>
-            <em></em>
-        </a>
-    </div>
-    
-    <div class="user-common">
-        <a class="shoucang" href="/user/collection">
-            <strong>我的收藏</strong>
-            <span class="pink"></span>
-            <em></em>
-        </a>
-        <div class="hr"></div>
-        <a class="jilu" href="/user/browse">
-            <strong>浏览记录</strong>
-            <span class="pink"></span>
-            <em></em>
-        </a>
-    </div>
-
-    <div class="user-common">
-        <a class="info-center" href="/user/message">
-            <strong>消息中心</strong>
-            <div class="count">
-                <span class="pink">{{ info.msgcount }}</span>
-            </div>
-            <em></em>
-        </a>
-        <div class="hr"></div>
-
-        <a class="info-tel" href="tel:4001191111">
-            <strong>客服电话</strong>
-            <span class="count">
-                <i class="pink">400-119-1111</i>(8:00-24:00)
-            </span>
-            <em></em>
-        </a>
-    </div>
-    
-    <div class="user-common">
-        <a class="help" href="/help">
-            <strong>帮助中心</strong>
-            <em></em>
-        </a>
-    </div>
-
-    <div class="user-common">
-        <a class="download" href="/download">
-            <strong>下载客户端</strong>
-            <span class="pink"></span>
-            <em></em>
-        </a>
-    </div>
-
-    <div class="user-logout">
-        <div id="logout">退出账户</div>
-    </div>
+        <div class="photo">
+            <img src="{{info.userLogo}}" alt="头像">
+        </div>
+        <div class="nick">
+            <p class="name">dream</p>
+            <p class="level level4"></p>
+        </div>
+    </header>
+    <section class="behavior">
+        <ul>
+            <li>
+                <a href="/user/product">
+                    <p>{{info.favoriteProduct}}</p>
+                    <p>收藏的宝贝</p>
+                </a>
+            </li>
+            <li>
+                <a href="/user/shop">
+                    <p>{{info.favoriteShop}}</p>
+                    <p>收藏的店铺</p>
+                </a>
+            </li>
+            <li>
+                <a href="/user/foot">
+                    <p>{{info.footPrints}}</p>
+                    <p>我的足迹</p>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <section class="order">
+        <ul>
+            <li>
+                <a href="/user/order">
+                    <p class="icons pay">
+                        {% if info.order2Pay %}
+                        <i class="number">info.order2Pay</i>
+                        {% endif %}
+                    </p>
+                    <p class="sub">待付款</p>
+                </a>
+            </li>
+            <li>
+                <a href="/user/order">
+                    <p class="icons send">
+                        {% if info.order2Deliver %}
+                        <i class="number">info.order2Deliver</i>
+                        {% endif %}
+                    </p>
+                    <p class="sub">待发货</p>
+                </a>
+            </li>
+            <li>
+                <a href="/user/order">
+                    <p class="icons deliver">
+                        {% if info.order2Receive %}
+                        <i class="number">info.order2Receive</i>
+                        {% endif %}
+                    </p>
+                    <p class="sub">待收货</p>
+                </a>
+            </li>
+            <li>
+                <a href="/user/order">
+                    <p class="icons evaluate">
+                        {% if info.order2Rate %}
+                        <i class="number">info.order2Rate</i>
+                        {% endif %}
+                    </p>
+                    <p class="sub">待评价</p>
+                </a>
+            </li>
+        </ul>
+        <div class="label-act">
+            <a href="/user/order">
+                <div class="ico all"></div>
+                <div class="title">
+                    <p>全部订单</p>
+                </div>
+                <div class="arrow"></div>
+                <div class="sub">查看全部订单</div>
+            </a>
+        </div>
+    </section>
+    <section class="core-entry">
+        {% for every in entry %}
+        <div class="label-act">
+            <a href="{{every.url}}">
+                <div class="ico">
+                    <img src="{{every.img}}" alt="{{every.name}}">
+                </div>
+                <div class="title">
+                    <p>{{every.name}}</p>
+                </div>
+                <div class="arrow"></div>
+                <div class="sub">{{every.text}}</div>
+            </a>
+        </div>
+        {% endfor %}
+    </section>
+    <section class="core-entry">
+        {% for every in other %}
+        <div class="label-act">
+            <a href="{{every.url}}">
+                <div class="ico">
+                    <img src="{{every.img}}" alt="{{every.name}}">
+                </div>
+                <div class="title">
+                    <p>{{every.name}}</p>
+                </div>
+                <div class="arrow"></div>
+                <div class="sub">{{every.text}}</div>
+            </a>
+        </div>
+        {% endfor %}
+    </section>
+    <footer class="other">
+        <div class="nick">
+            <a href="">dream</a>
+        </div>
+        <div class="login">
+            <a href="">退出</a>
+        </div>
+        <div class="feedback">
+            <a href="">意见反馈</a>
+        </div>
+        <div class="topc">
+            <a href="">电脑版</a>
+        </div>
+    </footer>
+    <div class="empty"></div>
+</div>

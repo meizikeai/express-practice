@@ -1,210 +1,244 @@
-﻿#bd {
-    background-color: #f1f1f1
-}
-
-.hr {
-    display: block;
-    height: 1px;
-    background-color: #d5d5d5;
-}
-
-.user-info {
-    background: url(/picture/user-banner.jpg) 0 0/100% 100% no-repeat;
+﻿.app-user {
     width: 100%;
-    position: relative
+    height: 100%;
+    background: #ededed;
 }
 
-.user-info .user-avatar {
+.app-user .user {
+    position: relative;
+    height: 3rem;
+    background: #d34201 url(/picture/user-banner.jpg) no-repeat top center;
+    background-size: cover;
+    color: #fff;
+}
+
+.app-user .user .state {
+    float: right;
+    margin: 0.2rem 0.2rem 0 0;
+}
+
+.app-user .user .state p {
     text-align: center;
-    padding: .3rem 0 .25rem
+    padding: 0.1rem 0.2rem;
+    border-radius: 0.5rem;
+    font-size: 12px;
+    background: rgba(0, 0, 0, .5);
 }
 
-.user-info .user-avatar span {
-    display: block;
-    margin: 0 auto;
-    padding: 1px;
-    width: 2rem;
-    height: 2rem;
-    overflow: hidden;
+.app-user .user .photo {
+    position: absolute;
+    bottom: -0.9rem;
+    left: 0.45rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    text-align: center;
     border-radius: 100%;
+    padding: 0.05rem;
     background: rgba(255, 255, 255, .7);
+    -webkit-transform: translateZ(1px);
+    transform: translateZ(1px);
+    overflow: hidden;
 }
 
-.user-info .user-avatar img {
+.app-user .user .photo img {
     width: 100%;
+    height: 100%;
     border-radius: 100%;
+}
+
+.app-user .user .nick {
+    float: left;
+    width: 100%;
+    padding-left: 2.5rem;
+    margin-top: 1.4rem;
+    font-size: 16px;
+}
+
+.app-user .behavior {
+    margin-bottom: 0.15rem;
+    border-bottom: 1px solid #e7e7e7;
+    background: #fff;
+}
+
+.app-user .behavior ul {
+    width: 100%;
+    padding: 0.15rem 0 0.15rem 2rem;
+    display: flex;
+}
+
+.app-user .behavior ul li {
+    flex: 1;
+    text-align: center;
+    border-left: 1px solid #e7e7e7;
+}
+
+.app-user .behavior ul li:first-child {
+    border: 0;
+}
+
+.app-user .behavior ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.app-user .order {
+    margin-bottom: 0.15rem;
+    border-bottom: 1px solid #e7e7e7;
+    background: #fff;
+}
+
+.app-user .order ul {
+    width: 100%;
+    padding: 0.15rem 0 0.15rem;
+    display: flex;
+}
+
+.app-user .order ul li {
+    flex: 1;
+    text-align: center;
+}
+
+.app-user .order ul li a {
+    display: block;
+    text-decoration: none;
+    color: #333;
+}
+
+.app-user .order ul li .icons {
+    width: 0.62rem;
+    height: 0.62rem;
+    margin: 0 auto;
+    position: relative;
+}
+
+.app-user .order ul li .pay {
+    background: url(/picture/pay.png) 0 0/0.62rem 0.62rem no-repeat;
+}
+
+.app-user .order ul li .send {
+    background: url(/picture/send.png) 0 0/0.62rem 0.62rem no-repeat;
+}
+
+.app-user .order ul li .deliver {
+    background: url(/picture/deliver.png) 0 0/0.62rem 0.62rem no-repeat;
+}
+
+.app-user .order ul li .evaluate {
+    background: url(/picture/evaluate.png) 0 0/0.62rem 0.62rem no-repeat;
+}
+
+.app-user .order ul li .sub {
+    padding-top: 0.1rem;
+}
+
+.app-user .order ul li .number {
+    position: absolute;
+    top: -0.15rem;
+    right: -0.22rem;
+    min-width: 0.2rem;
+    height: 0.2rem;
+    line-height: 0.2rem;
+    padding: 0.1rem;
+    border: 1px solid #ff5000;
+    border-radius: 0.5rem;
+    color: #ff5000;
+    font-weight: 700;
+    font-size: 10px;
+    background: #fff;
+    overflow: hidden;
+    opacity: 1;
+    font-style: normal;
+    transition: all .4s ease-out;
+}
+
+.app-user .core-entry {
+    border-bottom: 1px solid #e7e7e7;
+    margin-bottom: 0.15rem;
+    background-color: #fff;
+}
+
+.app-user .label-act {
+    padding: 0.18rem 0.2rem;
+    border-top: 1px solid #e7e7e7;
+    overflow: hidden;
+}
+
+.app-user .label-act a {
+    color: #333;
+    display: block;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.app-user .label-act .ico {
+    float: left;
+    width: 0.68rem;
+    height: 0.68rem;
+    margin-right: 0.15rem;
+}
+
+.app-user .label-act .ico img {
+    width: 100%;
     vertical-align: top;
 }
 
-.user-info .user-name {
-    text-align: center;
-    font-size: 14px;
-    color: #fff;
-    padding-bottom: .2rem;
+.app-user .label-act .all {
+    background: url(/picture/order.png) 0 0/0.68rem 0.68rem no-repeat;
 }
 
-.user-info .user-level {
-    position: absolute;
-    right: .3rem;
-    top: .3rem;
-    color: #f1f1f1;
-    font-size: 12px
+.app-user .label-act .title {
+    float: left;
+    height: 0.68rem;
+    line-height: 0.68rem;
+    margin-right: 0.15rem;
 }
 
-.user-money {
-    display: flex;
-    background-color: #fff;
-    margin-bottom: .25rem;
-    border-bottom: 1px solid #d5d5d5
+.app-user .label-act .title p {
+    height: 0.68rem;
+    line-height: 0.68rem;
 }
 
-.user-money a {
-    width: 25%;
-    flex: 1;
-    text-align: center;
-    text-decoration: none;
-    margin: 0.2rem 0px;
-}
-
-.user-money a strong {
-    display: block;
-    color: #333;
-    font-size: 14px;
-    font-weight: 500
-}
-
-.user-money a span {
-    display: block;
-    color: #666;
-    font-size: 12px
-}
-
-.user-order {
-    display: flex;
-    background-color: #fff;
-    margin-bottom: .25rem;
-    border-bottom: 1px solid #d5d5d5;
-    border-top: 1px solid #d5d5d5
-}
-
-.user-order a {
-    width: 25%;
-    flex: 1;
-    text-align: center;
-    text-decoration: none;
-    margin: .2rem 0px;
-    color: #333
-}
-
-.user-order a span {
-    display: block;
-    position: relative
-}
-
-.user-order a span:before {
-    content: "";
-    display: block;
-    width: .76rem;
-    height: .76rem;
-    margin: 0 auto 2px;
-}
-
-.user-order a.order span:before {
-    background: url(/picture/send.png) 0 0/100% no-repeat;
-}
-
-.user-order a.pay span:before {
-    background: url(/picture/pay.png) 0 0/100% no-repeat;
-}
-
-.user-order a.send span:before {
-    background: url(/picture/deliver.png) 0 0/100% no-repeat;
-}
-
-.user-order a.evaluate span:before {
-    background: url(/picture/evaluate.png) 0 0/100% no-repeat;
-}
-
-.user-order em {
-    display: block;
-    font-style: normal;
-    border-radius: 100%;
-    background-color: #f50;
-    width: .52rem;
-    height: .52rem;
-    line-height: .52rem;
+.app-user .label-act .sub {
+    float: right;
+    height: 0.68rem;
+    line-height: 0.68rem;
+    margin-right: 0.15rem;
     font-size: 12px;
-    position: absolute;
-    top: -3px;
-    right: 22%;
-    color: #fff
+    color: #999;
 }
 
-.user-common {
+.app-user .label-act .arrow {
+    float: right;
+    width: 0.2rem;
+    height: 0.4rem;
+    margin-top: 0.13rem;
+    background: url(/picture/arrow.png) 0 0/0.2rem 0.4rem no-repeat;
+}
+
+.app-user .other {
+    width: 100%;
+    padding: 0.3rem 0;
+    display: flex;
     background-color: #fff;
-    margin-bottom: .25rem;
-    border-bottom: 1px solid #d5d5d5;
-    border-top: 1px solid #d5d5d5
+    border-top: 1px solid #e7e7e7;
+    border-bottom: 1px solid #e7e7e7;
 }
 
-.user-common a {
-    display: block;
-    text-decoration: none;
-    color: #666;
-    font-size: 14px;
-    line-height: .48rem;
-    padding: .25rem .4rem;
-    position: relative
-}
-
-.user-common a strong {
-    font-weight: 500;
-}
-
-.user-common a em {
-    display: block;
-    position: absolute;
-    background: url(/picture/arrow.png) 0 0/5px 16px no-repeat;
-    width: 5px;
-    height: 16px;
-    top: .25rem;
-    right: .4rem;
-}
-
-.user-common .hr {
-    margin: 0 .25rem;
-}
-
-.user-common .count {
-    position: absolute;
-    right: .8rem;
-    top: .25rem;
-}
-
-.user-common .pink {
-    color: #f50
-}
-
-.user-common .count i {
-    font-style: normal;
-    font-weight: 500
-}
-
-.user-logout {
-    background-color: #fff;
-    border-top: 1px solid #d5d5d5;
-}
-
-.user-logout > div {
-    
-    padding: .3rem .4rem;
+.app-user .other div {
+    flex: 1;
     text-align: center;
-    color: #f50;
-    font-size: 16px;
-    font-weight: 500
+    border-left: 1px solid #e7e7e7;
 }
 
-.user-error {
-    padding: 1rem .5rem;
-    text-align: center
+.app-user .other div:first-child {
+    border: 0;
+}
+
+.app-user .other div a {
+    color: #333;
+    text-decoration: none;
+}
+
+.app-user .empty {
+    height: 0.5rem;
 }

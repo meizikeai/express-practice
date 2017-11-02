@@ -1,10 +1,8 @@
-const fs = require("fs");
-const path = require("path");
 const swig = require("swig");
 const mongoose = require("mongoose");
 const connection = require("../../bin/connection");
 
-var User = mongoose.model('User');
+let Personal = mongoose.model("Personal");
 
 let CreateTemplate = function (where, filename, data) {
     let template = null;
@@ -19,33 +17,6 @@ let CreateTemplate = function (where, filename, data) {
 
     return template({ content: data });
 };
-
-/**
- * enCompileString
- * @param {String} string 
- */
-let EnCompileString = function (string) {
-    let random = (((Math.random() * 9 + 1) * 100000) + "").substring(0, 5);
-    let code = string + random;
-    let result = String.fromCharCode(code.charCodeAt(0) + code.length);
-    for (let i = 1; i < code.length; i++) {
-        result += String.fromCharCode(code.charCodeAt(i) + code.charCodeAt(i - 1));
-    }
-    return decodeURI(result);
-}
-
-/**
- * deCompileString
- * @param {String} string 
- */
-let DeCompileString = function (string) {
-    let code = decodeURIComponent(string);
-    let result = String.fromCharCode(code.charCodeAt(0) - code.length);
-    for (let i = 1; i < code.length; i++) {
-        result += String.fromCharCode(code.charCodeAt(i) - result.charCodeAt(i - 1));
-    }
-    return result.substring(0, result.length - 5);
-}
 
 module.exports = {
     home: function (req, res, next) {
@@ -68,7 +39,7 @@ module.exports = {
                     }
                 }
             } else {
-                fullhtml = "<div>服务器忙，请稍后再试！（H00001）</div>";
+                fullhtml = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
             }
 
             res.render("./pages/home.html", {
@@ -79,128 +50,31 @@ module.exports = {
         });
     },
     userhome: function (req, res, next) {
-        const cookies = req.signedCookies.express;
+        const express = req.session.express;
 
-        if (typeof cookies !== "object") {
+        if (typeof req.session.express !== "object") {
             res.redirect("/login");
             return false;
         }
-        if (cookies.userid === "") {
+        if (express.cid === "") {
             res.redirect("/login");
             return false;
         }
 
-        connection.clientSelect("users", { "userid": cookies.userid }, function (data) {
+        Personal.findOne({ cid: express.cid }, function (error, data) {
             let fullhtml = "";
-            const result = data.data;
 
-            if (typeof result === "object") {
-                fullhtml += CreateTemplate("users", "main", result);
-            } else {
+            if (error) {
                 fullhtml = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
+            } else {
+                fullhtml += CreateTemplate("users", "main", data);
+
+                res.render("./pages/user-home.html", {
+                    title: "User Center",
+                    data: fullhtml
+                });
             }
-
-            res.render("./pages/user-home.html", {
-                title: "User Center",
-                data: fullhtml
-            });
-
         });
-    },
-    login: function (req, res, next) {
-        res.render("./pages/login.html", {
-            title: "Login",
-            data: CreateTemplate("login", "main", {})
-        });
-    },
-    register: function (req, res, next) {
-        res.render("./pages/register.html", {
-            title: "Register",
-            data: CreateTemplate("register", "main", {})
-        });
-    },
-    checklogin: function (req, res, next) {
-        const result = req.body;
-
-        res.type("application/json");
-
-        if (result.username && result.password) {
-            connection.clientSelect("users", { "username": result.username }, function (data) {
-                if (result.username === data.username && result.password === DeCompileString(data.password)) {
-                    res.cookie("express", { "userid": data.userid, "name": data.username }, {
-                        path: "/",
-                        maxAge: 3600000,
-                        signed: true
-                    });
-                    res.send({ success: true, url: "/user" });
-                } else {
-                    res.send({ success: false, url: "" });
-                }
-            });
-        } else {
-            res.send({ success: false, url: "" });
-        }
-    },
-    checklogout: function (req, res, next) {
-        const result = req.body;
-        const cookies = req.signedCookies;
-        const express = cookies && cookies.express;
-
-        res.type("application/json");
-        if (express) {
-            res.clearCookie("express", { "userid": express.userid, "name": express.name }, {
-                path: "/",
-                maxAge: 3600000,
-                signed: true
-            });
-            res.send({ success: true, url: "" });
-        } else {
-            res.send({ success: false, url: "" });
-        }
-    },
-    checkregister: function (req, res, next) {
-        const result = req.body;
-        const failure = (text) => {
-            res.send({ success: false, url: "", description: text ? text : "" });
-        };
-        const success = () => {
-            res.send({ success: true, url: "/user", description: "" });
-        };
-
-        res.type("application/json");
-
-        if (result.username && result.password) {
-            let updataUser = new User({
-                loginname: result.username,
-                password: "",
-                username: "",
-                identity: "",
-                phone: "",
-                email: ""
-            });
-
-            updataUser.pin = result.password;
-
-            updataUser.save(function (err, doc) {
-                if (err) {
-                    if (err.code == '11000') {
-                        return failure("用户名已存在，请更换后再试");
-                    } else {
-                        return failure(err);
-                    }
-                } else {
-                    res.cookie("express", { "userid": updataUser._id, "name": updataUser.loginname }, {
-                        path: "/",
-                        maxAge: 3600000,
-                        signed: true
-                    });
-
-                    success();
-                }
-            });
-        } else {
-            failure("缺少用户名或密码，请重新再试~");
-        }
     },
     getHomeData: function (req, res, next) {
 
@@ -214,6 +88,5 @@ module.exports = {
             res.send(data);
 
         });
-
     }
 };
