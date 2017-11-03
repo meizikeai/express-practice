@@ -20,11 +20,11 @@ $(function () {
         },
         /**
          * 搜集节点
-         * @method collectNodes
+         * @method collectNode
          * @param 无
          * @return 无
          */
-        collectNodes: function () {
+        collectNode: function () {
             return {
                 username: $("#username"),
                 password: $("#password"),
@@ -39,18 +39,20 @@ $(function () {
          */
         bindEvent: function () {
             let self = this;
-            let that = self.collectNodes();
+            let that = self.collectNode();
 
             that.enter.on("click", function (e) {
                 const username = $.trim(that.username.val());
                 const password = $.trim(that.password.val());
 
                 if (!username) {
-                    self.tipBox("请输入您的帐号~");
-                    return false;
+                    self.tipBox("请输入您的帐号~", "confirm");
+                } else if (username.lenght < 4) {
+                    self.tipBox("帐号不能少于6位字符");
                 } else if (!password) {
                     self.tipBox("请输入您的密码~");
-                    return false;
+                } else if (password.lenght < 6) {
+                    self.tipBox("密码长度不能少于6位字符~");
                 }
 
                 $.ajax({
@@ -65,7 +67,7 @@ $(function () {
                         if (data.success) {
                             location.href = data.url;
                         } else {
-                            self.tipBox("请确认帐号与密码后重新再尝试！");
+                            self.tipBox(data.description);
                         }
                     },
                     error: function () {

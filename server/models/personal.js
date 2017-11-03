@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const crypto = require('crypto');
+const mongoose = require("mongoose");
+const crypto = require("crypto");
 
 const Schema = mongoose.Schema;
 
@@ -21,7 +21,7 @@ let personalSchema = new mongoose.Schema({
     other: { type: Array, "default": [] }
 });
 
-personalSchema.virtual('userid').set(function (id) {
+personalSchema.virtual("userid").set(function (id) {
     this.cid = id;
 });
 
@@ -34,4 +34,4 @@ personalSchema.statics = {
     }
 };
 
-mongoose.model('Personal', personalSchema);
+mongoose.model("Personal", personalSchema);

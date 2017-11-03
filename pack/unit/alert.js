@@ -33,34 +33,37 @@ module.exports = function () {
 				'-webkit-box-orient': 'horizontal',
 				'-webkit-box-align': 'center',
 				'-webkit-box-pack': 'center',
-				'background-color': 'rgba(0, 0, 0, .5)',
+				'background-color': 'rgba(0, 0, 0, .1)',
 				'z-index': '9999'
 			},
 			content: {
-				'width': '80%',
-				'max-width': '360px',
-				'border-radius': '6px',
+				'margin-top': '-2rem',
+				'width': '90%',
+				'border-radius': '5px',
+				'overflow': 'hidden',
+				'box-shadow': '0px 5px 20px 0px rgba(126, 137, 140, .2)',
+				'border': '1px solid #B8C8CC',
 				'background-color': '#fff'
 			},
 			header: {
-				'padding': '15px',
-				'padding-bottom': 0,
-				'font-size': '20px',
-				'color': '#333'
+				'padding': '0 .28rem',
+				'line-height': '1rem',
+				'color': '#333',
+				'font-weight': 700,
+				'border-bottom': '1px solid #ededed',
+				'background-color': '#EDF5F7'
 			},
 			body: {
-				'padding': '30px 15px',
-				'font-size': '15px',
+				'padding': '.5rem .28rem',
 				'color': '#666',
 				'word-wrap': 'break-word',
 				'word-break': 'break-all'
 			},
 			footer: {
 				'overflow': 'hidden',
-				'border-top': '1px solid #e6e6e6',
-				'font-size': '17px',
+				'border-top': '1px solid #ededed',
 				'text-align': 'center',
-				'line-height': '38px'
+				'line-height': '1rem'
 			}
 		};
 
@@ -83,13 +86,11 @@ module.exports = function () {
 			'padding': '0 15px'
 		};
 		var _confirmBtnCss = {
-			'color': '#ff3b7f',
-			'border-bottom-left-radius': '6px'
+			'color': '#f50'
 		};
 		var _cancenBtnCss = {
-			'color': '#666',
-			'border-bottom-right-radius': '6px',
-			'border-left': '1px solid #e6e6e6'
+			'color': '#999',
+			'border-left': '1px solid #ededed'
 		};
 
 		// 如果第一个参数为 `function` 则将函数设置到确认的回调方法上
@@ -123,8 +124,8 @@ module.exports = function () {
 
 		// 提供的内容为字符串就用 text()
 		// 提供的内容为元素就用 append()
-		typeof _default.header === 'string' ? $header.css('text-align', 'center').text(_default.header) : $header.append(_default.header);
-		typeof _default.body === 'string' ? $body.css('text-align', 'center').text(_default.body) : $body.append(_default.body);
+		typeof _default.header === 'string' ? $header.text(_default.header) : $header.append(_default.header);
+		typeof _default.body === 'string' ? $body.text(_default.body) : $body.append(_default.body);
 
 		// 设置确定按钮的样式和文本
 		$confirmBtn.css(_baseBtnCss).css(_confirmBtnCss).text(_default.confirmBtnText);
@@ -145,7 +146,7 @@ module.exports = function () {
 				_default.cancelCallback && _default.cancelCallback();
 			});
 		} else {
-			$confirmBtn.css({ 'width': '100%', 'border-bottom-left-radius': '6px' });
+			$confirmBtn.css({ 'width': '100%' });
 			$footer.append($confirmBtn);
 		}
 

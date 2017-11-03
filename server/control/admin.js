@@ -1,5 +1,7 @@
 const swig = require("swig");
 const mongoose = require("mongoose");
+const env = process.env.NODE_ENV || "dev";
+const config = require("../config/config")[env];
 
 let User = mongoose.model("User");
 let Personal = mongoose.model("Personal");
@@ -33,65 +35,100 @@ module.exports = {
     },
     checklogin: function (req, res, next) {
         const result = req.body;
+        const state = { //结合code查看
+            "01": "帐号或密码长度不符合要求~",
+            "02": "数据库查询失败~",
+            "03": "帐号或密码错误~",
+            "04": "帐号或密码缺失~",
+            "05": "登录成功~"
+        }
 
-        res.type("application/json");
+        const failure = (code, text) => {
+            res.type("application/json");
+            res.send({ success: false, code: code, url: "", description: text ? text : "" });
+        };
 
         if (result.username && result.password) {
+
+            if (result.username.lenght < 4 || result.password.lenght < 6) {
+                return failure("01", state["01"]);
+            }
+
             User.findOne({ loginname: result.username }, function (error, data) {
                 if (error) {
-                    return res.send({ success: false, url: "", description: error });
+                    return failure("02", state["02"] + error);
                 }
 
                 if (!data) {
-                    return res.send({ success: false, url: "", description: "无此用户~" });
+                    return failure("02", state["02"]);
                 }
 
                 if (data.authenticate(result.password)) {
-
                     req.session.express = {
                         cid: data._id,
                         name: data.loginname
                     };
 
-                    res.cookie("practice", { cid: data._id, name: data.loginname }, {
+                    res.cookie("practice", JSON.stringify({ cid: data._id, name: data.loginname }), {
                         path: "/",
-                        maxAge: 3600000,
+                        maxAge: config.maxAge,
                         signed: false
                     });
 
-                    res.send({ success: true, url: "/user", description: "" });
+                    res.type("application/json");
+                    res.send({ success: true, code: "05", url: "/user", description: state["05"] });
                 } else {
-                    res.send({ success: false, url: "", description: "" });
+                    failure("04", state["04"]);
                 }
             });
         } else {
-            res.send({ success: false, url: "" });
+            failure("03", state["03"]);
         }
     },
     checklogout: function (req, res, next) {
         const result = req.body;
-        const cookies = req.signedCookies;
-        const express = cookies && cookies.express;
+        const cookies = req.cookies;
+        const practice = cookies && cookies.practice;
 
-        res.type("application/json");
-        if (express) {
-            res.clearCookie("express", { "userid": express.userid, "name": express.name }, {
-                path: "/",
-                maxAge: 3600000,
-                signed: true
-            });
-            res.send({ success: true, url: "" });
-        } else {
-            res.send({ success: false, url: "" });
-        }
+        console.log(req);
+        console.log(res);
+
+        //signedCookies
+        //sessionStore
+        //MongoStore
+        //sessionID
+
+        req.session.destroy(function (error) {
+            if (error) {
+                return res.send({ success: false, url: "" });
+            }
+
+            res.type("application/json");
+            if (practice) {
+                res.clearCookie("practice", JSON.stringify(practice), {
+                    path: "/",
+                    maxAge: config.maxAge,
+                    signed: false
+                });
+                res.send({ success: true, url: "" });
+            } else {
+                res.send({ success: false, url: "" });
+            }
+        });
     },
     checkregister: function (req, res, next) {
         const result = req.body;
-        const failure = (text) => {
-            res.send({ success: false, url: "", description: text ? text : "" });
-        };
-        const success = () => {
-            res.send({ success: true, url: "/user", description: "" });
+
+        const state = { //结合code查看
+            "01": "账号已存在，请更换后再试",
+            "02": "数据库查询失败~",
+            "03": "数据库更新失败~~",
+            "04": "帐号或密码缺失~",
+            "05": "登录成功~"
+        }
+
+        const failure = (code, text) => {
+            res.send({ success: false, code: code, url: "", description: text ? text : "" });
         };
 
         res.type("application/json");
@@ -99,18 +136,17 @@ module.exports = {
         if (result.username && result.password) {
             let updataPersonal = new Personal();
             let updataUser = new User({
-                loginname: result.username,
-                password: ""
+                loginname: result.username, password: ""
             });
 
             updataUser.pin = result.password;
 
-            updataUser.save(function (err, doc) {
-                if (err) {
-                    if (err.code == '11000') {
-                        return failure("用户名已存在，请更换后再试");
+            updataUser.save(function (error, data) {
+                if (error) {
+                    if (error.code == '11000') {
+                        return failure("01", state["01"]);
                     } else {
-                        return failure(err);
+                        return failure("02", state["02"] + error);
                     }
                 } else {
                     // 这些数据因没有后台先这样插入
@@ -160,7 +196,7 @@ module.exports = {
 
                     updataPersonal.save((err, doc) => {
                         if (err) {
-                            return failure(err);
+                            return failure("03", state["03"]);
                         }
 
                         req.session.express = {
@@ -168,18 +204,18 @@ module.exports = {
                             name: updataUser.loginname
                         };
 
-                        res.cookie("practice", { cid: updataUser._id, name: updataUser.loginname }, {
+                        res.cookie("practice", JSON.stringify({ cid: updataUser._id, name: updataUser.loginname }), {
                             path: "/",
-                            maxAge: 3600000,
+                            maxAge: config.maxAge,
                             signed: false
                         });
 
-                        success();
+                        res.send({ success: true, code: "05", url: "/user", description: state["05"] });
                     });
                 }
             });
         } else {
-            failure("缺少用户名或密码，请重新再试~");
+            failure("04", state["04"]);
         }
     }
 };

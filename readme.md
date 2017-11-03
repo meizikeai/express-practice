@@ -92,7 +92,7 @@
 *     supervisor -w scripts -e myext -x myrunner myapp
 *     supervisor -w lib,server.js,config.js server.js
 *     supervisor -- server.js -h host -p port
-*     supervisor -w bin,website,views ./bin/server.js
+*     supervisor -w bin,server,app.js ./bin/server.js
 ```
 
 * -- forever    - https://www.npmjs.com/package/forever

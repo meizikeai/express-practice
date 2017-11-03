@@ -1,5 +1,5 @@
 @charset "utf-8";
-html{color:#333;background:#fff;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+html{color:#333;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
 html,body{font-family:sans-serif;}
 
 /* 内外边距通常让各个浏览器样式的表现位置不同 */
@@ -43,7 +43,7 @@ a:hover{text-decoration:underline;}
 ins,a{text-decoration:none;}
 
 /* 页面框架 */
-#hd{width:100%}
-#bd{width:100%}
+#hd,
+#bd,
 #ft{width:100%}
 #api{display:none}

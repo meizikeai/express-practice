@@ -1,140 +1,139 @@
  {%- set info = content.info -%}
  {%- set entry = content.entry -%}
  {%- set other = content.other -%}
-<div class="app-user">
-    <header class="user">
-        <div class="state">
-            <p>设置</p>
-        </div>
-        <div class="photo">
-            <img src="{{info.userLogo}}" alt="头像">
-        </div>
-        <div class="nick">
-            <p class="name">dream</p>
-            <p class="level level4"></p>
-        </div>
-    </header>
-    <section class="behavior">
-        <ul>
-            <li>
-                <a href="/user/product">
-                    <p>{{info.favoriteProduct}}</p>
-                    <p>收藏的宝贝</p>
-                </a>
-            </li>
-            <li>
-                <a href="/user/shop">
-                    <p>{{info.favoriteShop}}</p>
-                    <p>收藏的店铺</p>
-                </a>
-            </li>
-            <li>
-                <a href="/user/foot">
-                    <p>{{info.footPrints}}</p>
-                    <p>我的足迹</p>
-                </a>
-            </li>
-        </ul>
-    </section>
-    <section class="order">
-        <ul>
-            <li>
+    <div class="app-user">
+        <header class="user">
+            <div class="state">
+                <p>设置</p>
+            </div>
+            <div class="photo">
+                <img src="{{info.userLogo}}" alt="头像">
+            </div>
+            <div class="nick">
+                <p class="name">dream</p>
+                <p class="level level4"></p>
+            </div>
+        </header>
+        <section class="behavior">
+            <ul>
+                <li>
+                    <a href="/user/product">
+                        <p>{{info.favoriteProduct}}</p>
+                        <p>收藏的宝贝</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/shop">
+                        <p>{{info.favoriteShop}}</p>
+                        <p>收藏的店铺</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/foot">
+                        <p>{{info.footPrints}}</p>
+                        <p>我的足迹</p>
+                    </a>
+                </li>
+            </ul>
+        </section>
+        <section class="order">
+            <ul>
+                <li>
+                    <a href="/user/order">
+                        <p class="icons pay">
+                            {% if info.order2Pay -%}
+                            <i class="number">info.order2Pay</i>
+                            {%- endif %}
+                        </p>
+                        <p class="sub">待付款</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/order">
+                        <p class="icons send">
+                            {% if info.order2Deliver -%}
+                            <i class="number">info.order2Deliver</i>
+                            {%- endif %}
+                        </p>
+                        <p class="sub">待发货</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/order">
+                        <p class="icons deliver">
+                            {% if info.order2Receive -%}
+                            <i class="number">info.order2Receive</i>
+                            {%- endif %}
+                        </p>
+                        <p class="sub">待收货</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/order">
+                        <p class="icons evaluate">
+                            {% if info.order2Rate -%}
+                            <i class="number">info.order2Rate</i>
+                            {%- endif %}
+                        </p>
+                        <p class="sub">待评价</p>
+                    </a>
+                </li>
+            </ul>
+            <div class="label-act">
                 <a href="/user/order">
-                    <p class="icons pay">
-                        {% if info.order2Pay -%}
-                        <i class="number">info.order2Pay</i>
-                        {%- endif %}
-                    </p>
-                    <p class="sub">待付款</p>
+                    <div class="ico all"></div>
+                    <div class="title">
+                        <p>全部订单</p>
+                    </div>
+                    <div class="arrow"></div>
+                    <div class="sub">查看全部订单</div>
                 </a>
-            </li>
-            <li>
-                <a href="/user/order">
-                    <p class="icons send">
-                        {% if info.order2Deliver -%}
-                        <i class="number">info.order2Deliver</i>
-                        {%- endif %}
-                    </p>
-                    <p class="sub">待发货</p>
+            </div>
+        </section>
+        <section class="core-entry">
+            {% for every in entry -%}
+            <div class="label-act">
+                <a href="{{every.url}}">
+                    <div class="ico">
+                        <img src="{{every.img}}" alt="{{every.name}}">
+                    </div>
+                    <div class="title">
+                        <p>{{every.name}}</p>
+                    </div>
+                    <div class="arrow"></div>
+                    <div class="sub">{{every.text}}</div>
                 </a>
-            </li>
-            <li>
-                <a href="/user/order">
-                    <p class="icons deliver">
-                        {% if info.order2Receive -%}
-                        <i class="number">info.order2Receive</i>
-                        {%- endif %}
-                    </p>
-                    <p class="sub">待收货</p>
+            </div>
+            {%- endfor %}
+        </section>
+        <section class="core-entry">
+            {% for every in other -%}
+            <div class="label-act">
+                <a href="{{every.url}}">
+                    <div class="ico">
+                        <img src="{{every.img}}" alt="{{every.name}}">
+                    </div>
+                    <div class="title">
+                        <p>{{every.name}}</p>
+                    </div>
+                    <div class="arrow"></div>
+                    <div class="sub">{{every.text}}</div>
                 </a>
-            </li>
-            <li>
-                <a href="/user/order">
-                    <p class="icons evaluate">
-                        {% if info.order2Rate -%}
-                        <i class="number">info.order2Rate</i>
-                        {%- endif %}
-                    </p>
-                    <p class="sub">待评价</p>
-                </a>
-            </li>
-        </ul>
-        <div class="label-act">
-            <a href="/user/order">
-                <div class="ico all"></div>
-                <div class="title">
-                    <p>全部订单</p>
-                </div>
-                <div class="arrow"></div>
-                <div class="sub">查看全部订单</div>
-            </a>
-        </div>
-    </section>
-    <section class="core-entry">
-        {% for every in entry -%}
-        <div class="label-act">
-            <a href="{{every.url}}">
-                <div class="ico">
-                    <img src="{{every.img}}" alt="{{every.name}}">
-                </div>
-                <div class="title">
-                    <p>{{every.name}}</p>
-                </div>
-                <div class="arrow"></div>
-                <div class="sub">{{every.text}}</div>
-            </a>
-        </div>
-        {%- endfor %}
-    </section>
-    <section class="core-entry">
-        {% for every in other -%}
-        <div class="label-act">
-            <a href="{{every.url}}">
-                <div class="ico">
-                    <img src="{{every.img}}" alt="{{every.name}}">
-                </div>
-                <div class="title">
-                    <p>{{every.name}}</p>
-                </div>
-                <div class="arrow"></div>
-                <div class="sub">{{every.text}}</div>
-            </a>
-        </div>
-        {%- endfor %}
-    </section>
-    <footer class="other">
-        <div class="nick">
-            <a href="">dream</a>
-        </div>
-        <div class="login">
-            <a href="">退出</a>
-        </div>
-        <div class="feedback">
-            <a href="">意见反馈</a>
-        </div>
-        <div class="topc">
-            <a href="">电脑版</a>
-        </div>
-    </footer>
-    <div class="empty"></div>
-</div>
+            </div>
+            {%- endfor %}
+        </section>
+        <footer class="other">
+            <div class="nick none">
+                <span></span>
+            </div>
+            <div class="login">
+                <span>登录</span>
+            </div>
+            <div class="feedback">
+                <a href="">意见反馈</a>
+            </div>
+            <div class="topc">
+                <a href="">电脑版</a>
+            </div>
+        </footer>
+    </div>

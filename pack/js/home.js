@@ -22,14 +22,14 @@ $(function () {
         init: function () {
             var self = this;
 
-            self.collectNodes();
+            self.collectNode();
             self.bindEvent();
         },
         /**
          * 搜集节点
-         * @method collectNodes
+         * @method collectNode
          */
-        collectNodes: function () {
+        collectNode: function () {
             Nodes[N_ModelDown] = $(N_ModelDown);
         },
         /**

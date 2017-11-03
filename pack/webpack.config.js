@@ -62,7 +62,7 @@ module.exports = {
     },
     plugins: [
         new extract("[name].css"),
-        new uglifyjs()
+        // new uglifyjs()
     ],
     resolve: {
         extensions: ['*', '.js', '.jsx', '.css']

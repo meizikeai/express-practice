@@ -20,11 +20,11 @@ $(function () {
         },
         /**
          * 搜集节点
-         * @method collectNodes
+         * @method collectNode
          * @param 无
          * @return 无
          */
-        collectNodes: function () {
+        collectNode: function () {
             return {
                 username: $("#username"),
                 password: $("#password"),
@@ -39,7 +39,7 @@ $(function () {
          */
         bindEvent: function () {
             let self = this;
-            let that = self.collectNodes();
+            let that = self.collectNode();
 
             that.enter.on("click", function (e) {
                 const username = $.trim(that.username.val());

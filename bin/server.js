@@ -8,11 +8,14 @@ var app = require('../app');
 var debug = require('debug')('express-practice:server');
 var http = require('http');
 
+const env = process.env.NODE_ENV || "dev";
+const config = require("../server/config/config")[env];
+
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3008');
+var port = normalizePort(process.env.PORT || config.port || '3000');
 app.set('port', port);
 
 /**

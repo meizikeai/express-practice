@@ -1,5 +1,6 @@
 ﻿const reset = require("../unit/reset");
 const header = require("../unit/header");
+const common = require("../unit/common");
 const footer = require("../unit/footer");
 const alert = require("../unit/alert");
 const style = require("../css/user-home.css");
@@ -21,14 +22,13 @@ $(function () {
         },
         /**
          * 搜集节点
-         * @method collectNodes
+         * @method collectNode
          * @param 无
          * @return 无
          */
-        collectNodes: function () {
+        collectNode: function () {
             return {
-                logout: $(".user-logout"),
-                password: $(".password")
+                other: $(".app-user .other")
             }
         },
         /**
@@ -39,10 +39,16 @@ $(function () {
          */
         bindEvent: function () {
             let self = this;
-            let that = self.collectNodes();
+            let that = self.collectNode();
 
-            //退出登录
-            that.logout.on("click", function () {
+            if (common.checkLogin()) {
+                that.other.find(".nick").removeClass("none");
+                that.other.find(".nick span").html(common.getCookieValue("practice", "name"));
+                that.other.find(".login").html("退出");
+            }
+
+            // 退出登录
+            that.other.find(".login").on("click", function () {
                 $.ajax({
                     type: "post",
                     url: "/checklogout",
@@ -57,20 +63,6 @@ $(function () {
                         self.tipBox("服务器貌似出问题啦~")
                     }
                 })
-            });
-
-            //设置支付密码判断
-            that.password.on("click", function (e) {
-                // var $eT = $(this);
-                // e.preventDefault();
-                // if (!self.iscellphoneconfirmed) {
-                //     self.tipBox('请绑定手机后设置支付密码');
-                //     setTimeout(function () {
-                //         location.href = '/user/phone';
-                //     }, 1000);
-                // } else {
-                //     location.href = $eT.attr('href');
-                // }
             });
         },
         /**

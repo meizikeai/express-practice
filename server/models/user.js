@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const crypto = require('crypto');
+const mongoose = require("mongoose");
+const crypto = require("crypto");
 
 let userSchema = new mongoose.Schema({
     // 登录名
@@ -22,7 +22,7 @@ let userSchema = new mongoose.Schema({
     time: { type: Date, default: Date.now }
 });
 
-userSchema.virtual('pin').set(function (pin) {
+userSchema.virtual("pin").set(function (pin) {
     this._pin = pin;
     this.salt = this.makeSalt();
     this.password = this.encryptPassword(pin);
@@ -30,8 +30,8 @@ userSchema.virtual('pin').set(function (pin) {
     return this._pin;
 });
 
-userSchema.path('password').validate((password) => {
-    return (typeof password === 'string' && password.length > 0);
+userSchema.path("password").validate((password) => {
+    return (typeof password === "string" && password.length > 0);
 }, "密码不能为空~");
 
 userSchema.methods = {
@@ -39,12 +39,12 @@ userSchema.methods = {
         return this.encryptPassword(plainText) === this.password;
     },
     makeSalt: function () {
-        return crypto.randomBytes(16).toString('base64');
+        return crypto.randomBytes(16).toString("base64");
     },
     encryptPassword: function (password) {
-        if (!password || !this.salt) return '';
-        let salt = new Buffer(this.salt, 'base64');
-        return crypto.pbkdf2Sync(password, salt, 10000, 64, "sha512").toString('base64');
+        if (!password || !this.salt) return "";
+        let salt = new Buffer(this.salt, "base64");
+        return crypto.pbkdf2Sync(password, salt, 10000, 64, "sha512").toString("base64");
     }
 };
 
@@ -57,10 +57,10 @@ userSchema.statics = {
         let self = this;
 
         if (!page) {
-            return cb('no page');
+            return cb("no page");
         }
 
-        if (page.hasOwnProperty('__v')) {
+        if (page.hasOwnProperty("__v")) {
             delete page.__v;
         }
 
@@ -78,4 +78,4 @@ userSchema.statics = {
     }
 };
 
-mongoose.model('User', userSchema);
+mongoose.model("User", userSchema);
