@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
-const crypto = require("crypto");
-
 const Schema = mongoose.Schema;
 
 let personalSchema = new mongoose.Schema({
-    cid: Schema.Types.ObjectId,
+    kid: Schema.Types.ObjectId,
     info: {
         userLevel: { type: Number, default: 0 },
         userLogo: { type: String, default: "/picture/avatar.jpg" },
@@ -18,14 +16,15 @@ let personalSchema = new mongoose.Schema({
         order2Rate: { type: Number, default: 0 }
     },
     entry: { type: Array, "default": [] },
-    other: { type: Array, "default": [] }
+    other: { type: Array, "default": [] },
+    createtime: { type: Date, default: Date.now }
 });
 
 personalSchema.virtual("userid").set(function (id) {
-    this.cid = id;
+    this.kid = id;
 });
 
-personalSchema.methods = {};
+// personalSchema.methods = {};
 
 personalSchema.statics = {
     load: function (userId, pageId, cb) {

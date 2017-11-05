@@ -9,34 +9,35 @@
 {%- endblock %}
 
 {% block header -%}
-    <div class="index">
-        <div class="head">
-            <div class="logo"></div>
-            <div class="search">
-                <div class="sea-min">
-                    <div class="sea-txt">
-                        <input type="text" value="搜索商品or品牌" id="txtKeyword">
-                        <span id="btnSearch"><i></i></span>
+    <div class="block-head">
+        <div class="hold"></div>
+        <div class="main">
+            <div class="head">
+                <div class="check-city">
+                    <span>北京</span>
+                    <i></i>
+                </div>
+                <div class="search">
+                    <div class="circle">
+                        <input class="search-txt" value="" placeholder="请输入关键字" type="text" />
+                        <span class="search-go"></span>
                     </div>
                 </div>
-                <input type="hidden" id="client_gid" value="c1d38f1b-6099-482f-8fdd-c8aaa61a188f">
-            </div>
-            <div class="user">
-                <a href="/user"></a>
+                <div class="user">
+                    <a href="/user"></a>
+                </div>
             </div>
         </div>
     </div>
 {%- endblock %}
 
 {% block content -%}
-    <div class="main" style="padding-top:55px">
-        {% autoescape false -%}{{ data }}{%- endautoescape %}
-    </div>
-    <div id="J-GoTop"><span></span></div>
+{% autoescape false -%}{{ data }}{%- endautoescape %}
 {%- endblock %}
 
 {% block footer -%}
 {% include '../system/footer.html' ignore missing %}
+{% include '../system/download.html' ignore missing %}
 {%- endblock %}
 
 {% block script -%}

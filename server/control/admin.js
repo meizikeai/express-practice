@@ -54,23 +54,22 @@ module.exports = {
                 return failure("01", state["01"]);
             }
 
-            User.findOne({ loginname: result.username }, function (error, data) {
+            User.findOne({ loginname: result.username }, function (error, db) {
                 if (error) {
                     return failure("02", state["02"] + error);
                 }
 
-                if (!data) {
+                if (!db) {
                     return failure("02", state["02"]);
                 }
 
-                if (data.authenticate(result.password)) {
+                if (db.authenticate(result.password)) {
                     req.session.express = {
-                        cid: data._id,
-                        name: data.loginname
+                        kid: db._id,
+                        name: db.loginname
                     };
 
-                    res.cookie("practice", JSON.stringify({ cid: data._id, name: data.loginname }), {
-                        path: "/",
+                    res.cookie("practice", JSON.stringify({ kid: db._id, name: db.loginname }), {
                         maxAge: config.maxAge,
                         signed: false
                     });
@@ -87,33 +86,28 @@ module.exports = {
     },
     checklogout: function (req, res, next) {
         const result = req.body;
-        const cookies = req.cookies;
-        const practice = cookies && cookies.practice;
 
-        console.log(req);
-        console.log(res);
-
-        //signedCookies
-        //sessionStore
-        //MongoStore
-        //sessionID
-
-        req.session.destroy(function (error) {
+        // sessionStore、sessionID
+        req.sessionStore.destroy(req.sessionID, function (error, db) {
             if (error) {
-                return res.send({ success: false, url: "" });
+                return res.send({ success: false, code: "01", url: "", description: "sessionID有误~" });
             }
 
-            res.type("application/json");
-            if (practice) {
-                res.clearCookie("practice", JSON.stringify(practice), {
-                    path: "/",
+            if (req.session.express) {
+                res.clearCookie("express", JSON.stringify(req.session.express), {
+                    maxAge: config.maxAge,
+                    signed: true
+                });
+            }
+            if (req.cookies.practice) {
+                res.clearCookie("practice", JSON.stringify(req.cookies.practice), {
                     maxAge: config.maxAge,
                     signed: false
                 });
-                res.send({ success: true, url: "" });
-            } else {
-                res.send({ success: false, url: "" });
             }
+
+            res.type("application/json");
+            res.send({ success: true, code: "02", url: "", description: "退出登录成功~" });
         });
     },
     checkregister: function (req, res, next) {
@@ -200,12 +194,11 @@ module.exports = {
                         }
 
                         req.session.express = {
-                            cid: updataUser._id,
+                            kid: updataUser._id,
                             name: updataUser.loginname
                         };
 
-                        res.cookie("practice", JSON.stringify({ cid: updataUser._id, name: updataUser.loginname }), {
-                            path: "/",
+                        res.cookie("practice", JSON.stringify({ kid: updataUser._id, name: updataUser.loginname }), {
                             maxAge: config.maxAge,
                             signed: false
                         });

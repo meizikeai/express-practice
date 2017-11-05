@@ -63,7 +63,7 @@ app.use(session({
     },
     store: new mongoStore({
         url: config.db, collection: "sessions", autoRemove: "interval",
-        autoRemoveInterval: 5 // In minutes. Default
+        autoRemoveInterval: config.minutes // In minutes. Default
     })
 }));
 app.use(express.static(path.join(__dirname, "public")));

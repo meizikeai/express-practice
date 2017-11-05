@@ -1,0 +1,60 @@
+.model-download {
+    width: 100%;
+}
+
+.model-download .download {
+    width: 100%;
+    height: 1.5rem;
+    border-top: 1px solid #ededed;
+    background-color: #fff;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 120;
+}
+
+.model-download .close {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: .8rem;
+    height: 1.5rem;
+    background: url(/picture/close.png) .2rem .6rem/.3rem .3rem no-repeat;
+}
+
+.model-download .other {
+    display: flex;
+    margin-left: .8rem;
+    height: 1.5rem;
+}
+
+.model-download .other i {
+    display: inline-block;
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: .15rem .2rem .15rem 0;
+    background: url(/picture/app.png) 0 0/1.2rem 1.2rem no-repeat;
+}
+
+.model-download .other div {
+    flex: 1;
+    height: 1.5rem;
+    padding-top: .15rem;
+    color: #333;
+}
+
+.model-download .other div strong {
+    display: inline-block;
+    line-height: .68rem;
+    font-size: 14px;
+}
+
+.model-download .open {
+    display: flex;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    padding: 0 .5rem;
+    text-align: center;
+    background-color: #f50;
+    color: #fff;
+}

@@ -2,6 +2,7 @@
 const header = require("../unit/header");
 const common = require("../unit/common");
 const footer = require("../unit/footer");
+const download = require("../unit/download");
 const alert = require("../unit/alert");
 const style = require("../css/user-home.css");
 

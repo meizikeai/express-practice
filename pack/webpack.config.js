@@ -1,8 +1,9 @@
 ﻿const fs = require("fs");
 const path = require("path");
 const webpack = require("webpack");
-const extract = require("extract-text-webpack-plugin");
-const uglifyjs = require("uglifyjs-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const env = process.env.NODE_ENV || "dev";
 
 const handleEntry = (entry) => {
     let pathmap = [];
@@ -50,10 +51,10 @@ module.exports = {
         rules: [
             {
                 test: /\.css$/,
-                use: extract.extract({
+                use: ExtractTextPlugin.extract({
                     use: {
                         loader: "css-loader",
-                        options: { minimize: true }
+                        // options: { minimize: true }
                     },
                     fallback: "style-loader"
                 })
@@ -61,10 +62,21 @@ module.exports = {
         ]
     },
     plugins: [
-        new extract("[name].css"),
-        // new uglifyjs()
+        new ExtractTextPlugin({
+            filename: "[name].css"
+        })
     ],
     resolve: {
-        extensions: ['*', '.js', '.jsx', '.css']
+        extensions: ["*", ".js", ".jsx", ".css"]
     }
 };
+
+if (env === "production") {
+    // module.exports.devtool = "source-map";
+    module.exports.plugins = (module.exports.plugins || []).concat([
+        new UglifyJSPlugin(),
+        new webpack.DefinePlugin({
+            "env": JSON.stringify(env)
+        })
+    ])
+}

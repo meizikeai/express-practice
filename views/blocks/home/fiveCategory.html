@@ -1,0 +1,16 @@
+
+    <div class="block-five-category" data-id="{{ content.templateid }}">
+        <div class="five-img" style="background:{{content.templatecolor}}">
+        {% if content.items -%}
+            {%- set item = content.items -%}
+            {% for info in item -%}
+                {% if info.jumpurl -%}
+                <a data-id="{{info.itemid}}" href="{{info.jumpurl}}">
+                    <div><img src="{{info.imgurl}}" alt="{{info.imgname}}" /></div>
+                    <p style="color:{{content.templatefont}}">{{info.imgname}}</p>
+                </a>
+                {%- endif %}
+            {%- endfor %}
+        {%- endif %}
+        </div>
+    </div>

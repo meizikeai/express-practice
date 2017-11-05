@@ -24,7 +24,7 @@
      */
     checkLogin: () => {
         let pass = true;
-        let userName = module.exports.getCookieValue("practice", "cid");
+        let userName = module.exports.getCookieValue("practice", "kid");
 
         if (!userName) {
             pass = false;

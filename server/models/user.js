@@ -5,7 +5,7 @@ let userSchema = new mongoose.Schema({
     // 登录名
     loginname: { type: String, required: true, unique: true },
     // 密码
-    password: String,
+    password: { type: String, required: true, unique: true },
     // 用户名
     username: { type: String, default: "" },
     // 身份证
@@ -19,7 +19,7 @@ let userSchema = new mongoose.Schema({
     // 状态，0-正常，1-禁用
     status: { type: Number, default: 0 },
     // 创建时间
-    time: { type: Date, default: Date.now }
+    createtime: { type: Date, default: Date.now }
 });
 
 userSchema.virtual("pin").set(function (pin) {

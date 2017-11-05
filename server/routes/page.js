@@ -6,7 +6,7 @@ module.exports = function (app) {
     app.get("/", page.home); // 首页
     app.get("/user", page.userhome); // 用户中心-首页
     
-    app.get("/data", page.getHomeData); // 返回首页数据
+    // app.get("/data", page.getHomeData); // 返回首页数据
 
 
     // 用户中心

@@ -1,8 +1,9 @@
 const swig = require("swig");
 const mongoose = require("mongoose");
-const connection = require("../../bin/connection");
+// const connection = require("../../bin/connection");
 
 let Personal = mongoose.model("Personal");
+let Page = mongoose.model("Page");
 
 let CreateTemplate = function (where, filename, data) {
     let template = null;
@@ -20,33 +21,30 @@ let CreateTemplate = function (where, filename, data) {
 
 module.exports = {
     home: function (req, res, next) {
+        Page.find({}).sort({ createtime: -1 }).limit(1).exec(function (error, db) {
+            let structure = "";
 
-        connection.clientSelect("home", {}, function (data) {
-            const result = data;
-            const pageinfo = result.data;
+            if (error) {
+                console.log(error);
+            }
 
-            let fullhtml = "";
-
-            if (result.success && pageinfo) {
-                if (pageinfo.templatelist && pageinfo.templatelist.length > 0) {
-                    fullhtml = CreateTemplate("home", "bannerlist", pageinfo.bannerlist);
-                }
-
-                if (pageinfo.templatelist && pageinfo.templatelist.length > 0) {
-                    for (let i = 0; i < pageinfo.templatelist.length; i++) {
-                        let storey = pageinfo.templatelist[i];
-                        fullhtml += CreateTemplate("home", storey.templatetype, storey);
+            if (db.length > 0) {
+                const template = db[0].template || [];
+                if (template && template.length > 0) {
+                    for (let i = 0; i < template.length; i++) {
+                        structure += CreateTemplate("home", template[i].templatetype, template[i]);
                     }
+                } else {
+                    structure = '<div class="user-error">页面数据不存在~</div>';
                 }
             } else {
-                fullhtml = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
+                structure = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
             }
 
             res.render("./pages/home.html", {
                 title: "Home",
-                data: fullhtml
+                data: structure
             });
-
         });
     },
     userhome: function (req, res, next) {
@@ -56,37 +54,28 @@ module.exports = {
             res.redirect("/login");
             return false;
         }
-        if (express.cid === "") {
+        if (express.kid === "") {
             res.redirect("/login");
             return false;
         }
 
-        Personal.findOne({ cid: express.cid }, function (error, data) {
-            let fullhtml = "";
+        Personal.findOne({ kid: express.kid }, function (error, db) {
+            let structure = "";
 
             if (error) {
-                fullhtml = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
-            } else {
-                fullhtml += CreateTemplate("users", "main", data);
-
-                res.render("./pages/user-home.html", {
-                    title: "User Center",
-                    data: fullhtml
-                });
+                console.log(error);
             }
-        });
-    },
-    getHomeData: function (req, res, next) {
 
-        connection.clientSelect("home", {}, function (data) {
+            if (db) {
+                structure += CreateTemplate("users", "main", db);
+            } else {
+                structure = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
+            }
 
-            res.type("application/json");   // => "application/json"
-
-            // res.set({
-            //     "Content-Type": "application/json; charset=utf-8"
-            // });
-            res.send(data);
-
+            res.render("./pages/user-home.html", {
+                title: "User Center",
+                data: structure
+            });
         });
     }
 };

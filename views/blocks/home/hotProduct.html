@@ -1,0 +1,25 @@
+    {% set color = content.templatecolor %}
+    <div class="block-hot-product" data-id={{content.templateid}}>
+        <div class="back" style="background:{{color}}">
+        <div class="product">
+            {% for info in content.items %}
+            <div class="every">
+                <a class="pro-one" data-id={{info.sku}}
+                    style="border-color:{{color}}"
+                    href="./product?id={{info.sku}}">
+                    <div class="pro-img">
+                        <img src={{info.img}} alt={{info.sales}} />
+                    </div>
+                    <p class="pro-name">{{info.title}}</p>
+                    <div class="pro-price">
+                        <span>￥{{info.price.toFixed(2)}}</span>
+                    </div>
+                    <div class="pro-sales">
+                        <span>{{info.sales}}</span>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        </div>
+    </div>
