@@ -3,7 +3,7 @@ const header = require("../unit/header");
 const alert = require("../unit/alert");
 const style = require("../css/register.css");
 
-$(function () {
+$(() => {
     let Register = function () {
         this.init();
     };
@@ -15,7 +15,7 @@ $(function () {
          * @param 无
          * @return 无
          */
-        init: function () {
+        init() {
             this.bindEvent();
         },
         /**
@@ -24,7 +24,7 @@ $(function () {
          * @param 无
          * @return 无
          */
-        collectNode: function () {
+        collectNode() {
             return {
                 username: $("#username"),
                 password: $("#password"),
@@ -37,11 +37,11 @@ $(function () {
          * @param 无
          * @return 无
          */
-        bindEvent: function () {
+        bindEvent() {
             let self = this;
             let that = self.collectNode();
 
-            that.enter.on("click", function (e) {
+            that.enter.on("click", (e) => {
                 const username = $.trim(that.username.val());
                 const password = $.trim(that.password.val());
 
@@ -61,14 +61,14 @@ $(function () {
                         password: password
                     },
                     dataType: 'json',
-                    success: function (data) {
+                    success(data) {
                         if (data.success) {
                             location.href = data.url;
                         } else {
                             self.tipBox("请确认帐号与密码后重新再尝试！");
                         }
                     },
-                    error: function () {
+                    error() {
                         self.tipBox("服务器貌似出问题啦~")
                     }
                 })
@@ -80,7 +80,7 @@ $(function () {
          * @param body {String} / fn {Function} / type {String}
          * @return 无
          */
-        tipBox: function (body, type, fn) {
+        tipBox(body, type, fn) {
             $("body").alert({
                 body: body,
                 type: type,

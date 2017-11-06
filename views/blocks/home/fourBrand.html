@@ -1,5 +1,5 @@
 
-    <div class="block-hot-brand" id="{{ content.templateid }}">
+    <div class="block-four-brand" id="{{ content.templateid }}">
         <div class="entrance" style="background:{{content.templatecolor}}">
             {% if content.items -%} {%- set item = content.items -%} {% for info in item -%}
             <div class="every">
@@ -7,8 +7,9 @@
                     <div class="img">
                         <img src="{{info.img}}" alt="" />
                     </div>
-                    <img class="modify" src="{{info.modify}}" alt="" />
-                    <div class="title">{{info.title}}</div>
+                    <div class="logo">
+                        <img src="{{info.logo}}" alt="" />
+                    </div>
                     <div class="sales">{{info.sales}}</div>
                 </a>
             </div>

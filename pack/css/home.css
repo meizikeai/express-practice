@@ -649,7 +649,7 @@
     flex: 1;
 }
 
-.block-four-container .container .left-channel .img>div:first {
+.block-four-container .container .left-channel .img>div:first-child {
     margin-right: .1rem;
 }
 
@@ -665,7 +665,7 @@
     flex: 1;
 }
 
-.block-four-container .container .right-channel>div:first {
+.block-four-container .container .right-channel>div:first-child {
     border-right: 0.5px solid #f1f1f1;
 }
 
@@ -686,4 +686,58 @@
 
 .block-four-container .container .right-channel>div .img {
     padding: 0 .7rem;
+}
+
+.block-four-brand {
+    width: 100%;
+}
+
+.block-four-brand .entrance {
+    display: flex;
+    padding: 0 .2rem;
+    box-shadow: 0 .08rem .16rem 0 rgba(0, 0, 0, .14);
+}
+
+.block-four-brand .entrance .every {
+    flex: 1;
+    width: 25%;
+    height: 3.4rem;
+    background-color: #fff;
+    overflow: hidden;
+    border-right: 1px solid #f1f1f1;
+}
+
+.block-four-brand .entrance .every a {
+    display: block;
+}
+
+.block-four-brand .entrance>div:first-child {
+    border-bottom-left-radius: 3px;
+}
+
+.block-four-brand .entrance>div:last-child {
+    border-bottom-right-radius: 3px;
+}
+
+.block-four-brand .entrance .img {
+    padding: .18rem .4rem 0;
+}
+
+.block-four-brand .entrance .img img {
+    display: block;
+    width: 100%;
+}
+
+.block-four-brand .entrance .logo {
+    padding: 0 .4rem;
+}
+
+.block-four-brand .entrance .logo img {
+    display: block;
+    width: 100%;
+}
+
+.block-four-brand .entrance .sales {
+    text-align: center;
+    color: #f30;
 }

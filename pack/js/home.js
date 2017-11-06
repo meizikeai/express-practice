@@ -3,9 +3,10 @@ const header = require("../unit/header");
 const footer = require("../unit/footer");
 const download = require("../unit/download");
 const swipe = require("../unit/swipe");
+const position = require("../unit/position");
 const style = require("../css/home.css");
 
-$(function () {
+$(() => {
     var HomePage = function () {
         this.init();
     };
@@ -14,76 +15,70 @@ $(function () {
          * 初始化
          * @method init
          */
-        init: function () {
-            this.collectNode();
+        init() {
             this.bindEvent();
         },
         /**
          * 搜集节点
          * @method collectNode
          */
-        collectNode: function () {
-
+        collectNode() {
+            return {
+                blockhead: $(".block-head")
+            }
         },
         /**
          * 绑定事件
          * @method bindUI
          */
-        bindEvent: function () {
-            var self = this;
+        bindEvent() {
+            let self = this;
+            let that = self.collectNode();
 
-            //轮播图片
+            // 轮播
             self.carouselFigure();
 
-            //搜索框
-            var txtKeyword = $("#txtKeyword"),
-                search = $("#search");
-            txtKeyword.click(function () {
-                txtKeyword.val("");
-            });
-            txtKeyword.keydown(function (e) {
-                var keyCode = e.keyCode,
-                    text = txtKeyword.val().trim();
-                if (keyCode == 13) {
-                    if (text && text != '搜索商品or品牌') {
-                        self.search(text);
-                    }
-                }
-            });
-            search.click(function () {
-                var text = txtKeyword.val().trim();
-                if (text && text != '搜索商品or品牌') {
-                    self.search(text);
-                }
-            });
-            txtKeyword.focus(function () {
-                txtKeyword.css("color", "#333");
-            });
-            txtKeyword.blur(function () {
-                if (txtKeyword.val() === "") {
-                    txtKeyword.val("搜索商品or品牌");
-                    txtKeyword.css("color", "#cacaca");
-                }
-            });
-        },
-        /**
-         * 搜索
-         * @method search
-         * @param keyword {String} 搜索内容
-         * @return null
-         */
-        search: function (keyword) {
-            var self = this,
-                repex = /.{2}-.{3}-.{4}$/g,
-                links = '';
+            // 搜索框
+            let search = (keyword) => {
+                let repex = /.{2}-.{3}-.{4}$/g;
+                let links = "";
 
-            if (keyword.length == 11 && repex.test(keyword)) {
-                links = "/product?id=";
+                if (keyword.length == 11 && repex.test(keyword)) {
+                    links = "/product?id=";
+                } else {
+                    links = "/search?keyword=";
+                }
+
+                location.href = links + keyword;
+            };
+            let searchtxt = that.blockhead.find(".search-txt");
+            let searchend = that.blockhead.find(".search-go");
+
+            searchtxt.on("keydown", (e) => {
+                let key = e.keyCode;
+                let text = searchtxt.val().trim();
+                if (text && key === 13) { search(text); }
+            });
+
+            searchend.on("click", () => {
+                let text = searchtxt.val().trim();
+                if (text) { search(text); }
+            });
+
+            // 城市
+            let checkcity = that.blockhead.find(".check-city span");
+            if (localStorage.city) {
+                checkcity.html(localStorage.city);
             } else {
-                links = "/search?keyword=";
+                position.getPosition((val) => {
+                    localStorage.city = val;
+                    checkcity.html(val);
+                });
             }
 
-            location.href = links + keyword;
+            that.blockhead.find(".check-city").on("click", () => {
+                location.href = "/city";
+            });
         },
         /**
         * 轮播模块事件绑定
@@ -91,7 +86,7 @@ $(function () {
         * @param null
         * @return null
         */
-        carouselFigure: function () {
+        carouselFigure() {
             var self = this;
 
             var thatCarousel = document.querySelector(".block-carousel-figure");
@@ -101,7 +96,7 @@ $(function () {
 
             if (thisFigure) {
                 swipe.swipe(thisFigure, {
-                    callback: function (index, node) {
+                    callback(index, node) {
                         var count = thisMarkerSpan.length;
 
                         if (count > 0) {
@@ -120,7 +115,7 @@ $(function () {
                             }
                         }
                     },
-                    // auto: 4000
+                    auto: 4000
                 });
             }
         }

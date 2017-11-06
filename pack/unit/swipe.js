@@ -5,7 +5,7 @@ module.exports = {
      * CopyRight 2013, Licensed GPL & MIT
      * Github: https://github.com/thebird/swipe
      */
-    swipe: function (container, options) {
+    swipe(container, options) {
         "use strict";
 
         // utilities

@@ -6,7 +6,7 @@ const download = require("../unit/download");
 const alert = require("../unit/alert");
 const style = require("../css/user-home.css");
 
-$(function () {
+$(() => {
     let UserCenter = function () {
         this.init();
     };
@@ -18,7 +18,7 @@ $(function () {
          * @param 无
          * @return 无
          */
-        init: function () {
+        init() {
             this.bindEvent();
         },
         /**
@@ -27,7 +27,7 @@ $(function () {
          * @param 无
          * @return 无
          */
-        collectNode: function () {
+        collectNode() {
             return {
                 other: $(".app-user .other")
             }
@@ -38,7 +38,7 @@ $(function () {
          * @param 无
          * @return 无
          */
-        bindEvent: function () {
+        bindEvent() {
             let self = this;
             let that = self.collectNode();
 
@@ -49,18 +49,18 @@ $(function () {
             }
 
             // 退出登录
-            that.other.find(".login").on("click", function () {
+            that.other.find(".login").on("click", () => {
                 $.ajax({
                     type: "post",
                     url: "/checklogout",
                     data: {},
                     dataType: 'json',
-                    success: function (data) {
+                    success(data) {
                         if (data.success) {
                             location.href = "/";
                         }
                     },
-                    error: function () {
+                    error() {
                         self.tipBox("服务器貌似出问题啦~")
                     }
                 })
@@ -72,7 +72,7 @@ $(function () {
          * @param body {String} / fn {Function} / type {String}
          * @return 无
          */
-        tipBox: function (body, type, fn) {
+        tipBox(body, type, fn) {
             $('body').alert({
                 body: body,
                 type: type,

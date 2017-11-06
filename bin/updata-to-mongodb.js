@@ -462,6 +462,44 @@ function getPageData() {
             ]
         },
         {
+            "templateid": 20022522,
+            "templatename": "热推产品",
+            "templatetype": "fourBrand",
+            "templatecolor": "#f72653",
+            "requestdate": "1504688073945",
+            "sort": 5,
+            "items": [
+                {
+                    "url": "/shop?id=30002232",
+                    "img": "/picture/product-01.jpg",
+                    "logo": "/picture/logo-01.jpg",
+                    "sales": "满598减50",
+                    "sort": 1
+                },
+                {
+                    "url": "/shop?id=30002232",
+                    "img": "/picture/product-01.jpg",
+                    "logo": "/picture/logo-01.jpg",
+                    "sales": "满499减20",
+                    "sort": 2
+                },
+                {
+                    "url": "/shop?id=30002232",
+                    "img": "/picture/product-01.jpg",
+                    "logo": "/picture/logo-01.jpg",
+                    "sales": "满2000减100",
+                    "sort": 3
+                },
+                {
+                    "url": "/shop?id=30002232",
+                    "img": "/picture/product-01.jpg",
+                    "logo": "/picture/logo-01.jpg",
+                    "sales": "满598减50",
+                    "sort": 4
+                }
+            ]
+        },
+        {
             "templateid": 20022619,
             "templatename": "双十一特卖牌活动",
             "templatetype": "oneImage",

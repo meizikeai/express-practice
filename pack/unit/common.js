@@ -6,8 +6,8 @@
      * @param 无
      * @return null
      */
-    goback: () => {
-        let returnUrl = module.exports.getUrlParam("returnUrl");
+    goback() {
+        let returnUrl = this.getUrlParam("returnUrl");
 
         if (returnUrl) {
             location.href = returnUrl;
@@ -22,9 +22,9 @@
      * @param null
      * @return {Boolean}
      */
-    checkLogin: () => {
+    checkLogin() {
         let pass = true;
-        let userName = module.exports.getCookieValue("practice", "kid");
+        let userName = this.getCookieValue("practice", "kid");
 
         if (!userName) {
             pass = false;
@@ -39,7 +39,7 @@
      * @param s {String} / o {Object}
      * @return {String}
      */
-    langSub: (s, o) => {
+    langSub(s, o) {
         let isUndefined = function (u) {
             return typeof u === 'undefined';
         };
@@ -56,7 +56,7 @@
      * @param name {String} / bool {Boolean}
      * @retrun {String}
      */
-    getUrlParam: (name) => {
+    getUrlParam(name) {
         let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         let data = location.search.substr(1).match(reg);
         let result = null;
@@ -74,11 +74,11 @@
      * @method getUrlAttr
      * @retrun {Object}
      */
-    getUrlAttr: () => {
+    getUrlAttr() {
         let result = null;
         let search = location.search;
         if (search !== "") {
-            result = module.exports.stringToJSON(search.substring(1));
+            result = this.stringToJSON(search.substring(1));
         }
 
         return result;
@@ -91,7 +91,7 @@
      * @param value {String}
      * @retrun {Object}
      */
-    stringToJSON: (value) => {
+    stringToJSON(value) {
         let result = null;
         let content = [];
         let interim = decodeURIComponent(value);
@@ -118,7 +118,7 @@
      * @param  {String} key cookie 的名称 / value cookie 里的具体值
      * @return {String} cookie 对应的值
      */
-    getCookieValue: (key, value) => {
+    getCookieValue(key, value) {
         let keyName = key + '=';
         let cookie = decodeURIComponent(document.cookie);
         let start, end, result = null;

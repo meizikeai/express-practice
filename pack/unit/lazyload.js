@@ -5,7 +5,7 @@ module.exports = {
      * @toddmotto (a) 2015
      * Github: https://github.com/toddmotto/echo
      */
-    lazyload: function () {
+    lazyload() {
         'use strict';
 
         var echo = {};
@@ -57,7 +57,7 @@ module.exports = {
             if (document.addEventListener) {
                 document.addEventListener('scroll', debounceOrThrottle, false);
                 document.addEventListener('load', debounceOrThrottle, false);
-            } 
+            }
             // else {
             //     root.attachEvent('onscroll', debounceOrThrottle);
             //     root.attachEvent('onload', debounceOrThrottle);
@@ -114,7 +114,7 @@ module.exports = {
         echo.detach = function () {
             if (document.removeEventListener) {
                 document.removeEventListener('scroll', debounceOrThrottle);
-            } 
+            }
             // else {
             //     root.detachEvent('onscroll', debounceOrThrottle);
             // }
