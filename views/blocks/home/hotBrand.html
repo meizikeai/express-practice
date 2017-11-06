@@ -1,6 +1,16 @@
-
-    <div class="block-hot-brand" id="{{ content.templateid }}">
-        <div class="" style="background:{{content.templatecolor}}">
-
+<div class="block-hot-brand" id="{{ content.templateid }}">
+    <div class="entrance" style="background:{{content.templatecolor}}">
+        {% if content.items -%} {%- set item = content.items -%} {% for info in item -%}
+        <div class="every">
+            <a href="{{info.url}}">
+                <div class="img">
+                    <img src="{{info.img}}" alt="" />
+                </div>
+                <img class="modify" src="{{info.modify}}" alt="" />
+                <div class="title">{{info.title}}</div>
+                <div class="sales">{{info.sales}}</div>
+            </a>
         </div>
+        {%- endfor %} {%- endif %}
     </div>
+</div>

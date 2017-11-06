@@ -1,0 +1,37 @@
+
+    <div class="block-four-container" id="{{ content.templateid }}">
+        <div class="container" style="background:{{content.templatecolor}}">
+            {% if content.items -%} {%- set item = content.items -%}
+            <div class="left-channel">
+                <a href="{{item[0].url}}">
+                    <div class="title">{{item[0].title}}</div>
+                    <div class="sales">{{item[0].sales}}</div>
+                    <div class="img">
+                        <div><img class="one" src="{{item[0].img}}" alt="{{item[0].title}}" /></div>
+                        <div><img class="two" src="{{item[1].img}}" alt="{{item[1].title}}" /></div>
+                    </div>
+                </a>
+            </div>
+            <div class="right-channel">
+                <div class="left">
+                    <a href="{{item[2].url}}">
+                        <div class="title">{{item[2].title}}</div>
+                        <div class="sales">{{item[2].sales}}</div>
+                        <div class="img">
+                            <img src="{{item[2].img}}" alt="{{item[2].title}}" />
+                        </div>
+                    </a>
+                </div>
+                <div class="right">
+                    <a href="{{item[3].url}}">
+                        <div class="title">{{item[3].title}}</div>
+                        <div class="sales">{{item[3].sales}}</div>
+                        <div class="img">
+                            <img src="{{item[3].img}}" alt="{{item[3].title}}" />
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {%- endif %}
+        </div>
+    </div>

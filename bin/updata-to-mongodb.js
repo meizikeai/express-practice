@@ -143,7 +143,14 @@ function getPageData() {
                 {
                     "id": 11012801,
                     "imgname": "女装",
-                    "imgurl": "/picture/banner-01-3.jpg",
+                    "imgurl": "/picture/banner-01-1.jpg",
+                    "jumpurl": "/activities?pageid=30002232",
+                    "sort": 3
+                },
+                {
+                    "id": 11012801,
+                    "imgname": "女装",
+                    "imgurl": "/picture/banner-01-2.jpg",
                     "jumpurl": "/activities?pageid=30002232",
                     "sort": 3
                 }
@@ -202,7 +209,7 @@ function getPageData() {
         },
         {
             "templateid": 20022619,
-            "templatename": "推广图",
+            "templatename": "双十一专属会场",
             "templatetype": "oneImage",
             "templatecolor": "#f72653",
             "requestdate": "1504688073945",
@@ -211,7 +218,7 @@ function getPageData() {
                 {
                     "id": "21034936",
                     "imgname": "内衣",
-                    "imgurl": "/picture/page-03.png",
+                    "imgurl": "/picture/title-01.png",
                     "jumpurl": "",
                     "sort": 1
                 }
@@ -226,66 +233,84 @@ function getPageData() {
             "sort": 5,
             "items": [
                 {
-                    "sku": "20-188-0046",
-                    "title": "甄选男装",
+                    "url": "/activities?pageid=30002232",
                     "img": "/picture/product-01.jpg",
+                    "modify": "/picture/modify-01.png",
                     "price": 799.00,
+                    "title": "甄选男装",
                     "sales": "400减50",
                     "sort": 1
                 },
                 {
-                    "sku": "20-188-0047",
-                    "title": "品质大牌",
+                    "url": "/activities?pageid=30002232",
                     "img": "/picture/product-02.jpg",
+                    "modify": "/picture/modify-02.png",
                     "price": 899.00,
+                    "title": "品质大牌",
                     "sales": "不只5折",
                     "sort": 2
                 },
                 {
-                    "sku": "20-188-0048",
-                    "title": "女鞋会场",
+                    "url": "/activities?pageid=30002232",
                     "img": "/picture/product-01.jpg",
+                    "modify": "/picture/modify-03.png",
                     "price": 499.00,
+                    "title": "女鞋会场",
                     "sales": "提前锁好货",
                     "sort": 3
                 },
                 {
-                    "sku": "20-188-0046",
-                    "title": "精选女装",
+                    "url": "/activities?pageid=30002232",
                     "img": "/picture/product-02.jpg",
+                    "modify": "/picture/modify-03.png",
                     "price": 799.00,
+                    "title": "精选女装",
                     "sales": "好货5折起",
                     "sort": 4
-                },
+                }
+            ]
+        },
+        {
+            "templateid": 20022522,
+            "templatename": "热推产品",
+            "templatetype": "hotBrand",
+            "templatecolor": "#f72653",
+            "requestdate": "1504688073945",
+            "sort": 5,
+            "items": [
                 {
-                    "sku": "20-188-0047",
-                    "title": "大牌男装",
+                    "url": "/activities?pageid=30002232",
                     "img": "/picture/product-01.jpg",
+                    "modify": "/picture/modify-04.png",
                     "price": 899.00,
+                    "title": "大牌男装",
                     "sales": "5折不过瘾",
                     "sort": 5
                 },
                 {
-                    "sku": "20-188-0048",
-                    "title": "玩具会场",
+                    "url": "/activities?pageid=30002232",
                     "img": "/picture/product-02.jpg",
+                    "modify": "/picture/modify-02.png",
                     "price": 499.00,
+                    "title": "玩具会场",
                     "sales": "买就送好礼",
                     "sort": 6
                 },
                 {
-                    "sku": "20-188-0047",
-                    "title": "大牌男装",
+                    "url": "/activities?pageid=30002232",
                     "img": "/picture/product-01.jpg",
+                    "modify": "/picture/modify-03.png",
                     "price": 899.00,
+                    "title": "大牌男装",
                     "sales": "5折不过瘾",
                     "sort": 5
                 },
                 {
-                    "sku": "20-188-0048",
-                    "title": "玩具会场",
+                    "url": "/activities?pageid=30002232",
                     "img": "/picture/product-02.jpg",
+                    "modify": "/picture/modify-01.png",
                     "price": 499.00,
+                    "title": "玩具会场",
                     "sales": "买就送好礼",
                     "sort": 6
                 }
@@ -293,7 +318,7 @@ function getPageData() {
         },
         {
             "templateid": 20022619,
-            "templatename": "推广图",
+            "templatename": "双十一天猫直营",
             "templatetype": "oneImage",
             "templatecolor": "#f72653",
             "requestdate": "1504688073945",
@@ -302,7 +327,7 @@ function getPageData() {
                 {
                     "id": "21034936",
                     "imgname": "内衣",
-                    "imgurl": "/picture/page-04.webp",
+                    "imgurl": "/picture/title-02.png",
                     "jumpurl": "",
                     "sort": 1
                 }
@@ -311,44 +336,44 @@ function getPageData() {
         {
             "templateid": 20022522,
             "templatename": "品牌推荐",
-            "templatetype": "hotAds",
+            "templatetype": "hotContainer",
             "templatecolor": "#f72653",
             "requestdate": "1504688073945",
             "sort": 7,
             "items": [
                 {
-                    "title": "天猫北京",
-                    "img": "/picture/product-01.jpg",
-                    "sales": "88元速领",
-                    "url": "",
+                    "title": "天猫超市·北京",
+                    "sales": "唔折天 抢千万优惠券",
+                    "img": "./picture/page-02.jpg",
+                    "url": "/activities?pageid=30002232",
                     "sort": 1
                 },
                 {
-                    "title": "全球尖货直降",
-                    "img": "/picture/product-01.jpg",
-                    "sales": "整点抢五折券",
-                    "url": "",
+                    "title": "天猫进口直营",
+                    "sales": "全球尖货直降",
+                    "img": "/picture/page-03.jpg",
+                    "url": "/activities?pageid=30002232",
                     "sort": 2
                 },
                 {
                     "title": "",
-                    "img": "/picture/product-01.jpg",
                     "sales": "",
-                    "url": "",
+                    "img": "/picture/product-01.jpg",
+                    "url": "/activities?pageid=30002232",
                     "sort": 3
                 },
                 {
-                    "title": "阿里健康",
+                    "title": "天猫生鲜",
+                    "sales": "领券159减50",
                     "img": "/picture/product-01.jpg",
-                    "sales": "直营满减20元",
-                    "url": "",
+                    "url": "/activities?pageid=30002232",
                     "sort": 4
                 },
                 {
                     "title": "魅力惠",
-                    "img": "/picture/product-01.jpg",
                     "sales": "每400减50",
-                    "url": "",
+                    "img": "/picture/product-01.jpg",
+                    "url": "/activities?pageid=30002232",
                     "sort": 5
                 }
             ]
@@ -356,48 +381,44 @@ function getPageData() {
         {
             "templateid": 20022522,
             "templatename": "热推产品",
-            "templatetype": "fourAds",
+            "templatetype": "fourContainer",
             "templatecolor": "#f72653",
             "requestdate": "1504688073945",
             "sort": 8,
             "items": [
                 {
-                    "sku": "20-188-0046",
-                    "title": "甄选男装",
+                    "title": "全球尖货直降",
+                    "sales": "整点抢5折神券",
                     "img": "/picture/product-01.jpg",
-                    "price": 799.00,
-                    "sales": "400减50",
+                    "url": "/activities?pageid=30002232",
                     "sort": 1
                 },
                 {
-                    "sku": "20-188-0047",
-                    "title": "品质大牌",
+                    "title": "",
+                    "sales": "",
                     "img": "/picture/product-02.jpg",
-                    "price": 899.00,
-                    "sales": "不只5折",
+                    "url": "/activities?pageid=30002232",
                     "sort": 2
                 },
                 {
-                    "sku": "20-188-0048",
-                    "title": "女鞋会场",
+                    "title": "超市提前嗨",
+                    "sales": "疯抢50元券",
                     "img": "/picture/product-01.jpg",
-                    "price": 499.00,
-                    "sales": "提前锁好货",
+                    "url": "/activities?pageid=30002232",
                     "sort": 3
                 },
                 {
-                    "sku": "20-188-0046",
-                    "title": "精选女装",
+                    "title": "奢品精选",
+                    "sales": "满400减50",
                     "img": "/picture/product-02.jpg",
-                    "price": 799.00,
-                    "sales": "好货5折起",
+                    "url": "/activities?pageid=30002232",
                     "sort": 4
                 }
             ]
         },
         {
             "templateid": 20022619,
-            "templatename": "推广图",
+            "templatename": "双十一品牌活动",
             "templatetype": "oneImage",
             "templatecolor": "#f72653",
             "requestdate": "1504688073945",
@@ -406,7 +427,7 @@ function getPageData() {
                 {
                     "id": "21034936",
                     "imgname": "内衣",
-                    "imgurl": "/picture/page-05.webp",
+                    "imgurl": "/picture/title-03.png",
                     "jumpurl": "",
                     "sort": 1
                 }
@@ -437,6 +458,23 @@ function getPageData() {
                     "imgurl": "/picture/brand-02.png",
                     "jumpurl": "/productList?condition=10000655&title=做爱做的事",
                     "sort": 2
+                }
+            ]
+        },
+        {
+            "templateid": 20022619,
+            "templatename": "双十一特卖牌活动",
+            "templatetype": "oneImage",
+            "templatecolor": "#f72653",
+            "requestdate": "1504688073945",
+            "sort": 9,
+            "items": [
+                {
+                    "id": "21034936",
+                    "imgname": "内衣",
+                    "imgurl": "/picture/title-05.png",
+                    "jumpurl": "",
+                    "sort": 1
                 }
             ]
         },
@@ -499,50 +537,8 @@ function getPageData() {
             ]
         },
         {
-            "templateid": 20022522,
-            "templatename": "热推产品",
-            "templatetype": "fourAds",
-            "templatecolor": "#f72653",
-            "requestdate": "1504688073945",
-            "sort": 11,
-            "items": [
-                {
-                    "sku": "20-188-0046",
-                    "title": "甄选男装",
-                    "img": "/picture/product-01.jpg",
-                    "price": 799.00,
-                    "sales": "400减50",
-                    "sort": 1
-                },
-                {
-                    "sku": "20-188-0047",
-                    "title": "品质大牌",
-                    "img": "/picture/product-02.jpg",
-                    "price": 899.00,
-                    "sales": "不只5折",
-                    "sort": 2
-                },
-                {
-                    "sku": "20-188-0048",
-                    "title": "女鞋会场",
-                    "img": "/picture/product-01.jpg",
-                    "price": 499.00,
-                    "sales": "提前锁好货",
-                    "sort": 3
-                },
-                {
-                    "sku": "20-188-0046",
-                    "title": "精选女装",
-                    "img": "/picture/product-02.jpg",
-                    "price": 799.00,
-                    "sales": "好货5折起",
-                    "sort": 4
-                }
-            ]
-        },
-        {
             "templateid": 20022619,
-            "templatename": "推广图",
+            "templatename": "猜你喜欢",
             "templatetype": "oneImage",
             "templatecolor": "#f72653",
             "requestdate": "1504688073945",
@@ -551,7 +547,7 @@ function getPageData() {
                 {
                     "id": "21034936",
                     "imgname": "内衣",
-                    "imgurl": "/picture/page-06.webp",
+                    "imgurl": "/picture/title-04.png",
                     "jumpurl": "",
                     "sort": 1
                 }

@@ -7,8 +7,8 @@
 ## 目录结构说明：
 
 ### `bin目录为node站点入口目录，具体见package.json`
-*   --updata-to-mongodb.js数据存到Mongodb的入口文件
-*   --server.js站点启动文件
+*   -- 数据存到Mongodb的入口文件 updata-to-mongodb.js
+*   -- 站点启动文件 server.js
 
 ### `pack目录为站点资源目录`
 
@@ -34,7 +34,7 @@
 * 一、请安装Mongodb数据库并启动，端口为默认27017 -- 命令 mongod --dbpath C:\Data
 * 二、请在APP根目录安依赖文件，执行shell命令：npm install
 * 三、进到bin目录，执行shell命令：node client.js - 获取数据，存到数据库
-* 四、执行 set DEBUG=express-practice:* & npm start 或进到bin目录，执行shell命令：node server.js - 启动站点
+* 四、启动站点执行 set DEBUG=express-practice:* & npm start 或进到bin目录，执行shell命令：node server.js
 * 五、访问http://localhost:3008
 
 -------------------------------------------------------------------

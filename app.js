@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const mongoStore = require("connect-mongo")(session);
 
+mongoose.Promise = Promise;
 const connect = () => {
     mongoose.connect(config.db, {
         useMongoClient: true, socketTimeoutMS: 0, keepAlive: true, reconnectTries: 30

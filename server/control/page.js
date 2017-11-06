@@ -1,6 +1,5 @@
 const swig = require("swig");
 const mongoose = require("mongoose");
-// const connection = require("../../bin/connection");
 
 let Personal = mongoose.model("Personal");
 let Page = mongoose.model("Page");

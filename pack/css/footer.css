@@ -84,21 +84,21 @@
 }
 
 .app-footer .container ul a.cursor.home i {
-    background-image: url(/picture/bar-hover-home.png)
+    background-image: url(/picture/bar-hover-home.png);
 }
 
 .app-footer .container ul a.cursor.sale i {
-    background-image: url(/picture/bar-hover-sale.png)
+    background-image: url(/picture/bar-hover-sale.png);
 }
 
 .app-footer .container ul a.cursor.category i {
-    background-image: url(/picture/bar-hover-class.png)
+    background-image: url(/picture/bar-hover-class.png);
 }
 
 .app-footer .container ul a.cursor.cart i {
-    background-image: url(/picture/bar-hover-cart.png)
+    background-image: url(/picture/bar-hover-cart.png);
 }
 
 .app-footer .container ul a.cursor.user i {
-    background-image: url(/picture/bar-hover-my.png)
+    background-image: url(/picture/bar-hover-my.png);
 }
