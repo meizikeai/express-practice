@@ -6,6 +6,7 @@ module.exports = function (app) {
     app.get("/user", page.userhome);
     app.get("/city", page.city);
     app.get("/sale", page.sale);
+    app.get("/getsale", page.getsale);
 
     app.get("/login", admin.login);
     app.get("/register", admin.register);

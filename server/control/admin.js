@@ -21,19 +21,19 @@ let User = mongoose.model("User");
 let Personal = mongoose.model("Personal");
 
 module.exports = {
-    login(req, res, next) {
+    login(req, res) {
         res.render("./pages/login.html", {
             title: "Login Page",
             data: CreateTemplate("users", "login", {})
         });
     },
-    register(req, res, next) {
+    register(req, res) {
         res.render("./pages/register.html", {
             title: "Register Page",
             data: CreateTemplate("users", "register", {})
         });
     },
-    checklogin(req, res, next) {
+    checklogin(req, res) {
         const result = req.body;
         const state = { //结合code查看
             "01": "帐号或密码长度不符合要求~",
@@ -84,7 +84,7 @@ module.exports = {
             failure("03", state["03"]);
         }
     },
-    checklogout(req, res, next) {
+    checklogout(req, res) {
         const result = req.body;
 
         // sessionStore、sessionID
@@ -110,7 +110,7 @@ module.exports = {
             res.send({ success: true, code: "02", url: "", description: "退出登录成功~" });
         });
     },
-    checkregister(req, res, next) {
+    checkregister(req, res) {
         const result = req.body;
 
         const state = { //结合code查看
@@ -147,25 +147,25 @@ module.exports = {
                     updataPersonal.entry = [
                         {
                             "name": "优惠券",
-                            "img": "/picture/entry-cart.png",
+                            "img": "/picture/entry-01.png",
                             "url": "/user/coupon",
                             "text": "1张"
                         },
                         {
                             "name": "余额",
-                            "img": "/picture/entry-search.png",
+                            "img": "/picture/entry-02.png",
                             "url": "/user/balance",
                             "text": "200.00"
                         },
                         {
                             "name": "手机号",
-                            "img": "/picture/entry-bao.png",
+                            "img": "/picture/entry-03.png",
                             "url": "/user/phone",
                             "text": "18600580258"
                         },
                         {
                             "name": "收货地址",
-                            "img": "/picture/entry-wang.png",
+                            "img": "/picture/entry-04.png",
                             "url": "/user/address",
                             "text": "3个"
                         }
@@ -174,13 +174,13 @@ module.exports = {
                     updataPersonal.other = [
                         {
                             "name": "帮助中心",
-                            "img": "/picture/entry-ticket.png",
+                            "img": "/picture/entry-05.png",
                             "url": "/help",
                             "text": ""
                         },
                         {
                             "name": "联系我们",
-                            "img": "/picture/entry-air.png",
+                            "img": "/picture/entry-06.png",
                             "url": "/help",
                             "text": "400 7758 0258"
                         }

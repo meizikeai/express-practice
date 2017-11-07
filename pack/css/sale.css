@@ -1,40 +1,96 @@
-.app-city {
+.app-sale-title {
+    width: 100%;
+    height: 0.96rem;
+    background-color: #fe7900;
+}
+
+.app-sale-title .every {
+    float: left;
+    width: 25%;
+    position: relative;
+    height: 0.96rem;
+}
+
+.app-sale-title .key {
+    display: block;
+    height: 0.96rem;
+    padding: 0.24rem 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center
+}
+
+.app-sale-title .key span {
+    height: 0.48rem;
+    line-height: 0.48rem;
+    display: block;
+    color: #fff;
+}
+
+.app-sale-title .key:first-child {
+    border-left: none;
+}
+
+.app-sale-title .current span {
+    font-weight: 700;
+}
+
+.app-sale-activity {
+    background-color: #ededed;
+}
+
+.app-sale-activity .active {
+    margin: 0 auto 0.0625rem;
+    position: relative;
+    background-color: #fff;
+    clear: both;
+}
+
+.app-sale-activity .active .link {
     width: 100%;
 }
 
-.app-city .check {
-    height: 1rem;
-    line-height: 1rem;
-    align-items: center;
-    padding-left: 0.3rem;
-    color: #bbb;
+.app-sale-activity .active .link a {
+    display: block;
 }
 
-.app-city .check span {
-    color: #f50;
-    margin-right: 0.2rem;
-    font-weight: 500;
-    font-size: 14px;
-}
-
-.app-city .hot {
-    height: 1rem;
-    line-height: 1rem;
-    background-color: #f1f1f1;
-    padding-left: 0.3rem;
-}
-
-.app-city .list {
+.app-sale-activity .active .link img {
+    display: block;
     width: 100%;
+}
+
+.app-sale-activity .active .discount {
+    position: absolute;
+    top: 0.15625rem;
+    left: 0;
+    padding: 0.0625rem 0.3125rem 0.0625rem 0.1875rem;
+    border-radius: 0 0.46875rem 0.46875rem 0;
+    font-size: 12px;
+    background-color: #f50;
+    color: #fff;
+}
+
+.app-sale-activity .info {
     display: flex;
-    flex-flow: wrap;
+    padding: 0.25rem 0.15625rem;
 }
 
-.app-city .views {
-    width: 33.3333%;
-    height: 1rem;
-    line-height: 1rem;
-    border-right: 1px solid #f1f1f1;
-    border-bottom: 1px solid #f1f1f1;
-    text-align: center;
+.app-sale-activity .info .name {
+    width: 75%;
+}
+
+.app-sale-activity .info .countdown {
+    width: 25%;
+    text-align: right;
+    color: #f50;
+}
+
+.app-sale-activity .info .countdown i {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    padding-right: 0.0625rem;
+    vertical-align: top;
+    background: url(/picblic/sale.png) 0 0.03125rem/0.4375rem 0.4375rem no-repeat;
 }

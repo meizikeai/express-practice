@@ -16,11 +16,10 @@
 {% autoescape false %}{{ data }}{% endautoescape %}
 {%- endblock %}
 
-{% block footer -%}{%- endblock %}
+{% block footer -%}
+{% include '../system/footer.html' ignore missing %}
+{%- endblock %}
 
 {% block script -%}
-    <script type="text/javascript">
-        var saleClass = [{ "name": "推荐", "code": 1 }, { "name": "最新", "code": 2 }, { "name": "爆推", "code": 3 }, { "name": "预告", "code": 4 }];
-    </script>
     <script type="text/javascript" src="../build/sale.js"></script>
 {%- endblock %}

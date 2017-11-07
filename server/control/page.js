@@ -22,9 +22,10 @@ const error = {
 let Personal = mongoose.model("Personal");
 let Page = mongoose.model("Page");
 let City = mongoose.model("City");
+let Sale = mongoose.model("Sale");
 
 module.exports = {
-    home(req, res, next) {
+    home(req, res) {
         Page.load((err, db) => {
             let structure = "";
 
@@ -52,7 +53,7 @@ module.exports = {
             });
         });
     },
-    userhome(req, res, next) {
+    userhome(req, res) {
         const express = req.session.express;
 
         if (typeof req.session.express !== "object") {
@@ -84,7 +85,7 @@ module.exports = {
             });
         });
     },
-    city(req, res, next) {
+    city(req, res) {
         City.load((err, db) => {
             let structure = "";
 
@@ -104,10 +105,20 @@ module.exports = {
             });
         });
     },
-    sale(req, res, next) {
+    sale(req, res) {
         res.render("./pages/sale.html", {
             title: "Sale Page",
             data: ""
         });
+    },
+    getsale(req, res) {
+        const result = req.query;
+
+        if (result.code == 1) {
+            Sale.load((err, db) => {
+                res.type("application/json");
+                res.send({ success: true, code: result.code, description: "", data: db });
+            });
+        }
     }
 };

@@ -1,5 +1,6 @@
 import "../css/reset.css";
 
+// https://github.com/amfe/lib-flexible/tree/master
 export default (function (win, lib) {
     var doc = win.document;
     var docEl = doc.documentElement;

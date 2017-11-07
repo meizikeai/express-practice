@@ -16,16 +16,8 @@ let saleSchema = new Schema({
 
 saleSchema.statics = {
     load: function (cb) {
-        this.find({}).sort({ createtime: -1 }).limit(1).exec(cb);
+        this.find({}).sort({ createtime: -1 }).limit(8).exec(cb);
     }
 };
 
 mongoose.model("Sale", saleSchema);
-
-// "title": "美妆护肤专场",
-// "brandname": "津尔氏"
-// "imgurl": "/images/sale-1.jpg",
-// "label": false,
-// "discount": "2.4-9.0折",
-// "starttime": "2017-09-21T10:00:00",
-// "endtime": "2017-09-26T08:00:00",
