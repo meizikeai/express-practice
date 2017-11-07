@@ -1,10 +1,7 @@
 const swig = require("swig");
 const mongoose = require("mongoose");
 
-let Personal = mongoose.model("Personal");
-let Page = mongoose.model("Page");
-
-let CreateTemplate = function (where, filename, data) {
+const CreateTemplate = (where, filename, data) => {
     let template = null;
 
     if (typeof filename != "string") {
@@ -17,14 +14,23 @@ let CreateTemplate = function (where, filename, data) {
 
     return template({ content: data });
 };
+const error = {
+    "500": '<div class="user-err">服务器忙，请稍后再试！（H00001）</div>',
+    "404": '<div class="user-err">页面数据不存在~</div>'
+};
+
+let Personal = mongoose.model("Personal");
+let Page = mongoose.model("Page");
+let City = mongoose.model("City");
 
 module.exports = {
-    home: function (req, res, next) {
-        Page.find({}).sort({ createtime: -1 }).limit(1).exec(function (error, db) {
+    home(req, res, next) {
+        Page.load((err, db) => {
             let structure = "";
 
-            if (error) {
-                console.log(error);
+            if (err) {
+                console.log(err);
+                structure = error["500"];
             }
 
             if (db.length > 0) {
@@ -34,19 +40,19 @@ module.exports = {
                         structure += CreateTemplate("home", template[i].templatetype, template[i]);
                     }
                 } else {
-                    structure = '<div class="user-error">页面数据不存在~</div>';
+                    structure = error["404"];
                 }
             } else {
-                structure = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
+                structure = error["404"];
             }
 
             res.render("./pages/home.html", {
-                title: "Home",
+                title: "Home Page",
                 data: structure
             });
         });
     },
-    userhome: function (req, res, next) {
+    userhome(req, res, next) {
         const express = req.session.express;
 
         if (typeof req.session.express !== "object") {
@@ -58,23 +64,50 @@ module.exports = {
             return false;
         }
 
-        Personal.findOne({ kid: express.kid }, function (error, db) {
+        Personal.load(express.kid, (err, db) => {
             let structure = "";
 
-            if (error) {
-                console.log(error);
+            if (err) {
+                console.log(err);
+                structure = error["500"];
             }
 
             if (db) {
                 structure += CreateTemplate("users", "main", db);
             } else {
-                structure = '<div class="user-error">服务器忙，请稍后再试！（H00001）</div>';
+                structure = error["404"];
             }
 
             res.render("./pages/user-home.html", {
-                title: "User Center",
+                title: "User Center Page",
                 data: structure
             });
+        });
+    },
+    city(req, res, next) {
+        City.load((err, db) => {
+            let structure = "";
+
+            if (err) {
+                console.log(err);
+                structure = error["500"];
+            }
+            if (db.length > 0) {
+                structure = CreateTemplate("users", "city", db[0]);
+            } else {
+                structure = error["404"];
+            }
+
+            res.render("./pages/city.html", {
+                title: "City Page",
+                data: structure
+            });
+        });
+    },
+    sale(req, res, next) {
+        res.render("./pages/sale.html", {
+            title: "Sale Page",
+            data: ""
         });
     }
 };

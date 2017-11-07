@@ -16,9 +16,8 @@ pageSchema.virtual("hid").set(function (id) {
 // pageSchema.methods = {};
 
 pageSchema.statics = {
-    load: function (userId, pageId, cb) {
-        let self = this;
-        self.findOne({ userId: userId, pageId: pageId }).exec(cb);
+    load: function (cb) {
+        this.find().sort({ createtime: -1 }).limit(1).exec(cb);
     }
 };
 

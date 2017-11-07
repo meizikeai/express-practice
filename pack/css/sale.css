@@ -1,0 +1,40 @@
+.app-city {
+    width: 100%;
+}
+
+.app-city .check {
+    height: 1rem;
+    line-height: 1rem;
+    align-items: center;
+    padding-left: 0.3rem;
+    color: #bbb;
+}
+
+.app-city .check span {
+    color: #f50;
+    margin-right: 0.2rem;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.app-city .hot {
+    height: 1rem;
+    line-height: 1rem;
+    background-color: #f1f1f1;
+    padding-left: 0.3rem;
+}
+
+.app-city .list {
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+}
+
+.app-city .views {
+    width: 33.3333%;
+    height: 1rem;
+    line-height: 1rem;
+    border-right: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;
+    text-align: center;
+}

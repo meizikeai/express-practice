@@ -1,37 +1,15 @@
-﻿const style = require("../css/footer.css");
+﻿import "../css/footer.css";
 
-module.exports = function () {
-    $(function () {
-        let BindFootEvent = function () {
-            this.init();
-        };
+export default function () {
+    let that = document.querySelectorAll(".model-footer .mian a");
+    let pathname = location.pathname;
 
-        BindFootEvent.prototype = {
-            init: function () {
-                this.bindEvent();
-            },
-            createNode: function () {
-                return {
-                    footer: $(".app-footer .mian a")
-                }
-            },
-            bindEvent: function () {
-                let self = this;
-                let that = self.createNode();
-                let pathname = location.pathname;
-
-                $.each(that.footer, function (k, e) {
-                    let every = $(e);
-                    let href = every.attr("href");
-                    if (pathname === href) {
-                        every.addClass("cursor");
-                    } else {
-                        every.removeClass("cursor");
-                    }
-                });
-            }
-        };
-
-        new BindFootEvent();
+    that.forEach((e, k) => {
+        let href = e.getAttribute("href");
+        if (pathname == href) {
+            e.className = e.className + " cursor";
+        } else {
+            e.className = e.className.replace(/cursor/ig, "");
+        }
     });
-}();
+}

@@ -3,10 +3,7 @@ const mongoose = require("mongoose");
 const env = process.env.NODE_ENV || "dev";
 const config = require("../config/config")[env];
 
-let User = mongoose.model("User");
-let Personal = mongoose.model("Personal");
-
-let CreateTemplate = function (where, filename, data) {
+const CreateTemplate = (where, filename, data) => {
     let template = null;
 
     if (typeof filename != "string") {
@@ -20,20 +17,23 @@ let CreateTemplate = function (where, filename, data) {
     return template({ content: data });
 };
 
+let User = mongoose.model("User");
+let Personal = mongoose.model("Personal");
+
 module.exports = {
-    login: function (req, res, next) {
+    login(req, res, next) {
         res.render("./pages/login.html", {
-            title: "Login",
-            data: CreateTemplate("login", "main", {})
+            title: "Login Page",
+            data: CreateTemplate("users", "login", {})
         });
     },
-    register: function (req, res, next) {
+    register(req, res, next) {
         res.render("./pages/register.html", {
-            title: "Register",
-            data: CreateTemplate("register", "main", {})
+            title: "Register Page",
+            data: CreateTemplate("users", "register", {})
         });
     },
-    checklogin: function (req, res, next) {
+    checklogin(req, res, next) {
         const result = req.body;
         const state = { //结合code查看
             "01": "帐号或密码长度不符合要求~",
@@ -54,7 +54,7 @@ module.exports = {
                 return failure("01", state["01"]);
             }
 
-            User.findOne({ loginname: result.username }, function (error, db) {
+            User.load(result.username, (error, db) => {
                 if (error) {
                     return failure("02", state["02"] + error);
                 }
@@ -84,11 +84,11 @@ module.exports = {
             failure("03", state["03"]);
         }
     },
-    checklogout: function (req, res, next) {
+    checklogout(req, res, next) {
         const result = req.body;
 
         // sessionStore、sessionID
-        req.sessionStore.destroy(req.sessionID, function (error, db) {
+        req.sessionStore.destroy(req.sessionID, (error, db) => {
             if (error) {
                 return res.send({ success: false, code: "01", url: "", description: "sessionID有误~" });
             }
@@ -110,7 +110,7 @@ module.exports = {
             res.send({ success: true, code: "02", url: "", description: "退出登录成功~" });
         });
     },
-    checkregister: function (req, res, next) {
+    checkregister(req, res, next) {
         const result = req.body;
 
         const state = { //结合code查看
@@ -135,7 +135,7 @@ module.exports = {
 
             updataUser.pin = result.password;
 
-            updataUser.save(function (error, data) {
+            updataUser.save((error, data) => {
                 if (error) {
                     if (error.code == '11000') {
                         return failure("01", state["01"]);

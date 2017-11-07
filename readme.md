@@ -2,7 +2,6 @@
 
 * 实现方式：nodejs + express + swig + mongodb
 * 运行地址：http://localhost:3008
-* mongodb：https://www.npmjs.com/package/mongodb
 
 ## 目录结构说明：
 

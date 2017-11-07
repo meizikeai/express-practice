@@ -57,12 +57,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser(config.secret));
 app.use(session({
-    secret: config.secret, resave: false, saveUninitialized: false, name: "express",
+    secret: config.secret, // 用来对session id相关的cookie进行签名
+    resave: false, // 是否每次都重新保存会话，建议false
+    saveUninitialized: false, // 是否自动保存未初始化的会话，建议false
+    name: "express",
     cookie: {
         path: "/", signed: true, maxAge: config.maxAge // 有效时间
         // secure: true, // 需要https
     },
-    store: new mongoStore({
+    store: new mongoStore({  // 创建新的mongodb数据库存储session
         url: config.db, collection: "sessions", autoRemove: "interval",
         autoRemoveInterval: config.minutes // In minutes. Default
     })

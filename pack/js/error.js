@@ -1,3 +1,5 @@
-﻿const reset = require("../unit/reset");
-const header = require("../unit/header");
-const style = require("../css/error.css");
+﻿import "../unit/reset";
+import Header from "../unit/header";
+import "../css/error.css";
+
+Header();

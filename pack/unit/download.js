@@ -1,7 +1,7 @@
-﻿const alert = require("../unit/alert");
-const style = require("../css/download.css");
+﻿import "../unit/alert";
+import "../css/download.css";
 
-$(function () {
+$(() => {
     let Download = function () {
         this.init();
     };
@@ -13,7 +13,7 @@ $(function () {
          * @param 无
          * @return 无
          */
-        init: function () {
+        init() {
             this.bindEvent();
         },
         /**
@@ -22,7 +22,7 @@ $(function () {
          * @param 无
          * @return 无
          */
-        collectNode: function () {
+        collectNode() {
             return {
                 model: $(".model-download")
             }
@@ -33,22 +33,22 @@ $(function () {
          * @param 无
          * @return 无
          */
-        bindEvent: function () {
+        bindEvent() {
             let self = this;
             let that = self.collectNode();
 
-            that.model.find(".close").on("click", function (e) {
+            that.model.find(".close").on("click", (e) => {
                 that.model.css("display", "none");
             });
 
-            that.model.find(".open").on("click", function (e) {
+            that.model.find(".open").on("click", (e) => {
                 let iframe = document.createElement('iframe');
 
                 iframe.src = "mobile://Page?id=Home"; //具体参考调用协议
                 iframe.style.display = 'none';
                 document.body.appendChild(iframe);
 
-                setTimeout(function () {
+                setTimeout(() => {
                     document.body.removeChild(iframe);
                     self.tipBox("协议不可能是“mobile://Page?id=Home”，请修改后再试一下~");
                 }, 600);
@@ -60,7 +60,7 @@ $(function () {
          * @param body {String} / fn {Function} / type {String}
          * @return 无
          */
-        tipBox: function (body, type, fn) {
+        tipBox(body, type, fn) {
             $("body").alert({
                 body: body,
                 type: type,

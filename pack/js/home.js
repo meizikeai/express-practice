@@ -1,10 +1,11 @@
-﻿const reset = require("../unit/reset");
-const header = require("../unit/header");
-const footer = require("../unit/footer");
-const download = require("../unit/download");
-const swipe = require("../unit/swipe");
-const position = require("../unit/position");
-const style = require("../css/home.css");
+﻿
+import "../unit/reset";
+import "../unit/header";
+import "../unit/download";
+import Footer from "../unit/footer";
+import Swipe from "../unit/swipe";
+import Position from "../unit/position";
+import "../css/home.css";
 
 $(() => {
     var HomePage = function () {
@@ -17,6 +18,7 @@ $(() => {
          */
         init() {
             this.bindEvent();
+            Footer();
         },
         /**
          * 搜集节点
@@ -68,10 +70,13 @@ $(() => {
             // 城市
             let checkcity = that.blockhead.find(".check-city span");
             if (localStorage.city) {
-                checkcity.html(localStorage.city);
+                checkcity.html(JSON.parse(localStorage.city).name);
             } else {
-                position.getPosition((val) => {
-                    localStorage.city = val;
+                Position.getPosition((val) => {
+                    localStorage.city = JSON.stringify({
+                        name: val,
+                        code: "001"
+                    });
                     checkcity.html(val);
                 });
             }
@@ -95,7 +100,7 @@ $(() => {
             var thisMarkerSpan = thisMarker && thisMarker.querySelectorAll('span');
 
             if (thisFigure) {
-                swipe.swipe(thisFigure, {
+                Swipe(thisFigure, {
                     callback(index, node) {
                         var count = thisMarkerSpan.length;
 

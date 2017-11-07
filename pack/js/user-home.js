@@ -1,10 +1,10 @@
-﻿const reset = require("../unit/reset");
-const header = require("../unit/header");
-const common = require("../unit/common");
-const footer = require("../unit/footer");
-const download = require("../unit/download");
-const alert = require("../unit/alert");
-const style = require("../css/user-home.css");
+﻿import "../unit/reset";
+import "../unit/download";
+import "../unit/alert";
+import Header from "../unit/header";
+import Footer from "../unit/footer";
+import Common from "../unit/common";
+import "../css/user-home.css";
 
 $(() => {
     let UserCenter = function () {
@@ -19,7 +19,9 @@ $(() => {
          * @return 无
          */
         init() {
+            Header();
             this.bindEvent();
+            Footer();
         },
         /**
          * 搜集节点
@@ -42,9 +44,9 @@ $(() => {
             let self = this;
             let that = self.collectNode();
 
-            if (common.checkLogin()) {
+            if (Common.checkLogin()) {
                 that.other.find(".nick").removeClass("none");
-                that.other.find(".nick span").html(common.getCookieValue("practice", "name"));
+                that.other.find(".nick span").html(Common.getCookieValue("practice", "name"));
                 that.other.find(".login").html("退出");
             }
 

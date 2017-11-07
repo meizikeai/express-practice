@@ -5,83 +5,108 @@ const mongoose = require("mongoose");
 const env = process.env.NODE_ENV || "dev";
 const config = require("../server/config/config")[env];
 
-// 链接数据库
 mongoose.Promise = Promise;
 mongoose.connect(config.db, {
     useMongoClient: true, socketTimeoutMS: 0, keepAlive: true, reconnectTries: 30
 });
-mongoose.connection.on("open", function () {
+mongoose.connection.on("open", () => {
     console.log("mongodb connection is success!");
 });
-mongoose.connection.on("error", function (error) {
+mongoose.connection.on("error", (error) => {
     console.log("mongodb connection is failure! " + error);
 });
-mongoose.connection.on("disconnected", function () {
+mongoose.connection.on("disconnected", () => {
     console.log("mongodb connection is disconnected!");
 });
 
-// 加载models
 const models_path = path.join(__dirname, "../server/models");
-fs.readdirSync(models_path).forEach(function (file) {
+fs.readdirSync(models_path).forEach((file) => {
     if (~file.indexOf(".js")) { require(models_path + "/" + file); }
 });
+
 const Page = mongoose.model("Page");
 const Counter = mongoose.model("Counter");
+const City = mongoose.model("City");
 
 function updateToMongodb(params) {
     this.init();
 }
 
 updateToMongodb.prototype = {
-    init: function () {
+    init() {
         this.setCounterDate();
         this.setPageDate();
+        this.setCityDate();
+        this.closeMongoose();
     },
-    setCounterDate: function () {
-        let self = this;
+    setCounterDate() {
         let updateCounter = new Counter({
             kid: "counter"
         });
 
-        Counter.findOne({ kid: "counter" }, function (error, db) {
+        Counter.findOne({ kid: "counter" }, (error, db) => {
             if (error) {
                 console.log(error);
             }
             if (db === null) {
-                self.handleSave(updateCounter);
+                this.handleSave(updateCounter, (db) => {
+
+                });
             }
         });
     },
-    setPageDate: function () {
-        let self = this;
+    setPageDate() {
         let updatePage = new Page({
             title: "Have a dream, a big dream!",
             color: "transparent",
             template: getPageData()
         });
 
-        Page.findOne({}, function (error, db) {
+        Page.findOne({}, (error, db) => {
             if (error) {
                 console.log(error);
             }
             if (db === null) {
-                self.handleSave(updatePage);
+                this.handleSave(updatePage);
             } else {
                 Counter.findOneAndUpdate({
                     kid: "counter"
-                }, { $inc: { count: 1 } }, function (error, db) {
+                }, { $inc: { count: 1 } }, (error, db) => {
                     if (error) {
                         console.log(error);
                     }
                     updatePage.hid = db.count;
-                    self.handleSave(updatePage, function (db) {
-                        mongoose.disconnect();
+                    this.handleSave(updatePage, (db) => {
+                        // mongoose.disconnect();
                     });
                 });
             }
         });
     },
-    handleSave: function (o, fn) {
+    setCityDate() {
+        let updateCity = new City();
+
+        updateCity.cities = [
+            { "name": "北京", code: "001" }, { "name": "成都", code: "002" },
+            { "name": "重庆", code: "003" }, { "name": "广州", code: "004" },
+            { "name": "杭州", code: "005" }, { "name": "南京", code: "006" },
+            { "name": "上海", code: "007" }, { "name": "深圳", code: "008" },
+            { "name": "苏州", code: "009" }, { "name": "天津", code: "010" },
+            { "name": "武汉", code: "011" }, { "name": "西安", code: "012" }
+        ];
+
+        City.findOne({}, (error, db) => {
+            if (error) {
+                console.log(error);
+            }
+            if (db === null) {
+                this.handleSave(updateCity, (db) => {
+                    // mongoose.disconnect();
+                });
+            }
+        });
+    },
+    handleSave(o, fn) {
         o.save((error, db) => {
             if (error) {
                 console.log(error);
@@ -90,9 +115,13 @@ updateToMongodb.prototype = {
                 if (typeof fn === "function") {
                     fn(db);
                 }
-                mongoose.disconnect();
             }
         });
+    },
+    closeMongoose() {
+        setTimeout(() => {
+            mongoose.disconnect();
+        }, 5000);
     }
 };
 
@@ -647,33 +676,3 @@ function getPageData() {
         }
     ];
 }
-
-
-// 1、http://www.cnblogs.com/IamThat/p/5668411.html
-
-// first: create counter collection in mongodb:
-// > db.counters.insert({ _id: "entityId", seq: 0 })
-// WriteResult({ "nInserted": 1 })
-
-// then put below in a model.js:
-
-// var CounterSchema = Schema({
-//     _id: { type: String, required: true },
-//     seq: { type: Number, default: 0 }
-// });
-// var counter = mongoose.model('counter', CounterSchema);
-
-// var entitySchema = mongoose.Schema({
-//     testvalue: { type: String }
-// });
-
-// entitySchema.pre('save', function (next) {
-//     var doc = this;
-//     counter.findByIdAndUpdate({ _id: 'entityId' }, { $inc: { seq: 1 } }, function (error, counter) {
-//         if (error) {
-//             return next(error);
-//         }
-//         doc.testvalue = counter.seq;
-//         next();
-//     });
-// });

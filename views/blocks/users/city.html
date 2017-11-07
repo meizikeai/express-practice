@@ -1,0 +1,12 @@
+{%- set cities = content.cities -%}
+<div class="app-city">
+    <div class="check">
+        <span>北京</span>GPS定位
+    </div>
+    <h3 class="hot">热门城市</h3>
+    <div class="list">
+        {% for info in cities -%}
+        <div class="views" data-code="{{info.code}}">{{info.name}}</div>
+        {%- endfor %}
+    </div>
+</div>

@@ -1,15 +1,15 @@
-.app-header {
+.model-header {
     width: 100%;
 }
 
-.app-header .header {
+.model-header .header {
     height: 1rem;
     position: relative;
     z-index: 510;
     background-color: #f50;
 }
 
-.app-header .back {
+.model-header .back {
     width: 1rem;
     height: 1rem;
     position: absolute;
@@ -30,7 +30,7 @@
     display: -o-box;
 }
 
-.app-header .back:after {
+.model-header .back:after {
     content: "";
     display: block;
     width: .3rem;
@@ -38,7 +38,7 @@
     background: url(/picture/back.png) 0 0/100% no-repeat;
 }
 
-.app-header .title {
+.model-header .title {
     margin: 0 1rem;
     height: 1rem;
     line-height: 1rem;
@@ -51,7 +51,7 @@
     color: #fff;
 }
 
-.app-header .pull {
+.model-header .pull {
     position: absolute;
     right: 0;
     top: 0;
@@ -72,7 +72,7 @@
     display: -o-box;
 }
 
-.app-header .pull:after {
+.model-header .pull:after {
     content: "";
     display: block;
     width: .62rem;
@@ -80,7 +80,7 @@
     background: url(/picture/control.png) 0 0/100% no-repeat;
 }
 
-.app-header .entry {
+.model-header .entry {
     width: 100%;
     display: none;
     position: absolute;
@@ -90,11 +90,11 @@
     background-color: #fff;
 }
 
-.app-header .entry .content {
+.model-header .entry .content {
     display: flex;
 }
 
-.app-header .entry .content a {
+.model-header .entry .content a {
     width: 25%;
     padding: .25rem 0;
     text-align: center;
@@ -103,7 +103,7 @@
     color: #333;
 }
 
-.app-header .entry .content a i {
+.model-header .entry .content a i {
     display: inline-block;
     width: .5rem;
     height: .5rem;
@@ -111,29 +111,29 @@
     vertical-align: top;
 }
 
-.app-header .entry .content a span {
+.model-header .entry .content a span {
     display: inline-block;
     height: .5rem;
     line-height: .5rem;
 }
 
-.app-header .entry .content .home {
+.model-header .entry .content .home {
     background: url(/picture/home.png) 0 0/100% no-repeat;
 }
 
-.app-header .entry .content .category {
+.model-header .entry .content .category {
     background: url(/picture/category.png) 0 0/100% no-repeat;
 }
 
-.app-header .entry .content .cart {
+.model-header .entry .content .cart {
     background: url(/picture/cart.png) 0 0/100% no-repeat;
 }
 
-.app-header .entry .content .user {
+.model-header .entry .content .user {
     background: url(/picture/user.png) 0 0/100% no-repeat;
 }
 
-.app-seet {
+.model-seet {
     width: 100%;
     height: 100%;
     display: none;
@@ -144,6 +144,6 @@
     background-color: rgba(0, 0, 0, .1);
 }
 
-.app-block, .app-header .app-block {
+.model-block, .model-header .model-block {
     display: block;
 }

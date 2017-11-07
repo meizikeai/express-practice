@@ -1,7 +1,7 @@
-﻿const reset = require("../unit/reset");
-const header = require("../unit/header");
-const alert = require("../unit/alert");
-const style = require("../css/login.css");
+﻿import "../unit/reset";
+import "../unit/alert";
+import Header from "../unit/header";
+import "../css/login.css";
 
 $(() => {
     let Login = function () {
@@ -16,6 +16,7 @@ $(() => {
          * @return 无
          */
         init() {
+            Header();
             this.bindEvent();
         },
         /**

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-let personalSchema = new mongoose.Schema({
+let personalSchema = new Schema({
     kid: Schema.Types.ObjectId,
     info: {
         userLevel: { type: Number, default: 0 },
@@ -27,9 +27,8 @@ personalSchema.virtual("userid").set(function (id) {
 // personalSchema.methods = {};
 
 personalSchema.statics = {
-    load: function (userId, pageId, cb) {
-        let self = this;
-        self.findOne({ userId: userId, pageId: pageId }).exec(cb);
+    load: function (id, cb) {
+        this.findOne({ kid: id }).exec(cb);
     }
 };
 

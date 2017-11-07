@@ -1,24 +1,24 @@
-﻿const style = require("../css/header.css");
+﻿import "../css/header.css";
 
-module.exports = function () {
-    $(function () {
+export default function () {
+    $(() => {
         var BindHeadEvent = function () {
             this.init();
         };
 
         BindHeadEvent.prototype = {
-            init: function () {
+            init() {
                 this.bindEvent();
             },
-            createNode: function () {
+            createNode() {
                 return {
-                    back: $(".app-header .back"),
-                    pull: $(".app-header .pull"),
-                    entry: $(".app-header .entry"),
-                    appseet: $(".app-header .app-seet")
+                    back: $(".model-header .back"),
+                    pull: $(".model-header .pull"),
+                    entry: $(".model-header .entry"),
+                    appseet: $(".model-header .model-seet")
                 }
             },
-            bindEvent: function () {
+            bindEvent() {
                 var self = this;
                 var that = self.createNode();
 
@@ -27,22 +27,22 @@ module.exports = function () {
                 });
 
                 that.pull.on("click", () => {
-                    if (that.entry.hasClass("app-block")) {
-                        that.entry.removeClass("app-block");
-                        that.appseet.removeClass("app-block");
+                    if (that.entry.hasClass("model-block")) {
+                        that.entry.removeClass("model-block");
+                        that.appseet.removeClass("model-block");
                     } else {
-                        that.entry.addClass("app-block");
-                        that.appseet.addClass("app-block");
+                        that.entry.addClass("model-block");
+                        that.appseet.addClass("model-block");
                     }
                 });
 
                 that.appseet.on("click", () => {
-                    that.entry.removeClass("app-block");
-                    that.appseet.removeClass("app-block");
+                    that.entry.removeClass("model-block");
+                    that.appseet.removeClass("model-block");
                 });
             }
         };
 
         new BindHeadEvent();
     });
-}();
+}

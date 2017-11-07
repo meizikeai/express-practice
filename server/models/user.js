@@ -26,11 +26,11 @@ userSchema.virtual("pin").set(function (pin) {
     this._pin = pin;
     this.salt = this.makeSalt();
     this.password = this.encryptPassword(pin);
-}).get(function () {
+}).get(() => {
     return this._pin;
 });
 
-userSchema.path("password").validate((password) => {
+userSchema.path("password").validate(function (password) {
     return (typeof password === "string" && password.length > 0);
 }, "密码不能为空~");
 
@@ -49,29 +49,24 @@ userSchema.methods = {
 };
 
 userSchema.statics = {
-    load: function (userId, cb) {
-        let self = this;
-        self.findOne({ userId: userId }).exec(cb);
+    load: function (name, cb) {
+        this.findOne({ loginname: name }).exec(cb);
     },
-    save: function (userId, page, cb) {
-        let self = this;
-
-        if (!page) {
+    save: function (name, data, cb) {
+        if (!data) {
             return cb("no page");
         }
-
-        if (page.hasOwnProperty("__v")) {
-            delete page.__v;
+        if (data.hasOwnProperty("__v")) {
+            delete data.__v;
         }
 
-        self.findOne({ userId: userId, pageId: page._id }).exec(function (err, view) {
+        this.findOne({ loginname: name }).exec((err, view) => {
             if (err) {
                 return cb(err);
             }
-
             if (view) {
-                view.data = page;
-                view.updateDate = new Date();
+                // view.data = page;
+                view.createtime = new Date();
                 view.save(cb);
             }
         });
