@@ -37,7 +37,7 @@ module.exports = {
         const result = req.body;
         const state = { //结合code查看
             "01": "帐号或密码长度不符合要求~",
-            "02": "数据库查询失败~",
+            "02": "帐号或密码错误~", //数据库查询失败~
             "03": "帐号或密码错误~",
             "04": "帐号或密码缺失~",
             "05": "登录成功~"
@@ -65,11 +65,11 @@ module.exports = {
 
                 if (db.authenticate(result.password)) {
                     req.session.express = {
-                        kid: db._id,
+                        kid: db.id,
                         name: db.loginname
                     };
 
-                    res.cookie("practice", JSON.stringify({ kid: db._id, name: db.loginname }), {
+                    res.cookie("practice", JSON.stringify({ kid: db.id, name: db.loginname }), {
                         maxAge: config.maxAge,
                         signed: false
                     });
@@ -186,7 +186,7 @@ module.exports = {
                         }
                     ];
 
-                    updataPersonal.userid = updataUser._id;
+                    updataPersonal.uid = updataUser.id;
 
                     updataPersonal.save((err, doc) => {
                         if (err) {
@@ -194,11 +194,11 @@ module.exports = {
                         }
 
                         req.session.express = {
-                            kid: updataUser._id,
+                            kid: updataUser.id,
                             name: updataUser.loginname
                         };
 
-                        res.cookie("practice", JSON.stringify({ kid: updataUser._id, name: updataUser.loginname }), {
+                        res.cookie("practice", JSON.stringify({ kid: updataUser.id, name: updataUser.loginname }), {
                             maxAge: config.maxAge,
                             signed: false
                         });

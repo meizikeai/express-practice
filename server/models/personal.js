@@ -20,7 +20,7 @@ let personalSchema = new Schema({
     createtime: { type: Date, default: Date.now }
 });
 
-personalSchema.virtual("userid").set(function (id) {
+personalSchema.virtual("uid").set(function (id) {
     this.kid = id;
 });
 

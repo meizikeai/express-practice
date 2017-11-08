@@ -114,11 +114,17 @@ module.exports = {
     getsale(req, res) {
         const result = req.query;
 
-        if (result.code == 1) {
-            Sale.load((err, db) => {
-                res.type("application/json");
-                res.send({ success: true, code: result.code, description: "", data: db });
-            });
-        }
+        res.type("application/json");
+        Sale.load(result.code, (err, db) => {
+            if (err) {
+                res.send({ success: false, code: result.code, description: err, data: db });
+            }
+
+            res.send({ success: true, code: result.code, description: "获取成功~", data: db });
+        });
+    },
+    servertime(req, res) {
+        res.type("application/json");
+        res.send({ time: new Date() });
     }
 };

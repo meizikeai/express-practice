@@ -13,7 +13,16 @@
 {%- endblock %}
 
 {% block content -%}
-    <div class="error-container">
+    <div class="app-error">
+        <div class="tip">
+            <img src="/picture/error.png" alt="404" />
+        </div>
+        <div class="text">
+            <h3>404</h3>
+            <p>this page is having a rest~</p>
+        </div>
+    </div>
+    <div class="app-error-container">
         <h1>{{ message }}</h1>
         <h2>{{ error.status }}</h2>
         <div>{{ error.stack }}</div>

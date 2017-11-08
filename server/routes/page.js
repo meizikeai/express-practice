@@ -14,4 +14,6 @@ module.exports = function (app) {
     app.post("/checklogin", admin.checklogin);
     app.post("/checklogout", admin.checklogout);
     app.post("/checkregister", admin.checkregister);
+
+    app.get("/servertime", page.servertime);
 };

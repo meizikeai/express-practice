@@ -1,21 +1,50 @@
-.error-container {
-    padding: 10px;
+html {
+    background-color: #e5f0f2;
 }
 
-.error-container h1 {
-    font-size: 18px;
+.app-error {
+    padding: 0.3rem;
+}
+
+.app-error .tip {
+    padding: 1rem 1.5rem;
+}
+
+.app-error .tip img {
+    width: 100%;
+    vertical-align: top;
+}
+
+.app-error .text {
+    width: 100%;
+}
+
+.app-error .text h3 {
+    text-align: center;
+    font-size: 36px;
+}
+
+.app-error .text p {
+    text-align: center;
+    font-size: 16px;
+}
+
+.app-error-container {
+    display: none;
+    padding: .3rem;
+}
+
+.app-error-container h1 {
+    font-size: 14px;
     line-height: 36px;
     font-weight: 700;
 }
 
-.error-container h2 {
-    font-size: 16px;
-    height: 30px;
+.app-error-container h2 {
     font-weight: 700;
 }
 
-.error-container div {
+.app-error-container div {
     width: 100%;
     word-wrap: break-word;
-    line-height: 18px;
 }
