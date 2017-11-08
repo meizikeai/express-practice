@@ -42,7 +42,7 @@ module.exports = function () {
 				'border-radius': '5px',
 				'overflow': 'hidden',
 				'box-shadow': '0px 5px 20px 0px rgba(126, 137, 140, .2)',
-				'border': '1px solid #B8C8CC',
+				'border': '1px solid #fff',
 				'background-color': '#fff'
 			},
 			header: {

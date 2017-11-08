@@ -99,7 +99,8 @@ saleSchema.statics = {
                 cb && cb("查询失败~", null);
                 break;
         }
-    }
+    },
+    save: function () { }
 };
 
 mongoose.model("Sale", saleSchema);
