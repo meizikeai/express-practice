@@ -100,11 +100,7 @@
 
 ### `定时任务`
 
-* -- Cron  - https://www.npmjs.com/package/cron
-*    - cron是一个小巧的定时任务管理模块，可以满足我们绝大部分需求，它支持标准的cron patterns,熟悉linux cron tab的语法就可以很容易上手。
-* -- Later - http://bunkat.github.io/later/index.html
-*    - 另外一个名气比较大且功能比较强大的定时模块是Later，对于功能要求比较高的可用用它，later的缺点是有点复杂，不像cron只要拿来就会用了。
-* -- crontab
+* -- Cron  - https://github.com/node-schedule/node-schedule
 
 ### `单元测试`
 

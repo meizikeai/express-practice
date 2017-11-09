@@ -33,6 +33,29 @@ module.exports = {
             data: CreateTemplate("users", "register", {})
         });
     },
+    forget(req, res) {
+        res.render("./pages/forget.html", {
+            title: "Forget Page",
+            data: CreateTemplate("users", "forget", {})
+        });
+    },
+    password(req, res) {
+        const cookies = req.cookies;
+        let picture = null;
+
+        if (cookies && cookies.practice) {
+            picture = JSON.parse(cookies.practice);
+        }
+
+        if (picture && picture.kid) {
+            res.render("./pages/password.html", {
+                title: "Password change Page",
+                data: CreateTemplate("users", "password", {})
+            });
+        } else {
+            res.redirect("/forget");
+        }
+    },
     checklogin(req, res) {
         const result = req.body;
         const state = { //结合code查看
@@ -40,7 +63,9 @@ module.exports = {
             "02": "帐号或密码错误~", //数据库查询失败~
             "03": "帐号或密码错误~",
             "04": "帐号或密码缺失~",
-            "05": "登录成功~"
+            "05": "登录成功~",
+            "06": "帐号已禁用~",
+            "07": "尝试次数过多，上验证码~"
         }
 
         const failure = (code, text) => {
@@ -54,13 +79,21 @@ module.exports = {
                 return failure("01", state["01"]);
             }
 
-            User.load(result.username, (error, db) => {
+            User.load({ loginname: result.username }, (error, db) => {
                 if (error) {
                     return failure("02", state["02"] + error);
                 }
 
                 if (!db) {
                     return failure("02", state["02"]);
+                }
+
+                if (db.status > 0) {
+                    failure("06", state["06"]);
+                }
+
+                if (db.query > 3) {
+                    failure("07", state["07"]);
                 }
 
                 if (db.authenticate(result.password)) {
@@ -170,7 +203,6 @@ module.exports = {
                             "text": "3个"
                         }
                     ];
-
                     updataPersonal.other = [
                         {
                             "name": "帮助中心",
@@ -209,6 +241,123 @@ module.exports = {
             });
         } else {
             failure("04", state["04"]);
+        }
+    },
+    checkforget(req, res) {
+        const result = req.body;
+
+        const state = { //结合code查看
+            "01": "帐号长度不符合要求~",
+            "02": "帐号不存在~", //数据库查询失败~
+            "03": "查询成功，您的手机将会收到验证码，请在跳转后修改密码~",
+            "04": "尝试次数过多，上验证码~"
+        }
+
+        const failure = (code, text) => {
+            res.type("application/json");
+            res.send({ success: false, code: code, url: "", description: text ? text : "" });
+        };
+
+        if (result.username) {
+            if (result.username.lenght < 4) {
+                return failure("01", state["01"]);
+            }
+
+            User.load({ loginname: result.username }, (error, db) => {
+                if (error) {
+                    return failure("02", state["02"] + error);
+                }
+
+                if (!db) {
+                    return failure("02", state["02"]);
+                }
+
+                if (db.query > 3) {
+                    failure("04", state["04"]);
+                }
+
+                res.cookie("practice", JSON.stringify({ kid: db.id, name: db.loginname }), {
+                    maxAge: config.maxAge,
+                    signed: false
+                });
+
+                User.updateQuery(db.id, (err, db) => {
+                    res.type("application/json");
+                    res.send({ success: true, code: "03", url: "/password", description: state["03"] });
+                });
+            });
+        }
+    },
+    checkpassword(req, res) {
+        const result = req.body;
+        const cookies = req.cookies;
+        const state = { //结合code查看
+            "01": "用户不知道那个渠道过来的~",
+            "02": "缺少验证码或新密码~",
+            "03": "验证码长度不正确~",
+            "04": "密码长度不符合要求~",
+            "05": "输入的新密码不一致~",
+            "06": "查询库失败~",
+            "07": "没有查询到信息~",
+            "08": "输入的验证码不正确~",
+            "09": "密码更新失败~",
+        }
+        const failure = (code, text) => {
+            res.type("application/json");
+            res.send({ success: false, code: code, url: "", description: text ? text : "" });
+        };
+
+        let practice = null;
+        if (cookies && cookies.practice) {
+            practice = JSON.parse(cookies.practice);
+        }
+
+        if (practice && practice.kid) {
+            if (!result.verify && !result.password && !result.checkpassword) {
+                return failure("02", state["02"]);
+            }
+
+            if (String(result.verify).lenght !== 4) {
+                return failure("03", state["03"]);
+            }
+
+            if (result.password.lenght < 6 || result.checkpassword.lenght < 6) {
+                return failure("04", state["04"]);
+            }
+
+            if (result.password !== result.checkpassword.lenght) {
+                return failure("05", state["05"]);
+            }
+
+            User.load({ id: practice.kid }, (error, db) => {
+                if (error) {
+                    return failure("06", state["06"] + error);
+                }
+
+                if (!db) {
+                    return failure("07", state["07"]);
+                }
+
+                if (result.verify !== db.verify) {
+                    return failure("08", state["08"]);
+                }
+
+                // if (!db.authenticate(result.password)) {
+                //     return failure("09", state["09"]);
+                // }
+
+                db.password = result.password;
+                db.save(function (err) {
+                    if (err) {
+                        return failure("09", state["09"]);
+                    }
+
+                    res.type("application/json");
+                    res.send({ success: true, code: "03", url: "/user", description: "修改密码成功，去登录~" });
+                });
+            });
+        } else {
+            failure("01", state["01"]);
         }
     }
 };

@@ -18,6 +18,12 @@ let userSchema = new mongoose.Schema({
     salt: { type: String, default: "" },
     // 状态，0-正常，1-禁用
     status: { type: Number, default: 0 },
+    // 查询次数
+    query: { type: Number, default: 0 },
+    // 调用短信接口的验证码 - 没接口，所以默认为7758
+    verify: { type: String, default: "7758" },
+    // 修改时间
+    updatetime: { type: Date, default: "" },
     // 创建时间
     createtime: { type: Date, default: Date.now }
 });
@@ -49,11 +55,14 @@ userSchema.methods = {
 };
 
 userSchema.statics = {
-    load: function (name, cb) {
-        this.findOne({ loginname: name }).exec(cb);
+    load: function (option, cb) {
+        if (typeof option !== "object") {
+            return cb("缺少查询条件~");
+        }
+        this.findOne(option).exec(cb);
     },
     save: function (name, data, cb) {
-        if (!data) {
+        if (!name || !data) {
             return cb("no page");
         }
         if (data.hasOwnProperty("__v")) {
@@ -69,6 +78,22 @@ userSchema.statics = {
                 view.createtime = new Date();
                 view.save(cb);
             }
+        });
+    },
+    // updatePassword: function (id, password, cb) {
+    //     if (!id || !password) {
+    //         return cb("缺少用户id或password~");
+    //     }
+    //     this.findByIdAndUpdate(id, { password: password }, (err, db) => {
+    //         cb(err, db);
+    //     });
+    // },
+    updateQuery: function (id, cb) {
+        if (!id) {
+            return cb("缺少用户id~");
+        }
+        this.findByIdAndUpdate(id, { $inc: { query: 1 } }, (err, db) => {
+            cb(err, db);
         });
     }
 };

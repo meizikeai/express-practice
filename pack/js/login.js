@@ -48,12 +48,16 @@ $(() => {
 
                 if (!username) {
                     self.tipBox("请输入您的帐号~", "confirm");
+                    return false;
                 } else if (username.lenght < 4) {
                     self.tipBox("帐号不能少于6位字符");
+                    return false;
                 } else if (!password) {
                     self.tipBox("请输入您的密码~");
+                    return false;
                 } else if (password.lenght < 6) {
                     self.tipBox("密码长度不能少于6位字符~");
+                    return false;
                 }
 
                 $.ajax({

@@ -1,7 +1,7 @@
 module.exports = function () {
 	if ($.fn.alert) {
 		console.log('$ 元素已包含 alert 方法，新方法注册失败');
-		return;
+		return false;
 	}
 
 	/**
@@ -39,31 +39,34 @@ module.exports = function () {
 			content: {
 				'margin-top': '-2rem',
 				'width': '90%',
-				'border-radius': '5px',
+				'border-radius': '8px',
 				'overflow': 'hidden',
 				'box-shadow': '0px 5px 20px 0px rgba(126, 137, 140, .2)',
-				'border': '1px solid #fff',
-				'background-color': '#fff'
+				'background-color': '#faf7f8'
 			},
 			header: {
-				'padding': '0 .28rem',
+				'padding': '.4rem .28rem 0',
 				'line-height': '1rem',
 				'color': '#333',
 				'font-weight': 700,
-				'border-bottom': '1px solid #ededed',
-				'background-color': '#EDF5F7'
+				'text-align': 'center',
+				'font-size': '16px'
 			},
 			body: {
-				'padding': '.5rem .28rem',
-				'color': '#666',
+				'padding': '.1rem .28rem .5rem',
+				'color': '#546250',
+				'font-size': '14px',
 				'word-wrap': 'break-word',
-				'word-break': 'break-all'
+				'word-break': 'break-all',
+				'text-align': 'center'
 			},
 			footer: {
 				'overflow': 'hidden',
-				'border-top': '1px solid #ededed',
 				'text-align': 'center',
-				'line-height': '1rem'
+				'line-height': '1rem',
+				'font-size': '14px',
+				'display': 'flex',
+				'padding': '.3rem .28rem .5rem'
 			}
 		};
 
@@ -83,14 +86,19 @@ module.exports = function () {
 			'float': 'left',
 			'box-sizing': 'border-box',
 			'background-color': 'transparent',
-			'padding': '0 15px'
+			'padding': '0 .4rem'
 		};
 		var _confirmBtnCss = {
-			'color': '#f50'
+			'color': '#fff',
+			'margin': '0 auto',
+			'border-radius': '.1rem',
+			'background-color': '#fa5453'
 		};
 		var _cancenBtnCss = {
 			'color': '#999',
-			'border-left': '1px solid #ededed'
+			'margin': '0 auto',
+			'border-radius': '.1rem',
+			'border': '1px solid #dfdcdf'
 		};
 
 		// 如果第一个参数为 `function` 则将函数设置到确认的回调方法上
@@ -134,9 +142,9 @@ module.exports = function () {
 		// 否则只添加确定按钮
 		if (_default.type === 'confirm') {
 			var $cancelBtn = $(document.createElement('div'));
-			$confirmBtn.css('width', '50%');
-			$cancelBtn.css(_baseBtnCss).css(_cancenBtnCss).css('width', '50%').text(_default.cancelBtnText);
-			$footer.append($confirmBtn).append($cancelBtn);
+			$confirmBtn.css('width', '35%');
+			$cancelBtn.css(_baseBtnCss).css(_cancenBtnCss).css('width', '35%').text(_default.cancelBtnText);
+			$footer.append($cancelBtn).append($confirmBtn);
 
 			// 点击取消按钮事件
 			$cancelBtn.on('click', function () {
@@ -146,7 +154,7 @@ module.exports = function () {
 				_default.cancelCallback && _default.cancelCallback();
 			});
 		} else {
-			$confirmBtn.css({ 'width': '100%' });
+			$confirmBtn.css({ 'width': '50%' });
 			$footer.append($confirmBtn);
 		}
 

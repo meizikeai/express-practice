@@ -1,6 +1,9 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// 2017.11.08
+// 发现mongoose有个更好的关联方式 populate 
+
 let pageSchema = new Schema({
     kid: { type: Number, default: 1000, required: true, unique: true },
     title: { type: String, default: "" },
@@ -17,7 +20,7 @@ pageSchema.virtual("hid").set(function (id) {
 
 pageSchema.statics = {
     load: function (cb) {
-        this.find().sort({ createtime: -1 }).limit(1).exec(cb);
+        this.find({}).sort({ createtime: -1 }).limit(1).exec(cb);
     }
 };
 
