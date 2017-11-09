@@ -23,7 +23,7 @@ let userSchema = new mongoose.Schema({
     // 调用短信接口的验证码 - 没接口，所以默认为7758
     verify: { type: String, default: "7758" },
     // 修改时间
-    updatetime: { type: Date, default: "" },
+    updatetime: { type: Date, default: Date.now },
     // 创建时间
     createtime: { type: Date, default: Date.now }
 });

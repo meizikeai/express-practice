@@ -100,7 +100,7 @@
 
 ### `定时任务`
 
-* -- Cron  - https://github.com/node-schedule/node-schedule
+* -- node-schedule  - https://github.com/node-schedule/node-schedule
 
 ### `单元测试`
 

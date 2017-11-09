@@ -75,7 +75,7 @@ module.exports = {
 
         if (result.username && result.password) {
 
-            if (result.username.lenght < 4 || result.password.lenght < 6) {
+            if (result.username.length < 4 || result.password.length < 6) {
                 return failure("01", state["01"]);
             }
 
@@ -259,7 +259,7 @@ module.exports = {
         };
 
         if (result.username) {
-            if (result.username.lenght < 4) {
+            if (result.username.length < 4) {
                 return failure("01", state["01"]);
             }
 
@@ -292,7 +292,7 @@ module.exports = {
         const result = req.body;
         const cookies = req.cookies;
         const state = { //结合code查看
-            "01": "用户不知道那个渠道过来的~",
+            "01": "不知道用户从那个渠道过来的~",
             "02": "缺少验证码或新密码~",
             "03": "验证码长度不正确~",
             "04": "密码长度不符合要求~",
@@ -301,10 +301,16 @@ module.exports = {
             "07": "没有查询到信息~",
             "08": "输入的验证码不正确~",
             "09": "密码更新失败~",
+            "10": "修改密码成功，去登录~"
         }
-        const failure = (code, text) => {
+        const callback = (code, text = "", url = "", bool = false) => {
             res.type("application/json");
-            res.send({ success: false, code: code, url: "", description: text ? text : "" });
+            res.send({
+                success: bool,
+                code: code,
+                url: url,
+                description: text
+            });
         };
 
         let practice = null;
@@ -314,50 +320,54 @@ module.exports = {
 
         if (practice && practice.kid) {
             if (!result.verify && !result.password && !result.checkpassword) {
-                return failure("02", state["02"]);
+                return callback("02", state["02"]);
             }
 
-            if (String(result.verify).lenght !== 4) {
-                return failure("03", state["03"]);
+            if (result.verify.length !== 4) {
+                return callback("03", state["03"]);
             }
 
-            if (result.password.lenght < 6 || result.checkpassword.lenght < 6) {
-                return failure("04", state["04"]);
+            if (result.password.length < 6 || result.checkpassword.length < 6) {
+                return callback("04", state["04"]);
             }
 
-            if (result.password !== result.checkpassword.lenght) {
-                return failure("05", state["05"]);
+            if (result.password !== result.checkpassword) {
+                return callback("05", state["05"]);
             }
 
-            User.load({ id: practice.kid }, (error, db) => {
+            User.load({ _id: practice.kid }, (error, db) => {
                 if (error) {
-                    return failure("06", state["06"] + error);
+                    return callback("06", state["06"] + error);
                 }
 
                 if (!db) {
-                    return failure("07", state["07"]);
+                    return callback("07", state["07"]);
                 }
 
                 if (result.verify !== db.verify) {
-                    return failure("08", state["08"]);
+                    return callback("08", state["08"]);
                 }
 
                 // if (!db.authenticate(result.password)) {
-                //     return failure("09", state["09"]);
+                //     return callback("10", state["10"]);
                 // }
 
-                db.password = result.password;
+                db.pin = result.password;
                 db.save(function (err) {
                     if (err) {
-                        return failure("09", state["09"]);
+                        return callback("09", state["09"]);
                     }
 
-                    res.type("application/json");
-                    res.send({ success: true, code: "03", url: "/user", description: "修改密码成功，去登录~" });
+                    res.clearCookie("practice", JSON.stringify(practice), {
+                        maxAge: config.maxAge,
+                        signed: false
+                    });
+
+                    callback("10", state["10"], "/login", true);
                 });
             });
         } else {
-            failure("01", state["01"]);
+            callback("01", state["01"], "/forget");
         }
     }
 };

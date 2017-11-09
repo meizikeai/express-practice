@@ -60,9 +60,17 @@ $(() => {
                 dataType: 'json',
                 success(data) {
                     if (data.success) {
-                        self.tipBox(data.description);
+                        self.tipBox(data.description, null, () => {
+                            location.href = data.url;
+                        });
                     } else {
-                        self.tipBox(data.description);
+                        if (data.code == "01") {
+                            self.tipBox(data.description, null, () => {
+                                location.href = data.url;
+                            });
+                        } else {
+                            self.tipBox(data.description);
+                        }
                     }
                 },
                 error() {

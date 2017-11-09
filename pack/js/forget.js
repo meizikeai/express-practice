@@ -30,8 +30,10 @@ $(() => {
 
             if (!username) {
                 this.tipBox("请输入您的帐号~");
+                return false;
             } else if (username.lenght < 4) {
                 this.tipBox("帐号不能少于6位字符", "confirm");
+                return false;
             }
 
             $.ajax({
