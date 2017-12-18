@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");
 const fake = require("./fake");
@@ -13,8 +13,8 @@ mongoose.connect(config.db, {
 mongoose.connection.on("open", () => {
     console.log("mongodb connection is success!");
 });
-mongoose.connection.on("error", (error) => {
-    console.log("mongodb connection is failure! " + error);
+mongoose.connection.on("error", (err) => {
+    console.log("mongodb connection is failure! " + err);
 });
 mongoose.connection.on("disconnected", () => {
     console.log("mongodb connection is disconnected!");
@@ -29,6 +29,10 @@ const Page = mongoose.model("Page");
 const Counter = mongoose.model("Counter");
 const City = mongoose.model("City");
 const Sale = mongoose.model("Sale");
+const Activity = mongoose.model("Activity");
+const Product = mongoose.model("Product");
+const User = mongoose.model("User");
+const Order = mongoose.model("Order");
 
 function updateToMongodb(params) {
     this.init();
@@ -40,6 +44,9 @@ updateToMongodb.prototype = {
         this.setPageData();
         this.setCityData();
         this.setSaleData();
+        this.setActivityData();
+        this.setProductData();
+        this.setOrderData();
         this.closeMongoose();
     },
     setCounterData() {
@@ -47,9 +54,9 @@ updateToMongodb.prototype = {
             kid: "counter"
         });
 
-        Counter.findOne({ kid: "counter" }, (error, db) => {
-            if (error) {
-                console.log(error);
+        Counter.findOne({ kid: "counter" }, (err, db) => {
+            if (err) {
+                console.log(err);
             }
             if (db === null) {
                 this.handleSave(updateCounter, (db) => {
@@ -65,18 +72,18 @@ updateToMongodb.prototype = {
             template: fake.pageData()
         });
 
-        Page.findOne({}, (error, db) => {
-            if (error) {
-                console.log(error);
+        Page.findOne({}, (err, db) => {
+            if (err) {
+                console.log(err);
             }
             if (db === null) {
                 this.handleSave(updatePage);
             } else {
                 Counter.findOneAndUpdate({
                     kid: "counter"
-                }, { $inc: { count: 1 } }, (error, db) => {
-                    if (error) {
-                        console.log(error);
+                }, { $inc: { count: 1 } }, (err, db) => {
+                    if (err) {
+                        console.log(err);
                     }
                     updatePage.hid = db.count;
                     this.handleSave(updatePage, (db) => {
@@ -88,45 +95,83 @@ updateToMongodb.prototype = {
     },
     setCityData() {
         let updateCity = new City();
+        updateCity.cities = fake.citiesData();
 
-        updateCity.cities = [
-            { "name": "北京", code: "001" }, { "name": "成都", code: "002" },
-            { "name": "重庆", code: "003" }, { "name": "广州", code: "004" },
-            { "name": "杭州", code: "005" }, { "name": "南京", code: "006" },
-            { "name": "上海", code: "007" }, { "name": "深圳", code: "008" },
-            { "name": "苏州", code: "009" }, { "name": "天津", code: "010" },
-            { "name": "武汉", code: "011" }, { "name": "西安", code: "012" }
-        ];
-
-        City.findOne({}, (error, db) => {
-            if (error) {
-                console.log(error);
+        City.findOne({}, (err, db) => {
+            if (err) {
+                console.log(err);
             }
             if (db === null) {
-                this.handleSave(updateCity, (db) => {
+                this.handleSave(updateCity, (err, db) => {
                     // mongoose.disconnect();
                 });
             }
         });
     },
     setSaleData() {
-        Sale.findOne({}, (error, db) => {
-            if (error) {
-                console.log(error);
+        Sale.findOne({}, (err, db) => {
+            if (err) {
+                console.log(err);
             }
             if (db === null) {
                 let saleFake = fake.saleData();
                 saleFake.forEach((e, k) => {
                     let updateSale = new Sale(e);
-                    this.handleSave(updateSale, (db) => { });
+                    this.handleSave(updateSale, (err, db) => { });
+                });
+            }
+        });
+    },
+    setActivityData() {
+        Activity.findOne({}, (err, db) => {
+            if (err) {
+                console.log(err);
+            }
+            if (db === null) {
+                this.handleSave(new Activity({
+                    title: "双11全球美味捕获者",
+                    color: "#0d3d17",
+                    template: fake.activityData()
+                }), (err, db) => { });
+            }
+        });
+    },
+    setProductData() {
+        Product.findOne({}, (err, db) => {
+            if (err) {
+                console.log(err);
+            }
+            if (db === null) {
+                let template = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]; // 假装有10个产品
+                template.forEach((e, k) => {
+                    this.handleSave(new Product(fake.productData()), (err, db) => { });
+                });
+            }
+        });
+    },
+    setOrderData() {
+        User.findOne({}, (err, db) => {
+            if (err) {
+                console.log(err);
+            }
+            if (db) {
+                Order.findOne({}, (err, back) => {
+                    if (back === null) {
+                        let orderFake = fake.orderData();
+                        orderFake.forEach((e, k) => {
+                            this.handleSave(new Order({ kid: String(db.id), oid: e.oid, state: e.state, base: e.base }), (err, db) => {
+
+                            });
+                        });
+                    }
                 });
             }
         });
     },
     handleSave(o, fn) {
-        o.save((error, db) => {
-            if (error) {
-                console.log(error);
+        o.save((err, db) => {
+            if (err) {
+                console.log(err);
             } else {
                 console.log("mongodb table is insert success!");
                 if (typeof fn === "function") {

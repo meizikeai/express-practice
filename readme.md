@@ -1,113 +1,78 @@
-## 失败的试验品-构建方式：
-
+## Express Practice - Test failed
 * 实现方式：nodejs + express + swig + mongodb
-* 运行地址：http://localhost:3008
-
-## 目录结构说明：
-
-### `bin目录为node站点入口目录，具体见package.json`
-*   -- 数据存到Mongodb的入口文件 updata-to-mongodb.js
-*   -- 站点启动文件 server.js
-
-### `pack目录为站点资源目录`
-
-帮助文档 -- https://github.com/ruanyf/webpack-demos/blob/master/README.md
-
-*   -- webpack 直接打包
-*   -- webpack -w 提供watch方法，实时进行打包更新
-*   -- webpack -p 对打包后的文件进行压缩
-*   -- webpack -d 提供SourceMaps，方便调试
-*   -- webpack --colors 输出结果带彩色，比如：会用红色显示耗时较长的步骤
-*   -- webpack --profile 输出性能数据，可以看到每一步的耗时
-*   -- webpack --display-modules 默认情况下 node_modules 下的模块会被隐藏，加上这个参数可以显示这些被隐藏的模块
-
-### `public目录为静态文件目录，如样式、图片、脚本`
-
-### `website目录为站点相关文件`
-
-### `views目录为模块目录`
-
--------------------------------------------------------------------
-
-## 启动说明：
-* 一、请安装Mongodb数据库并启动，端口为默认27017 -- 命令 mongod --dbpath C:\Data
-* 二、请在APP根目录安依赖文件，执行shell命令：npm install
-* 三、进到bin目录，执行shell命令：node client.js - 获取数据，存到数据库
-* 四、启动站点执行 set DEBUG=express-practice:* & npm start 或进到bin目录，执行shell命令：node server.js
-* 五、访问http://localhost:3008
-
--------------------------------------------------------------------
-
-## NodeJS常用模块：
-
-### `前端模板`
-
-* -- EJS  - http://www.embeddedjs.com/
-* -- Jade - http://jade-lang.com/
-* -- handlebarsjs - http://handlebarsjs.com/installation.html
-* -- swig - https://www.npmjs.com/package/swig 、https://github.com/node-swig/swig-templates - 已不推荐
-
-### `数据库驱动`
-
-* -- Mongoose - http://mongoosejs.com/
-*    - Mongoose是MongoDB的对象模型工具，通过Mongoose框架，可以进行非常方便的访问MongoDB的操作。
-* -- mongodb - https://www.npmjs.com/package/mongodb
-*    - 功能相对较少，比较底层一些，其实Mongoose就是基于它构建的
-
-### `Web Socket`
-
-* -- Socket.IO  - http://socket.io/
-                - Socket.IO则Socket模块的不二选择，可以用于构建聊天室、客服系统等。
-
-### `日志 `
-
-* -- morgan  - https://github.com/expressjs/morgan
+* 访问地址：[http://localhost:3008](http://localhost:3008) - 可访问首页、抢先、登录、注册、找回密码、用户中心（需要注册帐号）、订单管理、专题页面、详情页等~
 
 
-### `异步流程控制`
+## 启动说明
+* 请在Mongodb中的bin目录启动数据库，执行 mongod --dbpath C:\Data
+* 请在根目录安依赖文件，执行 npm install
+* 请在根目录把假数据更新到数据库，执行 npm run base
+* 请在根目录生成相关的脚本、样式文件，执行 npm run pack
+* 站点启动，执行 npm start
 
-* -- Async - https://www.npmjs.org/package/async
-*    - NodeJS中大量的异步callback嵌套估计让很多人头疼，尤其是多个异步函数要求一定的调用顺序时更是让代码失控，Async可以非常好的解决这些问题，它可以使异步流程同步化。
-* -- Q - https://www.npmjs.com/package/q
-*    - 一种非常不错的选择，它是实现了promises接口。
-* -- promise - http://javascript.ruanyifeng.com/advanced/promise.html
-*    - 建议直接使用ES6提供的Promise方法
-  
-### `进程守护`
 
-* -- supervisor - https://www.npmjs.com/package/supervisor
-*    -w | --watch          //要监控的文件夹或js文件，默认为'.'
-*    -i | --ignore         //要忽略监控的文件夹或js文件
-*    -p | --poll-interval  //监控文件变化的时间间隔（周期），默认为Node.js内置的时间
-*    -e | --extensions     //要监控的文件扩展名，默认为'node|js'
-*    -x | --exec           //要执行的主应用程序，默认为'node'
-*    --debug               //开启debug模式（用--debug flag来启动node）
-*    -q | --quiet          //安静模式，不显示DEBUG信息
+## 效果预览
+![image](https://github.com/meizikeai/express-practice/blob/master/public/preview/preview-01.png)
+![image](https://github.com/meizikeai/express-practice/blob/master/public/preview/preview-02.png)
+![image](https://github.com/meizikeai/express-practice/blob/master/public/preview/preview-03.png)
+![image](https://github.com/meizikeai/express-practice/blob/master/public/preview/preview-04.png)
+![image](https://github.com/meizikeai/express-practice/blob/master/public/preview/preview-05.png)
+![image](https://github.com/meizikeai/express-practice/blob/master/public/preview/preview-06.png)
+![image](https://github.com/meizikeai/express-practice/blob/master/public/preview/preview-07.png)
 
-```js
-*   Examples:
-*     supervisor myapp.js
-*     supervisor myapp.coffee
-*     supervisor -w scripts -e myext -x myrunner myapp
-*     supervisor -w lib,server.js,config.js server.js
-*     supervisor -- server.js -h host -p port
-*     supervisor -w bin,server,app.js ./bin/server.js
+
+## 目录结构
+
+**1、bin**
+> fake.js、server.js、update-to-mongodb.js
+```
+假数据文件、站点启动文件、假数据存到数据库的入口文件（所有数据的关系存不合理的情况）~
 ```
 
-* -- forever    - https://www.npmjs.com/package/forever
-*    - forever可以看做是一个nodejs的守护进程，能够启动，停止，重启我们的app应用，运行稳定，支持高并发，启动/停止命令简单，支持热部署，宕机重启，监控界面和日志，集群环境。
-* -- nodemon    - http://nodemon.io/
+**2、pack**
+> 资源文件 - 脚本、样式等文件，使用[webpack](https://github.com/ruanyf/webpack-demos/blob/master/README.md)进行打包
 
-### `定时任务`
+**3、public**
+> 静态文件 - 存放最终生成的静态文件如脚本、样式、图片等
 
-* -- node-schedule  - https://github.com/node-schedule/node-schedule
+**server**
+> 站点文件 - 配置、路由、数据模板等
 
-### `单元测试`
-
-* -- Mocha   - https://www.npmjs.org/package/mocha
-* -- Karma   - https://www.npmjs.org/package/karma
-* -- Jasmine - https://www.npmjs.org/package/jasmine
+**5、views**
+> 模块文件 - 页头、页尾、各页面及相关的模块等
 
 
-### `cookie`
-* -- cookie-parser - https://github.com/expressjs/cookie-parser
+## 常用模块
+
+**模板**
+> [EJS](http://www.embeddedjs.com/)、
+> [handlebarsjs](http://handlebarsjs.com/installation.html)、
+> [Jade](http://jade-lang.com/)、
+> [swig](https://www.npmjs.com/package/swig) and [swig-templates](https://github.com/node-swig/swig-templates) - 不推荐
+
+**数据库驱动**
+> [Mongoose](http://mongoosejs.com/)、[mongodb](https://www.npmjs.com/package/mongodb)
+
+**日志**
+> [morgan](https://github.com/expressjs/morgan)
+
+**异步流程**
+> [promise](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)、[Async](https://www.npmjs.org/package/async)、[Q](https://www.npmjs.com/package/q)
+
+**进程守护**
+> [supervisor](https://www.npmjs.com/package/supervisor)、[forever](https://www.npmjs.com/package/forever)、[nodemon](https://www.npmjs.com/package/nodemon)
+
+**定时任务**
+> [node-schedule](https://github.com/node-schedule/node-schedule)
+
+**cookie**
+> [cookie-parser](https://github.com/expressjs/cookie-parser)、[express-session](https://github.com/expressjs/session)、[connect-mongo](https://github.com/jdesboeufs/connect-mongo)
+
+
+## 未用模块
+
+**Web Socket**
+> [Socket.IO](http://socket.io/)
+
+**单元测试**
+> [Mocha](https://www.npmjs.org/package/mocha)、[Karma](https://www.npmjs.org/package/karma)、[Jasmine](https://www.npmjs.org/package/jasmine)

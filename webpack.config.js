@@ -38,9 +38,9 @@ const handleEntry = (entry) => {
 };
 
 module.exports = {
-    entry: handleEntry(["./js/"]),
+    entry: handleEntry(["./pack/js/"]),
     output: {
-        path: path.resolve(__dirname, "../public/build/"),
+        path: path.resolve(__dirname, "./public/build/"),
         filename: "[name].js"
         // path: __dirname + "/build",
         // publicPath: "/",

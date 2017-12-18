@@ -1,4 +1,3 @@
-﻿import "../unit/reset";
 import "../unit/alert";
 import Header from "../unit/header";
 import "../css/forget.css";
@@ -47,7 +46,13 @@ $(() => {
                             location.href = data.url;
                         });
                     } else {
-                        self.tipBox(data.description);
+                        if (data.code == "04") {
+                            self.tipBox(data.description, null, () => {
+                                location.href = data.url;
+                            });
+                        } else {
+                            self.tipBox(data.description);
+                        }
                     }
                 },
                 error() {

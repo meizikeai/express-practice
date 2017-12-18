@@ -1,4 +1,4 @@
-﻿module.exports = {
+module.exports = {
 
     /**
      * 根据returnUrl跳转

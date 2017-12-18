@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
 const crypto = require("crypto");
+const schedule = require("node-schedule");
+
+const formatDate = (when) => {
+    let time = new Date().getTime();
+    return new Date(when ? time + when : time);
+}
 
 let userSchema = new mongoose.Schema({
     // 登录名
@@ -94,6 +100,15 @@ userSchema.statics = {
         }
         this.findByIdAndUpdate(id, { $inc: { query: 1 } }, (err, db) => {
             cb(err, db);
+        });
+    },
+    resetQuery: function (id) {
+        const self = this;
+        const time = formatDate(60 * 60 * 5);
+        const cron = schedule.scheduleJob(time, function () {
+            self.findByIdAndUpdate(id, { $set: { query: 0 } }, (err, db) => {
+                console.log(err)
+            });
         });
     }
 };

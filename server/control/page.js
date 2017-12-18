@@ -1,7 +1,7 @@
 const swig = require("swig");
 const mongoose = require("mongoose");
 
-const CreateTemplate = (where, filename, data) => {
+const CreateTemplate = (where, filename, data, color) => {
     let template = null;
 
     if (typeof filename != "string") {
@@ -12,7 +12,7 @@ const CreateTemplate = (where, filename, data) => {
 
     template = swig.compileFile("./views/blocks/" + where + "/" + filename + ".html");
 
-    return template({ content: data });
+    return template({ content: data, color: color ? color : "" });
 };
 const error = {
     "500": '<div class="user-err">服务器忙，请稍后再试！（H00001）</div>',
@@ -36,10 +36,11 @@ const formatDate = (when) => {
     return { year, month, day, hour, minute, second };
 }
 
-let Personal = mongoose.model("Personal");
 let Page = mongoose.model("Page");
 let City = mongoose.model("City");
 let Sale = mongoose.model("Sale");
+let Activity = mongoose.model("Activity");
+let Product = mongoose.model("Product");
 
 module.exports = {
     home(req, res) {
@@ -70,38 +71,6 @@ module.exports = {
             });
         });
     },
-    userhome(req, res) {
-        const express = req.session.express;
-
-        if (typeof req.session.express !== "object") {
-            res.redirect("/login");
-            return false;
-        }
-        if (express.kid === "") {
-            res.redirect("/login");
-            return false;
-        }
-
-        Personal.load(express.kid, (err, db) => {
-            let structure = "";
-
-            if (err) {
-                console.log(err);
-                structure = error["500"];
-            }
-
-            if (db) {
-                structure += CreateTemplate("users", "main", db);
-            } else {
-                structure = error["404"];
-            }
-
-            res.render("./pages/user-home.html", {
-                title: "User Center Page",
-                data: structure
-            });
-        });
-    },
     city(req, res) {
         City.load((err, db) => {
             let structure = "";
@@ -128,6 +97,88 @@ module.exports = {
             data: ""
         });
     },
+    activity(req, res) {
+        const query = req.query;
+
+        if (!query.id) {
+            res.render("./pages/activity.html", {
+                title: "Activity Page",
+                data: error["404"]
+            });
+            return false;
+        }
+
+        // Activity的load方法并不根据 req.query.id 查库，因为入口Url现无人维护~
+        Activity.load(req.query.id, (err, db) => {
+            let structure = "";
+
+            if (err) {
+                console.log(err);
+                structure = error["500"];
+            }
+
+            if (db) {
+                const template = db.template || [];
+                if (template && template.length > 0) {
+                    for (let i = 0; i < template.length; i++) {
+                        structure += CreateTemplate("activities", template[i].templatetype, template[i], db.color);
+                    }
+                } else {
+                    structure = error["404"];
+                }
+            } else {
+                structure = error["404"];
+            }
+
+            res.render("./pages/activity.html", {
+                title: db.title + " - Activity Page",
+                data: structure
+            });
+        });
+    },
+    product(req, res) {
+        const result = req.query;
+
+        if (!result.id) {
+            return res.redirect("/");
+        }
+
+        Product.load(result.id, (err, db) => {
+            let { structure, title } = {};
+
+            if (err) {
+                console.log(err);
+            }
+
+            if (db) {
+                title = db.title;
+                structure = CreateTemplate("pages", "product", db);
+            }
+
+            res.render("./pages/product.html", {
+                title: title + " - Product Page",
+                data: structure
+            });
+        });
+    },
+    addtocart(req, res) {
+        const result = req.body;
+
+        // 未想到怎么处理购物车
+        // 临时购物车id，还是先登录~？优先判断登录，这样不用合并临时购物车id，数据丢失可能性较小~
+        if (result.sku) {
+            res.type("application/json");
+            res.send({ success: true, code: "01", url: "/cart", description: "添加到购物车成功~" });
+        } else {
+            res.type("application/json");
+            res.send({ success: false, code: "02", url: "", description: "添加到购物车失败~" });
+        }
+    },
+    servertime(req, res) {
+        let time = formatDate();
+        res.type("application/json");
+        res.send({ time: Date.UTC(time.year, time.month, time.day, time.hour, time.minute, time.second) });
+    },
     getsale(req, res) {
         const result = req.query;
 
@@ -139,10 +190,5 @@ module.exports = {
 
             res.send({ success: true, code: result.code, description: "获取成功~", data: db });
         });
-    },
-    servertime(req, res) {
-        let time = formatDate();
-        res.type("application/json");
-        res.send({ time: Date.UTC(time.year, time.month, time.day, time.hour, time.minute, time.second) });
     }
 };

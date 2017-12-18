@@ -1,4 +1,3 @@
-import "../unit/reset";
 import Header from "../unit/header";
 import Position from "../unit/position";
 import "../css/city.css";

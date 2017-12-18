@@ -1,4 +1,3 @@
-﻿import "../unit/reset";
 import "../unit/download";
 import "../unit/alert";
 import Header from "../unit/header";

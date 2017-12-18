@@ -1,0 +1,213 @@
+.block-one-picture {
+    width: 100%;
+}
+
+.block-one-picture a {
+    display: block;
+}
+
+.block-one-picture img {
+    display: block;
+    width: 100%;
+}
+
+.block-two-picture {
+    width: 100%;
+}
+
+.block-two-picture .picture {
+    display: flex;
+    padding: .2rem;
+}
+
+.block-two-picture .picture>div {
+    flex: 1;
+    overflow: hidden;
+}
+
+.block-two-picture .picture a {
+    display: block;
+}
+
+.block-two-picture .picture img {
+    width: 100%;
+    display: block;
+}
+
+.block-two-picture .picture .picture-1 {
+    border-top-left-radius: .15rem;
+}
+
+.block-two-picture .picture .picture-2 {
+    border-top-right-radius: .15rem;
+}
+
+.block-hot-product {
+    width: 100%;
+}
+
+.block-hot-product .hot {
+    padding: 0 .2rem 0.2rem;
+}
+
+.block-hot-product .product {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.1rem 0 0 0.1rem;
+    overflow: hidden;
+}
+
+.block-hot-product .product .every {
+    width: 33.3333%;
+    border-width: 0 1px 1px 0;
+    border-style: solid;
+}
+
+.block-hot-product .product .pro-one {
+    display: block;
+    position: relative;
+    background-color: #fff;
+}
+
+.block-hot-product .product .pro-img {
+    text-align: center;
+    padding: 0.2rem;
+}
+
+.block-hot-product .product .pro-img img {
+    width: 100%;
+    vertical-align: top;
+}
+
+.block-hot-product .product .pro-name {
+    overflow: hidden;
+    padding: 0 0.2rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;
+    color: #333;
+    text-align: center;
+}
+
+.block-hot-product .product .pro-price {
+    padding: 0.1rem 0.2rem;
+    text-align: center;
+}
+
+.block-hot-product .product .pro-price span {
+    color: #f50;
+}
+
+.block-hot-product .product .pro-sales {
+    padding: 0 0.2rem 0.2rem;
+    text-align: center;
+    clear: both;
+}
+
+.block-hot-product .product .pro-sales span {
+    display: inline-block;
+    padding: 0.05rem 0.2rem;
+    border-radius: 1rem;
+    background-color: #f50;
+    color: #fff;
+}
+
+.block-product {
+    width: 100%;
+}
+
+.block-product .product-double {
+    padding: .2rem .2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.block-product .product-double .every {
+    width: 50%;
+    overflow: hidden;
+    margin-bottom: .2rem;
+}
+
+.block-product .product-double .pro-one {
+    display: block;
+    margin-right: .1rem;
+    position: relative;
+    background-color: #fff;
+}
+
+.block-product .product-double .pro-one.pro-line {
+    margin-right: 0;
+    margin-left: .1rem;
+}
+
+.block-product .product-double .pro-img {
+    text-align: center;
+}
+
+.block-product .product-double .pro-img img {
+    width: 100%;
+    vertical-align: top;
+}
+
+.block-product .product-double .pro-like {
+    margin: 0 .2rem;
+}
+
+.block-product .product-double .pro-name {
+    height: 1rem;
+    line-height: 0.5rem;
+    margin: 0.1rem 0 0;
+    overflow: hidden;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    color: #333
+}
+
+.block-product .product-double .pro-price {
+    margin-bottom: .1rem;
+}
+
+.block-product .product-double .pro-price .sell {
+    margin-right: 0.1rem;
+    color: #f50;
+}
+
+.block-product .product-double .pro-price .sell b {
+    font-size: 16px
+}
+
+.block-product .product-double .pro-price .market {
+    color: #666
+}
+
+.block-product .product-double .pro-sales {
+    padding-bottom: 0.2rem;
+    text-align: center;
+    clear: both;
+}
+
+.block-product .product-double .pro-sales span {
+    display: block;
+    padding: 0.15rem 0;
+    border-radius: 0.1rem;
+    background-color: #f50;
+    color: #fff;
+}
+
+.block-product .product-double .pro-prom {
+    position: absolute;
+    top: .2rem;
+    right: 0;
+    padding: 0.08rem 0.1rem;
+    background-color: #f50;
+    color: #fff
+}
+
+.block-product .product-double .pro-none {
+    display: none;
+}

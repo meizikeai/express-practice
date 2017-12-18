@@ -16,18 +16,14 @@
     top: 0;
     left: 0;
     z-index: 1;
-    -webkit-box-pack: center;
-    -moz-box-pack: center;
-    -ms-box-pack: center;
-    -o-box-pack: center;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    -ms-box-align: center;
-    -o-box-align: center;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     display: -webkit-box;
-    display: -moz-box;
-    display: -ms-box;
-    display: -o-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
 }
 
 .model-header .back:after {
@@ -58,18 +54,14 @@
     z-index: 1;
     width: 1.2rem;
     height: 1rem;
-    -webkit-box-pack: center;
-    -moz-box-pack: center;
-    -ms-box-pack: center;
-    -o-box-pack: center;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    -ms-box-align: center;
-    -o-box-align: center;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     display: -webkit-box;
-    display: -moz-box;
-    display: -ms-box;
-    display: -o-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
 }
 
 .model-header .pull:after {
@@ -144,6 +136,7 @@
     background-color: rgba(0, 0, 0, .1);
 }
 
-.model-block, .model-header .model-block {
+.model-block,
+.model-header .model-block {
     display: block;
 }

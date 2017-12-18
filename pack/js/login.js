@@ -1,6 +1,6 @@
-﻿import "../unit/reset";
 import "../unit/alert";
 import Header from "../unit/header";
+import Common from "../unit/common";
 import "../css/login.css";
 
 $(() => {
@@ -70,7 +70,7 @@ $(() => {
                     dataType: 'json',
                     success(data) {
                         if (data.success) {
-                            location.href = data.url;
+                            location.href = Common.getUrlParam("returnURL") || data.url;
                         } else {
                             self.tipBox(data.description);
                         }

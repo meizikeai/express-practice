@@ -1,0 +1,238 @@
+html {
+    background: #ededed;
+}
+
+.user-order-title {
+    width: 100%;
+}
+
+.user-order-title ul {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.user-order-title ul li {
+    flex: 1;
+    padding: 0.25rem 0;
+    text-align: center;
+}
+
+.user-order-title ul li.cursor {
+    font-weight: 500;
+    border-bottom: 2px solid #f50;
+    color: #f50;
+}
+
+.user-order-list {
+    width: 100%;
+}
+
+.user-order-list .order-list {
+    padding-top: 0.15rem;
+    background-color: #eee;
+}
+
+.user-order-list .order-list .one {
+    padding-bottom: 0.15rem;
+}
+
+.user-order-list .order-list .one .module-seller {
+    padding: 0.2rem 0.15rem;
+    background-color: #fff;
+}
+
+.user-order-list .order-list .one .seller {
+    width: 100%;
+    display: flex;
+}
+
+.user-order-list .order-list .one .seller>div {
+    flex-direction: row;
+    line-height: 0.62rem;
+}
+
+.user-order-list .order-list .one .seller .picture {
+    width: 0.728rem;
+    height: 0.62rem;
+    line-height: 0.62rem;
+    margin-right: 0.1rem;
+}
+
+.user-order-list .order-list .one .seller .picture img {
+    width: 100%;
+    height: 100%;
+    vertical-align: top;
+}
+
+.user-order-list .order-list .one .seller .contact {
+    width: 88%;
+}
+
+.user-order-list .order-list .one .seller .contact a>span {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.user-order-list .order-list .one .seller .contact .title {
+    margin-right: 0.1rem;
+}
+
+.user-order-list .order-list .one .seller .contact .arrow {
+    width: 0.2rem;
+    height: 0.4rem;
+    vertical-align: middle;
+    background: url(/picture/arrow.png) 0 0/0.2rem 0.4rem no-repeat;
+}
+
+.user-order-list .order-list .one .seller .contact a {
+    width: 100%;
+    display: inline-block;
+    text-decoration: none;
+    color: #333;
+}
+
+.user-order-list .order-list .one .seller .state {
+    text-align: right;
+    width: 2rem;
+    color: #f50;
+    font-size: 12px;
+}
+
+.user-order-list .order-list .one .module-item {
+    padding: 0.16rem 0.16rem;
+    background-color: #f5f5f5;
+}
+
+.user-order-list .order-list .one .item {
+    width: 100%;
+    height: auto;
+    display: flex;
+}
+
+.user-order-list .order-list .one .item .picture {
+    width: 20%;
+    overflow: hidden;
+    margin-right: 0.2rem;
+}
+
+.user-order-list .order-list .one .item .picture img {
+    width: 100%;
+    transform: translateZ(0);
+    vertical-align: top;
+}
+
+.user-order-list .order-list .one .item .info {
+    width: 60%;
+}
+
+.user-order-list .order-list .one .item-2 .info {
+    width: 80%;
+}
+
+.user-order-list .order-list .one .item .service {
+    display: flex;
+    padding-top: 0.08rem;
+}
+
+.user-order-list .order-list .one .item .service span {
+    padding: 0.05rem;
+    margin-right: 0.15rem;
+    background-color: #f50;
+    color: #fff;
+}
+
+.user-order-list .order-list .one .item .sku {
+    padding-top: 0.08rem;
+    color: #999;
+}
+
+.user-order-list .order-list .one .item .pay {
+    width: 20%;
+    text-align: right;
+}
+
+.user-order-list .order-list .one .item .pay .price {
+    font-weight: 700;
+    color: #333;
+}
+
+.user-order-list .order-list .one .module-pay {
+    padding: 0.2rem 0.15rem;
+    border-bottom: 1px solid #e7e7e7;
+    background-color: #fff;
+}
+
+.user-order-list .order-list .one .pay {
+    width: 100%;
+    text-align: right;
+}
+
+.user-order-list .order-list .one .pay span {
+    margin-left: 0.15rem;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.user-order-list .order-list .one .pay span b {
+    color: #333;
+}
+
+.user-order-list .order-list .one .module-option {
+    padding: 0.2rem 0.15rem;
+    border-bottom: 1px solid #e7e7e7;
+    background-color: #fff;
+}
+
+.user-order-list .order-list .one .option {
+    width: 100%;
+}
+
+.user-order-list .order-list .one .option ul {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.user-order-list .order-list .one .option ul li {
+    padding: 0.1rem 0.2rem;
+    margin-left: 0.15rem;
+    border-radius: 2px;
+    border: 1px solid #999;
+    text-align: center;
+}
+
+.user-order-list .order-list .one .option ul li.cursor {
+    border-color: #f50;
+    color: #f50;
+}
+
+.user-order-error {
+    width: 100%;
+    text-align: center;
+}
+
+.user-order-error .picture {
+    width: 3rem;
+    height: 3rem;
+    margin: 1.5rem auto 0.5rem;
+    background: url(/picture/error.png) 0 0/100% no-repeat;
+}
+
+.user-order-error .txt {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 0.2rem;
+}
+
+.user-order-error .sub-txt {
+    color: #999;
+    margin-bottom: 0.5rem;
+}
+
+.user-order-error .refresh a {
+    display: inline-block;
+    padding: 0.15rem 0.3rem;
+    border: 1px solid #333;
+    border-radius: 2px;
+    color: #333;
+}

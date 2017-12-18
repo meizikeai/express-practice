@@ -1,4 +1,3 @@
-import "../unit/reset";
 import "../unit/alert";
 import Header from "../unit/header";
 import Footer from "../unit/footer";
@@ -45,7 +44,7 @@ $(() => {
                 let discount = e.label ? '<span class="discount">' + e.discount + '</span>' : '';
                 template += '<div class="active">' +
                     '    <div class="link">' +
-                    '        <a href="/ProductList?condition=' + e._id + '&title=' + e.title + '">' +
+                    '        <a href="' + e.jumpurl + '">' +
                     '            <img src="' + e.imgurl + '" alt="' + e.title + '">' +
                     '            ' + discount +
                     '        </a>' +

@@ -1,4 +1,4 @@
-﻿import "../css/footer.css";
+import "../css/footer.css";
 
 export default function () {
     let that = document.querySelectorAll(".model-footer .mian a");

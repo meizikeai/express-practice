@@ -1,4 +1,3 @@
-﻿import "../unit/reset";
 import Header from "../unit/header";
 import "../css/error.css";
 

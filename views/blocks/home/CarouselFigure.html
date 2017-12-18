@@ -3,29 +3,23 @@
         <div class="back" style="background:{{content.templatecolor}}">
             <div class="carousel-figure">
                 <div class="category">
-                {% if content.items -%}
-                    {%- set item = content.items -%}
-                    {% for picture in item -%}
+                    {% for picture in content.items -%}
                     <div class="figure">
                         <a href="{{ picture.jumpurl }}">
                             <img src="{{ picture.imgurl }}" alt="{{ picture.imgname }}" />
                         </a>
                     </div>
                     {%- endfor %}
-                {%- endif %}
                 </div>
             </div>
             <div class="marker">
-                {% if content.items -%}
-                {%- set item = content.items -%}
-                {% for picture in item -%}
+                {% for picture in content.items -%}
                 {% if loop.first -%}
                 <span class="pointer"></span>
                 {%- else -%}
                 <span></span>
                 {%- endif %}
                 {%- endfor %}
-                {%- endif %}
             </div>
         </div>
     </div>

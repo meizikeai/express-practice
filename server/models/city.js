@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 let citySchema = new Schema({
-    cities: { type: Array, "default": [] },
+    cities: { type: Array, default: [] },
     createtime: { type: Date, default: Date.now }
 });
 

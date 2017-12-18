@@ -15,10 +15,37 @@ const CreateTemplate = (where, filename, data) => {
     template = swig.compileFile("./views/blocks/" + where + "/" + filename + ".html");
 
     return template({ content: data });
-};
+}
+const error = {
+    "500": '<div class="user-err">服务器忙，请稍后再试！（H00001）</div>',
+    "404": '<div class="user-err">页面数据不存在~</div>'
+}
+const callback = (res, code, text = "", url = "", bool = false) => {
+    res.type("application/json");
+    res.send({
+        success: bool,
+        code: code,
+        url: url,
+        description: text
+    });
+}
+
+const goToLogin = (req, res) => {
+    const express = req.session.express;
+
+    if (typeof req.session.express !== "object") {
+        res.redirect("/login?returnURL=" + encodeURIComponent(req.url));
+        return true;
+    }
+    if (express.kid === "") {
+        res.redirect("/login?returnURL=" + encodeURIComponent(req.url));
+        return true;
+    }
+}
 
 let User = mongoose.model("User");
 let Personal = mongoose.model("Personal");
+let Order = mongoose.model("Order");
 
 module.exports = {
     login(req, res) {
@@ -40,7 +67,7 @@ module.exports = {
         });
     },
     password(req, res) {
-        const cookies = req.cookies;
+        const cookies = req.signedCookies;
         let picture = null;
 
         if (cookies && cookies.practice) {
@@ -56,6 +83,73 @@ module.exports = {
             res.redirect("/forget");
         }
     },
+    home(req, res) {
+        if (goToLogin(req, res)) {
+            return false;
+        }
+        const express = req.session.express;
+
+        Personal.load(express.kid, (err, db) => {
+            let structure = "";
+
+            if (err) {
+                console.log(err);
+                structure = error["500"];
+            }
+
+            if (db) {
+                structure += CreateTemplate("users", "main", db);
+            } else {
+                structure = error["404"];
+            }
+
+            res.render("./pages/user-home.html", {
+                title: "User Center Page",
+                data: structure
+            });
+        });
+    },
+    order(req, res) {
+        if (goToLogin(req, res)) {
+            return false;
+        }
+
+        res.render("./pages/user-order.html", {
+            title: "User Order Page",
+            data: CreateTemplate("users", "order", {})
+        });
+    },
+    getorder(req, res) {
+        const result = req.query;
+        const express = req.session.express;
+
+        let find = {};
+
+        if (typeof req.session.express !== "object") {
+            return callback(res, "01", "未登录，请登录后再查询~", "/login?returnURL=/user/order");
+        }
+        if (express.kid === "") {
+            return callback(res, "01", "未登录，请登录后再查询~", "/login?returnURL=/user/order");
+        }
+
+        if (result.type == "all") {
+            find = { kid: express.kid };
+        } else {
+            find = { kid: express.kid, state: result.type };
+        }
+
+        Order.load({ find: find }, (err, db) => {
+            if (err) {
+                console.log(err);
+            }
+            if (db) {
+                res.type("application/json");
+                res.send({ success: true, code: "02", data: db, url: "", description: "" });
+            } else {
+                callback(res, "03", "您还没有相关的订单", "");
+            }
+        });
+    },
     checklogin(req, res) {
         const result = req.body;
         const state = { //结合code查看
@@ -68,32 +162,27 @@ module.exports = {
             "07": "尝试次数过多，上验证码~"
         }
 
-        const failure = (code, text) => {
-            res.type("application/json");
-            res.send({ success: false, code: code, url: "", description: text ? text : "" });
-        };
-
         if (result.username && result.password) {
 
             if (result.username.length < 4 || result.password.length < 6) {
-                return failure("01", state["01"]);
+                return callback(res, "01", state["01"]);
             }
 
             User.load({ loginname: result.username }, (error, db) => {
                 if (error) {
-                    return failure("02", state["02"] + error);
+                    return callback(res, "02", state["02"] + error);
                 }
 
                 if (!db) {
-                    return failure("02", state["02"]);
+                    return callback(res, "02", state["02"]);
                 }
 
                 if (db.status > 0) {
-                    failure("06", state["06"]);
+                    callback(res, "06", state["06"]);
                 }
 
                 if (db.query > 3) {
-                    failure("07", state["07"]);
+                    callback(res, "07", state["07"]);
                 }
 
                 if (db.authenticate(result.password)) {
@@ -107,14 +196,13 @@ module.exports = {
                         signed: false
                     });
 
-                    res.type("application/json");
-                    res.send({ success: true, code: "05", url: "/user", description: state["05"] });
+                    callback(res, "05", state["05"], "/user", true);
                 } else {
-                    failure("04", state["04"]);
+                    callback(res, "04", state["04"]);
                 }
             });
         } else {
-            failure("03", state["03"]);
+            callback(res, "03", state["03"]);
         }
     },
     checklogout(req, res) {
@@ -123,7 +211,7 @@ module.exports = {
         // sessionStore、sessionID
         req.sessionStore.destroy(req.sessionID, (error, db) => {
             if (error) {
-                return res.send({ success: false, code: "01", url: "", description: "sessionID有误~" });
+                return callback(res, "01", "sessionID有误，退出登录失败~");
             }
 
             if (req.session.express) {
@@ -139,8 +227,7 @@ module.exports = {
                 });
             }
 
-            res.type("application/json");
-            res.send({ success: true, code: "02", url: "", description: "退出登录成功~" });
+            callback(res, "02", "退出登录成功~", "", true);
         });
     },
     checkregister(req, res) {
@@ -154,12 +241,6 @@ module.exports = {
             "05": "登录成功~"
         }
 
-        const failure = (code, text) => {
-            res.send({ success: false, code: code, url: "", description: text ? text : "" });
-        };
-
-        res.type("application/json");
-
         if (result.username && result.password) {
             let updataPersonal = new Personal();
             let updataUser = new User({
@@ -167,13 +248,12 @@ module.exports = {
             });
 
             updataUser.pin = result.password;
-
             updataUser.save((error, data) => {
                 if (error) {
                     if (error.code == '11000') {
-                        return failure("01", state["01"]);
+                        return callback(res, "01", state["01"]);
                     } else {
-                        return failure("02", state["02"] + error);
+                        return callback(res, "02", state["02"] + error);
                     }
                 } else {
                     // 这些数据因没有后台先这样插入
@@ -219,10 +299,9 @@ module.exports = {
                     ];
 
                     updataPersonal.uid = updataUser.id;
-
                     updataPersonal.save((err, doc) => {
                         if (err) {
-                            return failure("03", state["03"]);
+                            return callback(res, "03", state["03"]);
                         }
 
                         req.session.express = {
@@ -235,12 +314,12 @@ module.exports = {
                             signed: false
                         });
 
-                        res.send({ success: true, code: "05", url: "/user", description: state["05"] });
+                        callback(res, "05", state["05"], "/user", true);
                     });
                 }
             });
         } else {
-            failure("04", state["04"]);
+            callback(res, "04", state["04"]);
         }
     },
     checkforget(req, res) {
@@ -248,49 +327,46 @@ module.exports = {
 
         const state = { //结合code查看
             "01": "帐号长度不符合要求~",
-            "02": "帐号不存在~", //数据库查询失败~
-            "03": "查询成功，您的手机将会收到验证码，请在跳转后修改密码~",
+            "02": "查询失败~", //数据库查询失败~
+            "03": "查询成功，您的手机号将会收到短信验证码，请在跳转后修改密码~",
             "04": "尝试次数过多，上验证码~"
         }
 
-        const failure = (code, text) => {
-            res.type("application/json");
-            res.send({ success: false, code: code, url: "", description: text ? text : "" });
-        };
-
         if (result.username) {
             if (result.username.length < 4) {
-                return failure("01", state["01"]);
+                return callback(res, "01", state["01"]);
             }
 
             User.load({ loginname: result.username }, (error, db) => {
                 if (error) {
-                    return failure("02", state["02"] + error);
+                    return callback(res, "02", state["02"] + error);
                 }
 
                 if (!db) {
-                    return failure("02", state["02"]);
+                    return callback(res, "02", state["02"]);
                 }
 
                 if (db.query > 3) {
-                    failure("04", state["04"]);
+                    if (db.query === 4) { //执行重置
+                        User.resetQuery(db.id);
+                    }
+                    return callback(res, "04", state["04"], "/forget");
                 }
 
-                res.cookie("practice", JSON.stringify({ kid: db.id, name: db.loginname }), {
-                    maxAge: config.maxAge,
-                    signed: false
-                });
-
                 User.updateQuery(db.id, (err, db) => {
-                    res.type("application/json");
-                    res.send({ success: true, code: "03", url: "/password", description: state["03"] });
+                    res.cookie("practice", JSON.stringify({ kid: db.id, name: db.loginname }), {
+                        maxAge: config.maxAge,
+                        signed: true
+                    });
+
+                    callback(res, "03", state["03"], "/password", true);
                 });
             });
         }
     },
     checkpassword(req, res) {
         const result = req.body;
-        const cookies = req.cookies;
+        const cookies = req.signedCookies;
         const state = { //结合code查看
             "01": "不知道用户从那个渠道过来的~",
             "02": "缺少验证码或新密码~",
@@ -303,15 +379,6 @@ module.exports = {
             "09": "密码更新失败~",
             "10": "修改密码成功，去登录~"
         }
-        const callback = (code, text = "", url = "", bool = false) => {
-            res.type("application/json");
-            res.send({
-                success: bool,
-                code: code,
-                url: url,
-                description: text
-            });
-        };
 
         let practice = null;
         if (cookies && cookies.practice) {
@@ -320,32 +387,32 @@ module.exports = {
 
         if (practice && practice.kid) {
             if (!result.verify && !result.password && !result.checkpassword) {
-                return callback("02", state["02"]);
+                return callback(res, "02", state["02"]);
             }
 
             if (result.verify.length !== 4) {
-                return callback("03", state["03"]);
+                return callback(res, "03", state["03"]);
             }
 
             if (result.password.length < 6 || result.checkpassword.length < 6) {
-                return callback("04", state["04"]);
+                return callback(res, "04", state["04"]);
             }
 
             if (result.password !== result.checkpassword) {
-                return callback("05", state["05"]);
+                return callback(res, "05", state["05"]);
             }
 
             User.load({ _id: practice.kid }, (error, db) => {
                 if (error) {
-                    return callback("06", state["06"] + error);
+                    return callback(res, "06", state["06"] + error);
                 }
 
                 if (!db) {
-                    return callback("07", state["07"]);
+                    return callback(res, "07", state["07"]);
                 }
 
                 if (result.verify !== db.verify) {
-                    return callback("08", state["08"]);
+                    return callback(res, "08", state["08"]);
                 }
 
                 // if (!db.authenticate(result.password)) {
@@ -355,7 +422,7 @@ module.exports = {
                 db.pin = result.password;
                 db.save(function (err) {
                     if (err) {
-                        return callback("09", state["09"]);
+                        return callback(res, "09", state["09"]);
                     }
 
                     res.clearCookie("practice", JSON.stringify(practice), {
@@ -363,11 +430,11 @@ module.exports = {
                         signed: false
                     });
 
-                    callback("10", state["10"], "/login", true);
+                    callback(res, "10", state["10"], "/login", true);
                 });
             });
         } else {
-            callback("01", state["01"], "/forget");
+            callback(res, "01", state["01"], "/forget");
         }
     }
-};
+}

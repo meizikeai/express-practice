@@ -8,7 +8,7 @@ let pageSchema = new Schema({
     kid: { type: Number, default: 1000, required: true, unique: true },
     title: { type: String, default: "" },
     color: { type: String, default: "" },
-    template: { type: Array, "default": [] },
+    template: { type: Array, default: [] },
     createtime: { type: Date, default: Date.now }
 });
 

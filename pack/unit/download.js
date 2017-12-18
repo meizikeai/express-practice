@@ -1,4 +1,4 @@
-﻿import "../unit/alert";
+import "../unit/alert";
 import "../css/download.css";
 
 $(() => {

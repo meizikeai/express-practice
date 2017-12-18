@@ -1,0 +1,16 @@
+
+    <div class="block-two-picture" data-id="{{ content.templateid }}">
+        <div class="picture" style="background:{{color}}">
+            {% for info in content.items -%}
+            <div class="picture-{{ loop.index }}">
+                {% if info.jumpurl -%}
+                <a data-id="{{ info.id }}" href="{{ info.jumpurl }}">
+                    <img src="{{ info.imgurl }}" alt="{{ info.imgname }}" />
+                </a>
+                {%- else -%}
+                <img src="{{ info.imgurl }}" alt="{{ info.imgname }}" />
+                {%- endif %}
+            </div>
+            {%- endfor %}
+        </div>
+    </div>

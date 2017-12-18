@@ -1,0 +1,25 @@
+
+    <div class="block-product" data-id="{{ content.itemid }}">
+        <div class="product-double" style="background:{{color}}">
+            {% for info in content.items -%}
+            <div class="every">
+                <a class="pro-one {% if loop.index % 2 === 0 %}pro-line{% endif %}" data-id="{{info.sku}}" href="./product?id={{info.sku}}">
+                    <div class="pro-img">
+                        <img src="{{info.img}}" alt="{{info.sales}}" />
+                    </div>
+                    <div class="pro-like">
+                        <p class="pro-name">"{{info.title}}"</p>
+                        <div class="pro-price">
+                            <span class="sell">￥<b>{{info.price.toFixed(2)}}</b></span>
+                            <span class="market">￥<s>{{info.market.toFixed(2)}}</s></span>
+                        </div>
+                        <div class="pro-sales">
+                            <span>{{info.sales}}</span>
+                        </div>
+                    </div>
+                    <div class="pro-prom {% if !info.feature %}pro-none{% endif %}">{{info.feature}}</div>
+                </a>
+            </div>
+            {%- endfor %}
+        </div>
+    </div>

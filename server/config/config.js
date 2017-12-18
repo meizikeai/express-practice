@@ -13,8 +13,8 @@ module.exports = {
         port: 80,
         db: "mongodb://localhost:27017/express-practice",
         secret: "find a girlfriend...",
-        minutes: 60,
-        maxAge: 1000 * 60 * 60, // 毫秒、秒、分
+        minutes: 30,
+        maxAge: 1000 * 60 * 30, // 毫秒、秒、分
         root: path.normalize(__dirname + "/../.."),
     }
 };

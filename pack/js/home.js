@@ -1,6 +1,3 @@
-﻿
-import "../unit/reset";
-import "../unit/header";
 import "../unit/download";
 import Footer from "../unit/footer";
 import Swipe from "../unit/swipe";

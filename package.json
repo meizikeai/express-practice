@@ -2,8 +2,10 @@
     "name": "express-practice",
     "version": "1.0.0",
     "private": true,
-    "scripts": {
-        "start": "node ./bin/server"
+    "author": {
+        "name": "爱得",
+        "email": "meizikeai@163.com",
+        "url": "https://github.com/meizikeai/"
     },
     "dependencies": {
         "body-parser": "~1.18.2",
@@ -12,16 +14,22 @@
         "debug": "~2.6.9",
         "express": "~4.15.5",
         "express-session": "^1.15.6",
-        "mongodb": "^2.2.33",
-        "mongoose": "^4.12.5",
+        "mongoose": "^4.13.1",
         "morgan": "~1.9.0",
+        "node-schedule": "^1.2.5",
         "serve-favicon": "~2.4.5",
         "swig": "^1.4.2"
     },
+    "scripts": {
+        "start": "set DEBUG=express-practice:* & node ./bin/server.js",
+        "watch": "supervisor -w bin,server,app.js ./bin/server.js",
+        "base": "node ./bin/update-to-mongodb.js",
+        "pack": "webpack -w"
+    },
     "devDependencies": {
-        "babel-eslint": "^8.0.1",
+        "babel-eslint": "^8.0.2",
         "css-loader": "^0.28.7",
-        "eslint": "^4.6.1",
+        "eslint": "^4.10.0",
         "extract-text-webpack-plugin": "^3.0.2",
         "style-loader": "^0.19.0",
         "uglifyjs-webpack-plugin": "^1.0.1",

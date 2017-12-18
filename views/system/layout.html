@@ -7,26 +7,27 @@
     <meta name="description" content="nodejs、express、swig、mongodb for beginner" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
     <link rel="manifest" href="./manifest.json">
+    <script type="text/javascript">
+        (function(j,b){var m=j.document;var e=m.documentElement;var f=m.querySelector('meta[name="viewport"]');var a=m.querySelector('meta[name="flexible"]');var q=0;var l=0;var h;var g=b.flexible||(b.flexible={});if(f){var c=f.getAttribute("content").match(/initial\-scale=([\d\.]+)/);if(c){l=parseFloat(c[1]);q=parseInt(1/l)}}else{if(a){var r=a.getAttribute("content");if(r){var i=r.match(/initial\-dpr=([\d\.]+)/);var n=r.match(/maximum\-dpr=([\d\.]+)/);if(i){q=parseFloat(i[1]);l=parseFloat((1/q).toFixed(2))}if(n){q=parseFloat(n[1]);l=parseFloat((1/q).toFixed(2))}}}}if(!q&&!l){var k=j.navigator.appVersion.match(/android/gi);var d=j.navigator.appVersion.match(/iphone/gi);var s=j.devicePixelRatio;if(d){if(s>=3&&(!q||q>=3)){q=3}else{if(s>=2&&(!q||q>=2)){q=2}else{q=1}}}else{q=1}l=1/q}e.setAttribute("data-dpr",q);if(!f){f=m.createElement("meta");f.setAttribute("name","viewport");f.setAttribute("content","initial-scale="+l+", maximum-scale="+l+", minimum-scale="+l+", user-scalable=no");if(e.firstElementChild){e.firstElementChild.appendChild(f)}else{var o=m.createElement("div");o.appendChild(f);m.write(o.innerHTML)}}function p(){var u=e.getBoundingClientRect().width;if(u/q>540){u=540*q}var t=u/10;e.style.fontSize=t+"px";g.rem=j.rem=t}j.addEventListener("resize",function(){clearTimeout(h);h=setTimeout(p,300)},false);j.addEventListener("pageshow",function(t){if(t.persisted){clearTimeout(h);h=setTimeout(p,300)}},false);if(m.readyState==="complete"){m.body.style.fontSize=12*q+"px"}else{m.addEventListener("DOMContentLoaded",function(t){m.body.style.fontSize=12*q+"px"},false)}p();g.dpr=j.dpr=q;g.refreshRem=p;g.rem2px=function(t){var u=parseFloat(t)*this.rem;if(typeof t==="string"&&t.match(/rem$/)){u+="px"}return u};g.px2rem=function(t){var u=parseFloat(t)/this.rem;if(typeof t==="string"&&t.match(/px$/)){u+="rem"}return u}})(window,window.lib||(window.lib={}));
+    </script>
+    <style type="text/css">
+        html{color:#333;overflow-y:scroll;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}html,body{font-family:sans-serif}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0;padding:0;box-sizing:border-box}input,select,textarea{font-size:100%;outline:none}table{border-collapse:collapse;border-spacing:0}fieldset,img{border:0}abbr,acronym{border:0;font-variant:normal}del{text-decoration:line-through}address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:500}ol,ul{list-style:none}caption,th{text-align:left}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:500}q:before,q:after{content:''}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sup{top:-0.5em}sub{bottom:-0.25em}a:hover{text-decoration:underline}ins,a{text-decoration:none}#hd,#bd,#ft{width:100%}#api{display:none}
+    </style>
     {% block style -%} {%- endblock %}
 </head>
 <body>
-
 <div id="hd">
     {% block header -%} {%- endblock %}
 </div>
-
 <div id="bd">
     {% block content -%} {%- endblock %}
 </div>
-
 <div id="ft">
     {% block footer -%} {%- endblock %}
 </div>
-
 <div id="api">
     <script type="text/javascript" src="../build/zepto.js"></script>
     {% block script -%} {%- endblock %}
 </div>
-
 </body>
 </html>

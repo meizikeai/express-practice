@@ -8,6 +8,7 @@ let saleSchema = new Schema({
     imgurl: { type: String, required: true },
     label: { type: Boolean, default: false },
     discount: { type: String, required: true },
+    jumpurl: { type: String, required: true },
     starttime: { type: Date, required: true },
     endtime: { type: Date, required: true },
     createtime: { type: Date, default: Date.now }

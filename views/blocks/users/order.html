@@ -1,0 +1,10 @@
+    {%- set title = [ { name: "全部", code: "all" }, { name: "待付款", code: "waitPay" }, { name: "待发货", code: "waitSend" }, { name:
+    "待收货", code: "waitConfirm" }, { name: "待评价", code: "waitRate" } ] -%}
+    <div class="user-order-title">
+        <ul>
+            {% for info in title -%}
+            <li class="{% if loop.first %}cursor{% endif %}" data-code="{{info.code}}">{{info.name}}</li>
+            {%- endfor %}
+        </ul>
+    </div>
+    <div class="user-order-list"></div>
